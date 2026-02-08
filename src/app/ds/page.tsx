@@ -23,7 +23,9 @@ export default function DSPage() {
         subtitle="Analytics pipelines, predictive models, and visualization that drive real business value."
         btn1="View Data Projects →"
         btn2="Discuss Your Data"
-        on1={() => { /* TODO: scroll to case studies section */ }}
+        on1={() => {
+          document.getElementById("case-studies")?.scrollIntoView({ behavior: "smooth" });
+        }}
         on2={() => { router.push("/contact"); }}
       />
 
@@ -37,7 +39,7 @@ export default function DSPage() {
         <PRRow items={DS_PROCESS} />
       </section>
 
-      <section style={{ padding: sectionPad, maxWidth: "75rem", margin: "0 auto" }}>
+      <section id="case-studies" style={{ padding: sectionPad, maxWidth: "75rem", margin: "0 auto" }}>
         <SectionHeader number="// 03" title="Case Studies" desc="Data projects with measurable outcomes." />
         <CSList projects={cases} />
       </section>

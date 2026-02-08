@@ -23,7 +23,9 @@ export default function DevPage() {
         subtitle="MERN stack and Next.js expertise. Strict TypeScript, clean architecture, security-first engineering."
         btn1="View Dev Projects →"
         btn2="Start a Project"
-        on1={() => { /* TODO: scroll to case studies section */ }}
+        on1={() => {
+          document.getElementById("case-studies")?.scrollIntoView({ behavior: "smooth" });
+        }}
         on2={() => { router.push("/contact"); }}
       />
 
@@ -37,7 +39,7 @@ export default function DevPage() {
         <PRRow items={DEV_PRINCIPLES} />
       </section>
 
-      <section style={{ padding: sectionPad, maxWidth: "75rem", margin: "0 auto" }}>
+      <section id="case-studies" style={{ padding: sectionPad, maxWidth: "75rem", margin: "0 auto" }}>
         <SectionHeader number="// 03" title="Case Studies" desc="Real products, real scale, real impact." />
         <CSList projects={cases} />
       </section>
