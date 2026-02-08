@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ACCENT, TEXT_DIM, SURFACE, GLASS, RESUME_URL, FONT_DISPLAY, FONT_BODY, FONT_MONO } from "@/lib/constants";
 import { CASES } from "@/lib/cases";
 import { BLOG_POSTS } from "@/lib/blog";
@@ -27,7 +26,6 @@ function handleDownloadResume() {
 const FEATURED = [CASES[0], CASES[3], CASES[6]];
 
 export default function HomePage() {
-  const router = useRouter();
   const [vh, svh] = useState<string | null>(null);
   const [ph, sph] = useState<number | null>(null);
   const [statsRef, statsVis] = useInView();
@@ -44,7 +42,9 @@ export default function HomePage() {
         subtitle="Senior Full-Stack Developer & Agency Founder specializing in AI-integrated SaaS products, scalable architectures, and data-driven solutions."
         btn1="View My Work →"
         btn2="Download Resume"
-        on1={() => { router.push("/dev"); }}
+        on1={() => {
+          document.getElementById("featured-work")?.scrollIntoView({ behavior: "smooth" });
+        }}
         on2={handleDownloadResume}
         btn2Resume
       />
@@ -233,6 +233,7 @@ export default function HomePage() {
 
       {/* ── Featured Work ── */}
       <section
+        id="featured-work"
         style={{
           padding: isMobile ? "3rem 1rem" : "5rem 2rem",
           maxWidth: "75rem",
