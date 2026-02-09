@@ -1,5 +1,6 @@
 "use client";
 
+import "@/app/globals.css";
 import { useState, useEffect } from "react";
 import { BG, TEXT, BORDER, ACCENT } from "@/lib/constants";
 import { Nav } from "@/components/layout/Nav";
