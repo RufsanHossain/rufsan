@@ -6,12 +6,15 @@ import { ACCENT, TEXT, TEXT_DIM, GLASS, FONT_DISPLAY, FONT_BODY, FONT_MONO } fro
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { sendContactEmail } from "./action";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", type: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [focused, setFocused] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const bp = useBreakpoint();
   const isMobile = bp === "mobile";
 
@@ -36,8 +39,17 @@ export default function ContactPage() {
     return Object.keys(e).length === 0;
   };
 
-  const handleSubmit = () => {
-    if (validate()) setSubmitted(true);
+  const handleSubmit = async () => {
+    if (!validate()) return;
+    setLoading(true);
+    setServerError(null);
+    const result = await sendContactEmail(form);
+    setLoading(false);
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setServerError(result.error ?? "Something went wrong.");
+    }
   };
 
   const sectionPx = isXs ? "0.75rem" : isMobile ? "1rem" : "2rem";
@@ -549,12 +561,30 @@ export default function ContactPage() {
                 )}
               </div>
 
+              {/* Server error */}
+              {serverError && (
+                <div
+                  style={{
+                    padding: "0.75rem 1rem",
+                    background: "rgba(239,68,68,0.08)",
+                    border: "1px solid rgba(239,68,68,0.3)",
+                    borderRadius: "0.5rem",
+                    fontSize: "0.8125rem",
+                    color: "#ef4444",
+                    fontFamily: FONT_BODY,
+                  }}
+                >
+                  {serverError}
+                </div>
+              )}
+
               {/* Submit */}
               <button
-                onClick={handleSubmit}
+                onClick={() => { void handleSubmit(); }}
+                disabled={loading}
                 style={{
                   width: "100%",
-                  background: ACCENT,
+                  background: loading ? `${ACCENT}80` : ACCENT,
                   color: "#050505",
                   border: "none",
                   padding: isXs ? "0.8125rem" : "1rem",
@@ -562,11 +592,13 @@ export default function ContactPage() {
                   fontSize: "0.9375rem",
                   fontWeight: 600,
                   fontFamily: FONT_BODY,
-                  cursor: "pointer",
+                  cursor: loading ? "not-allowed" : "pointer",
                   marginTop: isXs ? "0.25rem" : "0.5rem",
+                  opacity: loading ? 0.7 : 1,
+                  transition: "all 0.2s ease",
                 }}
               >
-                Send Message →
+                {loading ? "Sending..." : "Send Message →"}
               </button>
             </div>
           </div>
