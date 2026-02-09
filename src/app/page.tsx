@@ -38,7 +38,7 @@ export default function HomePage() {
       <HeroSection
         badge="Available for projects"
         badgeIcon="pulse"
-        h1={["I build", "intelligent", "software."]}
+        h1={["Rufsan", "Hossain", "Santo."]}
         subtitle="Senior Full-Stack Developer & Agency Founder specializing in AI-integrated SaaS products, scalable architectures, and data-driven solutions."
         btn1="View My Work →"
         btn2="Download Resume"
