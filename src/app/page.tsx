@@ -14,6 +14,7 @@ import { CounterStat, SectionHeader, ProjectMockup } from "@/components/ui/Share
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Toolkit, TestimonialsSection, BlogSection, CTA } from "@/components/sections/Sections";
 import { ResumeModal } from "@/components/ui/ResumeModal";
+import { VerticalIcon } from "@/components/ui/VerticalIcons";
 
 const FEATURED = [CASES[0], CASES[3], CASES[6]];
 
@@ -143,7 +144,7 @@ export default function HomePage() {
                         fontSize: "1.375rem",
                       }}
                     >
-                      {v.icon}
+                      <VerticalIcon name={v.icon} size={22} />
                     </div>
                     <span
                       style={{

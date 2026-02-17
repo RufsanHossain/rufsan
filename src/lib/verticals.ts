@@ -19,12 +19,12 @@ export interface Principle {
 // ─── AI / ML ─────────────────────────────────────────────────
 
 export const AI_CAPS: Capability[] = [
-  { title: "LLM Integration", description: "Production integrations with OpenAI, Anthropic, and open-source. Multi-agent orchestration.", tags: ["OpenAI", "Anthropic", "LangChain"], icon: "⚡" },
-  { title: "RAG Pipelines", description: "Retrieval-Augmented Generation grounded in proprietary data. Hybrid retrieval.", tags: ["Pinecone", "Weaviate", "ChromaDB"], icon: "🔗" },
-  { title: "Fine-tuning", description: "Custom model fine-tuning. LoRA, QLoRA, evaluation frameworks.", tags: ["HuggingFace", "PyTorch", "W&B"], icon: "🧠" },
-  { title: "Computer Vision", description: "Classification, detection, visual understanding. Custom CNNs to multimodal.", tags: ["OpenCV", "YOLO", "GPT-4V"], icon: "👁" },
-  { title: "AI Features", description: "Smart search, content generation, workflows, recommendation engines.", tags: ["API Design", "Streaming", "Caching"], icon: "🚀" },
-  { title: "MLOps", description: "Pipelines, versioning, A/B testing, monitoring, scalable inference.", tags: ["Docker", "SageMaker", "FastAPI"], icon: "⚙️" },
+  { title: "LLM Integration", description: "Production integrations with OpenAI, Anthropic, and open-source. Multi-agent orchestration.", tags: ["OpenAI", "Anthropic", "LangChain"], icon: "llm" },
+  { title: "RAG Pipelines", description: "Retrieval-Augmented Generation grounded in proprietary data. Hybrid retrieval.", tags: ["Pinecone", "Weaviate", "ChromaDB"], icon: "rag" },
+  { title: "Fine-tuning", description: "Custom model fine-tuning. LoRA, QLoRA, evaluation frameworks.", tags: ["HuggingFace", "PyTorch", "W&B"], icon: "brain" },
+  { title: "Computer Vision", description: "Classification, detection, visual understanding. Custom CNNs to multimodal.", tags: ["OpenCV", "YOLO", "GPT-4V"], icon: "eye" },
+  { title: "AI Features", description: "Smart search, content generation, workflows, recommendation engines.", tags: ["API Design", "Streaming", "Caching"], icon: "sparkles" },
+  { title: "MLOps", description: "Pipelines, versioning, A/B testing, monitoring, scalable inference.", tags: ["Docker", "SageMaker", "FastAPI"], icon: "gear" },
 ];
 
 export const AI_TOOLS: ToolCategory[] = [
@@ -38,12 +38,12 @@ export const AI_TOOLS: ToolCategory[] = [
 // ─── DEVELOPMENT ─────────────────────────────────────────────
 
 export const DEV_CAPS: Capability[] = [
-  { title: "SaaS Architecture", description: "Multi-tenant systems with subscriptions, RBAC, team workspaces.", tags: ["Multi-tenant", "Stripe", "RBAC"], icon: "🏗" },
-  { title: "Full-Stack Next.js", description: "Server-first apps with App Router, RSC, streaming, edge.", tags: ["App Router", "RSC", "Edge"], icon: "▲" },
-  { title: "API Design", description: "Production APIs — versioning, rate limiting, Zod, OpenAPI.", tags: ["Express", "Zod", "OpenAPI"], icon: "🔌" },
-  { title: "Database", description: "MongoDB schema design, aggregation, PostgreSQL with Prisma.", tags: ["MongoDB", "PostgreSQL", "Prisma"], icon: "🗄" },
-  { title: "Auth & Security", description: "HTTP-only cookies, CSRF, RBAC, sanitization, Helmet.", tags: ["JWT", "OAuth 2.0", "Helmet"], icon: "🔐" },
-  { title: "DevOps", description: "Automated pipelines, containerization, monitoring, IaC.", tags: ["Docker", "GitHub Actions", "AWS"], icon: "🚀" },
+  { title: "SaaS Architecture", description: "Multi-tenant systems with subscriptions, RBAC, team workspaces.", tags: ["Multi-tenant", "Stripe", "RBAC"], icon: "layers" },
+  { title: "Full-Stack Next.js", description: "Server-first apps with App Router, RSC, streaming, edge.", tags: ["App Router", "RSC", "Edge"], icon: "triangle" },
+  { title: "API Design", description: "Production APIs — versioning, rate limiting, Zod, OpenAPI.", tags: ["Express", "Zod", "OpenAPI"], icon: "plug" },
+  { title: "Database", description: "MongoDB schema design, aggregation, PostgreSQL with Prisma.", tags: ["MongoDB", "PostgreSQL", "Prisma"], icon: "database" },
+  { title: "Auth & Security", description: "HTTP-only cookies, CSRF, RBAC, sanitization, Helmet.", tags: ["JWT", "OAuth 2.0", "Helmet"], icon: "shield" },
+  { title: "DevOps", description: "Automated pipelines, containerization, monitoring, IaC.", tags: ["Docker", "GitHub Actions", "AWS"], icon: "rocket" },
 ];
 
 export const DEV_PRINCIPLES: Principle[] = [
@@ -64,12 +64,12 @@ export const DEV_TOOLS: ToolCategory[] = [
 // ─── DATA SCIENCE ────────────────────────────────────────────
 
 export const DS_CAPS: Capability[] = [
-  { title: "Data Pipelines", description: "Robust ETL for messy real-world data. Batch and streaming.", tags: ["Spark", "Airflow", "Kafka"], icon: "🔄" },
-  { title: "Visualization", description: "Interactive dashboards — raw data to actionable insights.", tags: ["D3.js", "Plotly", "Recharts"], icon: "📊" },
-  { title: "Statistical Modeling", description: "Hypothesis testing, regression, time series, A/B design.", tags: ["scikit-learn", "StatsModels", "SciPy"], icon: "📐" },
-  { title: "Predictive Analytics", description: "Churn, forecasting, segmentation, anomaly detection.", tags: ["XGBoost", "Prophet", "MLflow"], icon: "🔮" },
-  { title: "Data Engineering", description: "Warehouses, lakehouse, data mesh. Query optimization.", tags: ["Snowflake", "BigQuery", "dbt"], icon: "🏗" },
-  { title: "Business Intelligence", description: "KPI frameworks, metric trees, attribution, reporting.", tags: ["SQL", "Looker", "Tableau"], icon: "💡" },
+  { title: "Data Pipelines", description: "Robust ETL for messy real-world data. Batch and streaming.", tags: ["Spark", "Airflow", "Kafka"], icon: "flow" },
+  { title: "Visualization", description: "Interactive dashboards — raw data to actionable insights.", tags: ["D3.js", "Plotly", "Recharts"], icon: "chart" },
+  { title: "Statistical Modeling", description: "Hypothesis testing, regression, time series, A/B design.", tags: ["scikit-learn", "StatsModels", "SciPy"], icon: "compass" },
+  { title: "Predictive Analytics", description: "Churn, forecasting, segmentation, anomaly detection.", tags: ["XGBoost", "Prophet", "MLflow"], icon: "trend" },
+  { title: "Data Engineering", description: "Warehouses, lakehouse, data mesh. Query optimization.", tags: ["Snowflake", "BigQuery", "dbt"], icon: "server" },
+  { title: "Business Intelligence", description: "KPI frameworks, metric trees, attribution, reporting.", tags: ["SQL", "Looker", "Tableau"], icon: "lightbulb" },
 ];
 
 export const DS_PROCESS: Principle[] = [
@@ -97,9 +97,9 @@ export const HOME_STATS = [
 ];
 
 export const HOME_VERTICALS = [
-  { id: "ai", n: "01", title: "AI / Machine Learning", desc: "Building intelligent systems that learn, adapt, and deliver measurable outcomes.", tags: ["LLMs", "RAG", "Fine-tuning", "CV"], icon: "🧠", route: "/ai" },
-  { id: "dev", n: "02", title: "Development", desc: "Full-stack SaaS with MERN and Next.js. Scalable, secure, production-grade.", tags: ["Next.js", "React", "Node.js", "TS"], icon: "⚡", route: "/dev" },
-  { id: "ds", n: "03", title: "Data Science", desc: "Raw data into strategic decisions. Pipelines, models, and dashboards.", tags: ["Python", "Pandas", "D3.js", "ML"], icon: "📊", route: "/ds" },
+  { id: "ai", n: "01", title: "AI / Machine Learning", desc: "Building intelligent systems that learn, adapt, and deliver measurable outcomes.", tags: ["LLMs", "RAG", "Fine-tuning", "CV"], icon: "brain", route: "/ai" },
+  { id: "dev", n: "02", title: "Development", desc: "Full-stack SaaS with MERN and Next.js. Scalable, secure, production-grade.", tags: ["Next.js", "React", "Node.js", "TS"], icon: "code", route: "/dev" },
+  { id: "ds", n: "03", title: "Data Science", desc: "Raw data into strategic decisions. Pipelines, models, and dashboards.", tags: ["Python", "Pandas", "D3.js", "ML"], icon: "chart", route: "/ds" },
 ];
 
 export const HOME_TOOLS: ToolCategory[] = [

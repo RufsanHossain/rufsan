@@ -8,6 +8,7 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { Stagger } from "@/components/ui/Stagger";
 import { SectionHeader } from "@/components/ui/Shared";
 import { ExtIcon } from "@/components/ui/Icons";
+import { VerticalIcon } from "@/components/ui/VerticalIcons";
 import type { Capability, ToolCategory, Principle } from "@/lib/verticals";
 import type { CaseStudy } from "@/lib/cases";
 import type { Testimonial } from "@/lib/testimonials";
@@ -56,7 +57,7 @@ export function CapGrid({ items }: { items: Capability[] }) {
                 fontSize: "1.25rem",
               }}
             >
-              {c.icon}
+              <VerticalIcon name={c.icon} size={20} />
             </div>
             <h3
               style={{
