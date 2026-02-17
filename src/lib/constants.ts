@@ -16,7 +16,7 @@ export const GLASS: React.CSSProperties = {
 
 // ─── ASSETS ──────────────────────────────────────────────────
 export const PHOTO_URL = "/media/rufsan.png";
-export const RESUME_URL = "/rufsan-brand-palette.pdf";
+export const RESUME_URL = "/rufsan-resume.pdf";
 
 // ─── FONT STACKS (used in inline styles) ─────────────────────
 export const FONT_DISPLAY = "'Syne', sans-serif";
