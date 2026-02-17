@@ -106,9 +106,10 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
         style={{
           position: "relative",
           zIndex: 1,
-          width: "calc(100% - 2rem)",
-          maxWidth: "52rem",
-          height: "calc(100vh - 3rem)",
+          width: "calc(100% - 3rem)",
+          maxWidth: "48rem",
+          height: "75vh",
+          maxHeight: "700px",
           borderRadius: "1rem",
           overflow: "hidden",
           background: "#111",
