@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ACCENT, TEXT, TEXT_DIM, GLASS, PHOTO_URL, FONT_DISPLAY, FONT_BODY, FONT_MONO } from "@/lib/constants";
+import { ACCENT, TEXT_DIM, GLASS, PHOTO_URL, FONT_DISPLAY, FONT_BODY, FONT_MONO } from "@/lib/constants";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { DownloadIcon } from "@/components/ui/Icons";
@@ -285,25 +285,49 @@ export function HeroSection({
               <button
                 onClick={on2}
                 style={{
-                  ...GLASS,
-                  color: TEXT,
+                  background: `${ACCENT}08`,
+                  color: ACCENT,
+                  border: `1.5px solid ${ACCENT}50`,
                   padding: isMobile ? "0.875rem 1.5rem" : "0.875rem 2rem",
                   borderRadius: "0.5rem",
                   fontSize: "0.9375rem",
-                  fontWeight: 500,
+                  fontWeight: 600,
                   fontFamily: FONT_BODY,
                   cursor: "pointer",
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  transition: "border-color 0.2s",
+                  gap: "0.5rem",
+                  transition: "all 0.25s ease",
                   width: isMobile ? "100%" : "auto",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.borderColor = `${ACCENT}30`)}
-                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)")}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = `${ACCENT}15`;
+                  e.currentTarget.style.borderColor = ACCENT;
+                  e.currentTarget.style.boxShadow = `0 0 1.5rem ${ACCENT}20, inset 0 0 1rem ${ACCENT}06`;
+                  e.currentTarget.style.transform = "translateY(-0.125rem)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = `${ACCENT}08`;
+                  e.currentTarget.style.borderColor = `${ACCENT}50`;
+                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
               >
                 {btn2}
-                {btn2Resume && <DownloadIcon />}
+                {btn2Resume && (
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      animation: "heroDownloadBounce 2s ease-in-out infinite",
+                    }}
+                  >
+                    <DownloadIcon />
+                  </span>
+                )}
               </button>
             </div>
           </FadeIn>
@@ -314,6 +338,13 @@ export function HeroSection({
           <HeroPhoto />
         </div>
       </div>
+
+      <style>{`
+        @keyframes heroDownloadBounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(3px); }
+        }
+      `}</style>
     </section>
   );
 }
