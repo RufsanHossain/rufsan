@@ -3,7 +3,7 @@ import { BORDER, TEXT_DIM, ACCENT, FONT_BODY } from "@/lib/constants";
 const SOCIAL_LINKS = [
   { label: "GitHub", href: "https://github.com/RufsanHossain" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/rufsan-hossain-santo/" },
-  { label: "Twitter", href: "https://x.com/RufsanH" },
+  { label: "X", href: "https://x.com/RufsanH" },
   { label: "Email", href: "mailto:rufsanhossainsanto@gmail.com" },
 ] as const;
 
