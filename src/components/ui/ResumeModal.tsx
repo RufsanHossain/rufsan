@@ -51,7 +51,7 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
     /* Trigger actual file download */
     const link = document.createElement("a");
     link.href = resumeUrl;
-    link.download = "Rufsan-Resume.pdf";
+    link.download = "Rufsan-Hossain-Santo-Resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -109,7 +109,7 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
           width: "calc(100% - 3rem)",
           maxWidth: "48rem",
           height: "75vh",
-          maxHeight: "900px",
+          maxHeight: "700px",
           borderRadius: "1rem",
           overflow: "hidden",
           background: "#111",
