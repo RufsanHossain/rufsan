@@ -109,7 +109,7 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
           width: "calc(100% - 3rem)",
           maxWidth: "48rem",
           height: "75vh",
-          maxHeight: "900px",
+          maxHeight: "1020px",
           borderRadius: "1rem",
           overflow: "hidden",
           background: "#111",
