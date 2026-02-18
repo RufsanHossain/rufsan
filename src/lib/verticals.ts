@@ -112,8 +112,8 @@ export const HOME_TOOLS: ToolCategory[] = [
 // ─── ABOUT PAGE ──────────────────────────────────────────────
 
 export const TIMELINE = [
-  { year: "2024–Now", role: "Agency Founder & Lead", company: "Freelance / Agency", desc: "Building AI-integrated SaaS for US-market clients. End-to-end product delivery." },
-  { year: "2022–2024", role: "Senior Full-Stack Dev", company: "SaaS Startup", desc: "Led multi-tenant platform for 500+ orgs. Real-time collab and billing infra." },
-  { year: "2020–2022", role: "Full-Stack Developer", company: "Tech Agency", desc: "15+ client projects. Introduced TypeScript and testing standards." },
-  { year: "2019–2020", role: "Junior Developer", company: "Web Studio", desc: "Started with React/Node. Shipped first production SaaS in 6 months." },
+  { year: "2025–Now", role: "Full-Stack Developer", company: "Media Pantheon, Inc.", desc: "Building production web applications full-time. Full-stack development with modern frameworks." },
+  { year: "2024–Now", role: "Founder & Lead Developer", company: "Agency / Freelance", desc: "AI-integrated SaaS products for US-market clients. End-to-end product delivery." },
+  { year: "2023–2024", role: "Brand Representative", company: "Interactive Cares", desc: "Product research and software industry representation in the Dhaka tech ecosystem." },
+  { year: "2023–2024", role: "Senior Content Writer", company: "A1 DIGI", desc: "SEO-optimized content strategy, product research, and technical writing." },
 ];
