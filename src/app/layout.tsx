@@ -6,6 +6,7 @@ import { BG, TEXT, BORDER, ACCENT } from "@/lib/constants";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { CmdPalette, CursorGlow } from "@/components/layout/CmdPalette";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [cmdOpen, setCmdOpen] = useState(false);
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CmdPalette open={cmdOpen} onClose={() => { setCmdOpen(false); }} />
           <main style={{ position: "relative", zIndex: 2 }}>
             {children}
+            <Analytics />
           </main>
           <Footer />
         </div>
