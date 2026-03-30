@@ -1,45 +1,35 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import { getCasesByVertical } from "@/lib/cases";
 import { DS_CAPS, DS_PROCESS, DS_TOOLS } from "@/lib/verticals";
-import { useBreakpoint } from "@/hooks/useBreakpoint";
-import { HeroSection } from "@/components/sections/HeroSection";
+import { HeroWithActions } from "@/components/ui/HeroActions";
 import { SectionHeader } from "@/components/ui/Shared";
 import { CapGrid, CSList, PRRow, Toolkit, CTA } from "@/components/sections/Sections";
 
 export default function DSPage() {
-  const router = useRouter();
   const cases = getCasesByVertical("ds");
-  const bp = useBreakpoint();
-  const isMobile = bp === "mobile";
-  const sectionPad = isMobile ? "2.5rem 1rem" : "5rem 2rem";
 
   return (
     <>
-      <HeroSection
+      <HeroWithActions
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Data Science" }]}
         h1={["Data into", "strategic", "decisions."]}
         subtitle="Analytics pipelines, predictive models, and visualization that drive real business value."
         btn1="View Data Projects →"
         btn2="Discuss Your Data"
-        on1={() => {
-          document.getElementById("case-studies")?.scrollIntoView({ behavior: "smooth" });
-        }}
-        on2={() => { router.push("/contact"); }}
+        action1={{ type: "scroll", target: "case-studies" }}
+        action2={{ type: "navigate", href: "/contact" }}
       />
 
-      <section style={{ padding: isMobile ? "2.5rem 1rem 3.5rem" : "2.5rem 2rem 5rem", maxWidth: "75rem", margin: "0 auto" }}>
+      <section className="sc-section-cap">
         <SectionHeader number="// 01" title="Capabilities" desc="From raw data to boardroom decisions." />
         <CapGrid items={DS_CAPS} />
       </section>
 
-      <section style={{ padding: sectionPad, maxWidth: "75rem", margin: "0 auto" }}>
+      <section className="sc-section">
         <SectionHeader number="// 02" title="My Process" desc="Rigorous, reproducible, grounded in the business question." />
         <PRRow items={DS_PROCESS} />
       </section>
 
-      <section id="case-studies" style={{ padding: sectionPad, maxWidth: "75rem", margin: "0 auto" }}>
+      <section id="case-studies" className="sc-section">
         <SectionHeader number="// 03" title="Case Studies" desc="Data projects with measurable outcomes." />
         <CSList projects={cases} />
       </section>

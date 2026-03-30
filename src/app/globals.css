@@ -63,3 +63,118 @@
     opacity: 0.4;
   }
 }
+
+/* ── Server Component Responsive Utilities ─────────────────── */
+
+/* Standard section: 5rem 2rem → 2.5rem 1rem */
+.sc-section { padding: 5rem 2rem; max-width: 75rem; margin: 0 auto; }
+
+/* Tight top section: 2.5rem 2rem 5rem → 1.5rem 1rem 3rem */
+.sc-section-tight { padding: 2.5rem 2rem 5rem; max-width: 75rem; margin: 0 auto; }
+
+/* Cap section (dev/ds first section): 2.5rem 2rem 5rem → 2.5rem 1rem 3.5rem */
+.sc-section-cap { padding: 2.5rem 2rem 5rem; max-width: 75rem; margin: 0 auto; }
+
+/* AI cap section: 2.5rem 2rem 5rem → 1.5rem 1rem 3rem */
+.sc-section-ai-cap { padding: 2.5rem 2rem 5rem; max-width: 75rem; margin: 0 auto; }
+
+/* Case study hero */
+.sc-case-hero { padding: 8.125rem 2rem 3.75rem; max-width: 75rem; margin: 0 auto; }
+
+/* Case study hero grid */
+.sc-case-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; align-items: center; }
+
+/* Case study metrics section */
+.sc-case-metrics { padding: 1.25rem 2rem 5rem; max-width: 75rem; margin: 0 auto; }
+
+/* Case study metrics grid — desktop columns set via inline style */
+.sc-metrics-grid { display: grid; gap: 0.75rem; }
+
+/* Case study challenge/solution grid */
+.sc-case-cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+/* Case study card padding */
+.sc-case-card { padding: 2.5rem 2rem; border-radius: 1.25rem; }
+.sc-case-card-sm { padding: 1.75rem 1.5rem; border-radius: 0.875rem; }
+
+/* About page two-column grid */
+.sc-about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+
+/* About section with custom mobile padding */
+.sc-about-section { padding: 2.5rem 2rem 5rem; max-width: 75rem; margin: 0 auto; }
+.sc-about-section-first { padding: 1.5rem 2rem 3rem; max-width: 75rem; margin: 0 auto; }  /* was: 2.5rem 2rem 5rem → 1.5rem 1rem 3rem but with top tight */
+
+/* Timeline row */
+.sc-timeline-row { display: grid; grid-template-columns: 11.25rem 1fr; gap: 2.5rem; padding: 2rem 0; border-bottom: 0.0625rem solid rgba(255,255,255,0.05); cursor: default; }
+
+/* Value card */
+.sc-value-card { padding: 2.25rem 1.75rem; }
+
+/* Blog header */
+.sc-blog-header { padding: 8.125rem 2rem 3.75rem; max-width: 75rem; margin: 0 auto; }
+
+/* Blog cards section */
+.sc-blog-cards { padding: 1.25rem 2rem 5rem; max-width: 75rem; margin: 0 auto; }
+
+/* Blog card grid (text | visual) */
+.sc-blog-card-grid { display: grid; grid-template-columns: 1fr 0.4fr; }
+.sc-blog-card-text { padding: 2.25rem 2rem; order: 1; }
+.sc-blog-card-visual { min-height: 12.5rem; order: 2; }
+
+/* Blog heading sizes */
+.sc-blog-title { font-size: clamp(2.25rem, 5vw, 3.5rem); }
+.sc-blog-subtitle { font-size: clamp(1.5rem, 3.2vw, 2.375rem); }
+.sc-blog-desc { font-size: 1.0625rem; }
+.sc-blog-card-title { font-size: 1.5rem; }
+.sc-blog-card-excerpt { font-size: 0.9375rem; }
+.sc-blog-card-meta-gap { gap: 0.75rem; }
+
+/* Case study responsive typography */
+.sc-cs-heading { font-size: clamp(2.125rem, 5vw, 3.5rem); }
+.sc-cs-overview { font-size: 1.0625rem; }
+.sc-cs-subheading { font-size: 1.375rem; }
+.sc-cs-body { font-size: 0.9375rem; }
+.sc-cs-metric-value { font-size: 2rem; }
+.sc-cs-chip { padding: 0.875rem 1.5rem; font-size: 0.875rem; }
+.sc-cs-related-card { padding: 2rem; }
+
+@media (max-width: 1023px) {
+  .sc-timeline-row { grid-template-columns: 8.75rem 1fr; gap: 1.5rem; }
+}
+
+@media (max-width: 767px) {
+  .sc-section { padding: 2.5rem 1rem; }
+  .sc-section-tight { padding: 1.5rem 1rem 3rem; }
+  .sc-section-cap { padding: 2.5rem 1rem 3.5rem; }
+  .sc-section-ai-cap { padding: 1.5rem 1rem 3rem; }
+  .sc-case-hero { padding: 6.5rem 1rem 2.5rem; }
+  .sc-case-grid { display: flex; flex-direction: column; gap: 2rem; padding-top: 0.5rem; }
+  .sc-case-metrics { padding: 1.25rem 1rem 3rem; }
+  .sc-metrics-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .sc-case-cs-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .sc-case-card { padding: 1.5rem 1.25rem; border-radius: 1rem; }
+  .sc-case-card-sm { padding: 1.25rem 1rem; border-radius: 0.875rem; }
+  .sc-about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .sc-about-section { padding: 2.5rem 1rem; }
+  .sc-about-section-first { padding: 1.5rem 1rem 3rem; }
+  .sc-timeline-row { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.5rem 0; }
+  .sc-value-card { padding: 1.75rem 1.25rem; }
+  .sc-blog-header { padding: 6.25rem 1rem 2.5rem; }
+  .sc-blog-cards { padding: 1rem 1rem 3rem; }
+  .sc-blog-card-grid { grid-template-columns: 1fr; }
+  .sc-blog-card-text { padding: 1.5rem 1.25rem; order: 2; }
+  .sc-blog-card-visual { min-height: 8rem; order: 1; }
+  .sc-blog-title { font-size: clamp(1.75rem, 8vw, 2.5rem); }
+  .sc-blog-subtitle { font-size: clamp(1.25rem, 6vw, 1.75rem); }
+  .sc-blog-desc { font-size: 0.9375rem; }
+  .sc-blog-card-title { font-size: 1.25rem; }
+  .sc-blog-card-excerpt { font-size: 0.875rem; }
+  .sc-blog-card-meta-gap { gap: 0.5rem; }
+  .sc-cs-heading { font-size: clamp(1.75rem, 8vw, 2.5rem); }
+  .sc-cs-overview { font-size: 0.9375rem; }
+  .sc-cs-subheading { font-size: 1.125rem; }
+  .sc-cs-body { font-size: 0.875rem; }
+  .sc-cs-metric-value { font-size: 1.5rem; }
+  .sc-cs-chip { padding: 0.625rem 1rem; font-size: 0.8125rem; }
+  .sc-cs-related-card { padding: 1.5rem 1.25rem; }
+}

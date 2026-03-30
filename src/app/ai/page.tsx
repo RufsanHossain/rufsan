@@ -1,39 +1,30 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import { getCasesByVertical } from "@/lib/cases";
 import { AI_CAPS, AI_TOOLS } from "@/lib/verticals";
-import { HeroSection } from "@/components/sections/HeroSection";
+import { HeroWithActions } from "@/components/ui/HeroActions";
 import { SectionHeader } from "@/components/ui/Shared";
 import { CapGrid, CSList, Toolkit, CTA } from "@/components/sections/Sections";
-import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 export default function AIPage() {
-  const router = useRouter();
   const cases = getCasesByVertical("ai");
-  const bp = useBreakpoint();
-  const isMobile = bp === "mobile";
 
   return (
     <>
-      <HeroSection
+      <HeroWithActions
         breadcrumb={[{ label: "Home", href: "/" }, { label: "AI / Machine Learning" }]}
         h1={["Building", "intelligent", "systems."]}
         subtitle="From LLM orchestration and RAG pipelines to computer vision and fine-tuning — AI that goes beyond demos into production."
         btn1="View AI Projects →"
         btn2="Discuss Your AI Idea"
-        on1={() => {
-          document.getElementById("case-studies")?.scrollIntoView({ behavior: "smooth" });
-        }}
-        on2={() => { router.push("/contact"); }}
+        action1={{ type: "scroll", target: "case-studies" }}
+        action2={{ type: "navigate", href: "/contact" }}
       />
 
-      <section style={{ padding: isMobile ? "1.5rem 1rem 3rem" : "2.5rem 2rem 5rem", maxWidth: "75rem", margin: "0 auto" }}>
+      <section className="sc-section-ai-cap">
         <SectionHeader number="// 01" title="Capabilities" desc="End-to-end AI expertise — prototyping to production." />
         <CapGrid items={AI_CAPS} />
       </section>
 
-      <section id="case-studies" style={{ padding: isMobile ? "2.5rem 1rem" : "5rem 2rem", maxWidth: "75rem", margin: "0 auto" }}>
+      <section id="case-studies" className="sc-section">
         <SectionHeader number="// 02" title="Case Studies" desc="Real AI projects with measurable business impact." />
         <CSList projects={cases} />
       </section>
