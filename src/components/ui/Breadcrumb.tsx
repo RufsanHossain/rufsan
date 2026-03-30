@@ -14,24 +14,24 @@ interface BreadcrumbProps {
 
 export function Breadcrumb({ items }: BreadcrumbProps) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, flexWrap: "wrap" }}>
+    <nav aria-label="Breadcrumb" style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1rem", flexWrap: "wrap" }}>
       {items.map((item, i) => (
-        <span key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          {i > 0 && <span style={{ color: TEXT_DIM, fontSize: 11 }}>/</span>}
+        <span key={i} style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
+          {i > 0 && <span aria-hidden="true" style={{ color: TEXT_DIM, fontSize: "0.6875rem" }}>/</span>}
           {item.href ? (
             <Link
               href={item.href}
-              style={{ fontFamily: FONT_BODY, fontSize: 13, color: TEXT_DIM, textDecoration: "none", transition: "color 0.2s" }}
+              style={{ fontFamily: FONT_BODY, fontSize: "0.8125rem", color: TEXT_DIM, textDecoration: "none", transition: "color 0.2s" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = ACCENT)}
               onMouseLeave={(e) => (e.currentTarget.style.color = TEXT_DIM)}
             >
               {item.label}
             </Link>
           ) : (
-            <span style={{ fontFamily: FONT_BODY, fontSize: 13, color: ACCENT }}>{item.label}</span>
+            <span aria-current="page" style={{ fontFamily: FONT_BODY, fontSize: "0.8125rem", color: ACCENT }}>{item.label}</span>
           )}
         </span>
       ))}
-    </div>
+    </nav>
   );
 }

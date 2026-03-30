@@ -448,23 +448,65 @@ function BlogPostContent() {
                   </span>
                 </div>
                 <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                  {["Twitter", "LinkedIn", "Copy Link"].map((s) => (
-                    <button
-                      key={s}
-                      style={{
-                        padding: "0.375rem 0.875rem",
-                        ...GLASS,
-                        borderRadius: "0.375rem",
-                        color: TEXT_DIM,
-                        fontSize: "0.75rem",
-                        fontFamily: FONT_BODY,
-                        fontWeight: 500,
-                        cursor: "pointer",
-                      }}
-                    >
-                      {s}
-                    </button>
-                  ))}
+                  <button
+                    onClick={() => {
+                      window.open(
+                        `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(p.title)}`,
+                        "_blank",
+                        "noopener,noreferrer"
+                      );
+                    }}
+                    style={{
+                      padding: "0.375rem 0.875rem",
+                      ...GLASS,
+                      borderRadius: "0.375rem",
+                      color: TEXT_DIM,
+                      fontSize: "0.75rem",
+                      fontFamily: FONT_BODY,
+                      fontWeight: 500,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Twitter
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.open(
+                        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`,
+                        "_blank",
+                        "noopener,noreferrer"
+                      );
+                    }}
+                    style={{
+                      padding: "0.375rem 0.875rem",
+                      ...GLASS,
+                      borderRadius: "0.375rem",
+                      color: TEXT_DIM,
+                      fontSize: "0.75rem",
+                      fontFamily: FONT_BODY,
+                      fontWeight: 500,
+                      cursor: "pointer",
+                    }}
+                  >
+                    LinkedIn
+                  </button>
+                  <button
+                    onClick={() => {
+                      void navigator.clipboard.writeText(window.location.href);
+                    }}
+                    style={{
+                      padding: "0.375rem 0.875rem",
+                      ...GLASS,
+                      borderRadius: "0.375rem",
+                      color: TEXT_DIM,
+                      fontSize: "0.75rem",
+                      fontFamily: FONT_BODY,
+                      fontWeight: 500,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Copy Link
+                  </button>
                 </div>
               </div>
             </div>

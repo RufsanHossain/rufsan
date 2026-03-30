@@ -19,6 +19,6 @@ export const PHOTO_URL = "/media/rufsan.png";
 export const RESUME_URL = "/rufsan-resume.pdf";
 
 // ─── FONT STACKS (used in inline styles) ─────────────────────
-export const FONT_DISPLAY = "'Syne', sans-serif";
-export const FONT_BODY = "'DM Sans', sans-serif";
-export const FONT_MONO = "'JetBrains Mono', monospace";
+export const FONT_DISPLAY = "var(--font-syne), 'Syne', sans-serif";
+export const FONT_BODY = "var(--font-dm-sans), 'DM Sans', sans-serif";
+export const FONT_MONO = "var(--font-jetbrains-mono), 'JetBrains Mono', monospace";

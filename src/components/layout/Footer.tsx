@@ -25,7 +25,7 @@ export function Footer() {
       }}
     >
       <div style={{ fontFamily: FONT_BODY, fontSize: "0.8125rem", color: TEXT_DIM }}>
-        © {year} Rufsan · Built with Next.js & Tailwind CSS
+        © {year} Rufsan · Built with Next.js & TypeScript
       </div>
       <div style={{ display: "flex", gap: "1.5rem" }}>
         {SOCIAL_LINKS.map((l) => (

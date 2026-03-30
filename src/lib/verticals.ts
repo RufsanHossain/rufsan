@@ -90,7 +90,7 @@ export const DS_TOOLS: ToolCategory[] = [
 // ─── HOME PAGE ───────────────────────────────────────────────
 
 export const HOME_STATS = [
-  { v: "3+", l: "Years Experience" },
+  { v: "5+", l: "Years Experience" },
   { v: "40+", l: "Projects Delivered" },
   { v: "10+", l: "SaaS Products" },
   { v: "100%", l: "Client Satisfaction" },

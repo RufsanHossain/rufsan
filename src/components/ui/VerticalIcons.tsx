@@ -163,12 +163,12 @@ const ICONS: Record<string, (s: number) => React.ReactNode> = {
 
 /* Fallback for unknown keys — renders the string as-is (backward compat with emojis) */
 export function VerticalIcon({ name, size = 20 }: VerticalIconProps) {
-  const renderer = ICONS[name];
+  const renderer = ICONS[name] as ((s: number) => React.ReactNode) | undefined;
 
   if (renderer) return <>{renderer(size)}</>;
 
   return (
-    <span style={{ fontSize: `${size * 0.065}rem`, lineHeight: 1 }}>
+    <span style={{ fontSize: `${String(size * 0.065)}rem`, lineHeight: 1 }}>
       {name}
     </span>
   );

@@ -281,7 +281,7 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
                 stroke={ACCENT}
                 strokeWidth="2"
                 strokeLinecap="round"
-                strokeDasharray={`${Math.min(progress, 100) * 1.65} 200`}
+                strokeDasharray={`${String(Math.min(progress, 100) * 1.65)} 200`}
                 style={{ transition: "stroke-dasharray 0.12s ease" }}
               />
             </svg>

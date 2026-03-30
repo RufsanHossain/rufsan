@@ -7,6 +7,20 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const TO_EMAIL = "rufsanhossain315@gmail.com";
 const FROM_EMAIL = "Contact Form <onboarding@resend.dev>";
 
+/* ── Simple in-memory rate limiter ── */
+const rateMap = new Map<string, number[]>();
+const RATE_WINDOW_MS = 60_000; // 1 minute
+const RATE_LIMIT = 3; // max 3 requests per window
+
+function isRateLimited(email: string): boolean {
+  const now = Date.now();
+  const timestamps = (rateMap.get(email) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (timestamps.length >= RATE_LIMIT) return true;
+  timestamps.push(now);
+  rateMap.set(email, timestamps);
+  return false;
+}
+
 interface ContactPayload {
   name: string;
   email: string;
@@ -30,11 +44,17 @@ const TYPE_LABELS: Record<string, string> = {
 export async function sendContactEmail(data: ContactPayload): Promise<ActionResult> {
   /* ── Server-side validation ── */
   if (!data.name.trim()) return { success: false, error: "Name is required" };
+  if (data.name.length > 200) return { success: false, error: "Name is too long" };
   if (!data.email.trim()) return { success: false, error: "Email is required" };
+  if (data.email.length > 320) return { success: false, error: "Email is too long" };
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return { success: false, error: "Invalid email" };
   if (!data.type) return { success: false, error: "Project type is required" };
   if (!data.message.trim()) return { success: false, error: "Message is required" };
   if (data.message.trim().length < 20) return { success: false, error: "Message too short" };
+  if (data.message.length > 5000) return { success: false, error: "Message is too long (max 5000 characters)" };
+
+  /* ── Rate limiting ── */
+  if (isRateLimited(data.email)) return { success: false, error: "Too many requests. Please try again in a minute." };
 
   try {
     const { error } = await resend.emails.send({

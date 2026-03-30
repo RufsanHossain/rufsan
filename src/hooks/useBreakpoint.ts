@@ -10,8 +10,16 @@ const BREAKPOINTS = {
   desktop: 1024,
 } as const;
 
+function getInitialBreakpoint(): Breakpoint {
+  if (typeof window === "undefined") return "desktop";
+  const w = window.innerWidth;
+  if (w < BREAKPOINTS.tablet) return "mobile";
+  if (w < BREAKPOINTS.desktop) return "tablet";
+  return "desktop";
+}
+
 export function useBreakpoint(): Breakpoint {
-  const [bp, setBp] = useState<Breakpoint>("desktop");
+  const [bp, setBp] = useState<Breakpoint>(getInitialBreakpoint);
 
   const update = useCallback(() => {
     const w = window.innerWidth;

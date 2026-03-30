@@ -439,6 +439,7 @@ export default function ContactPage() {
                 <div>
                   <input
                     placeholder="Name"
+                    aria-label="Name"
                     value={form.name}
                     onChange={(e) => {
                       setForm({ ...form, name: e.target.value });
@@ -465,6 +466,7 @@ export default function ContactPage() {
                 <div>
                   <input
                     placeholder="Email"
+                    aria-label="Email"
                     value={form.email}
                     onChange={(e) => {
                       setForm({ ...form, email: e.target.value });
@@ -494,6 +496,7 @@ export default function ContactPage() {
               <div>
                 <select
                   value={form.type}
+                  aria-label="Project type"
                   onChange={(e) => {
                     setForm({ ...form, type: e.target.value });
                     setErrors({ ...errors, type: "" });
@@ -504,6 +507,10 @@ export default function ContactPage() {
                     ...inputStyle("type"),
                     appearance: "none" as const,
                     color: form.type ? "#fafafa" : TEXT_DIM,
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "right 1rem center",
+                    paddingRight: "2.5rem",
                   }}
                 >
                   <option value="" style={{ background: "#111" }}>Project type</option>
@@ -532,12 +539,13 @@ export default function ContactPage() {
               <div>
                 <textarea
                   placeholder="Tell me about your project..."
+                  aria-label="Message"
                   value={form.message}
                   onChange={(e) => {
                     setForm({ ...form, message: e.target.value });
                     setErrors({ ...errors, message: "" });
                   }}
-                  onFocus={() => { setFocused("msg"); }}
+                  onFocus={() => { setFocused("message"); }}
                   onBlur={() => { setFocused(null); }}
                   rows={isXs ? 4 : 5}
                   style={{

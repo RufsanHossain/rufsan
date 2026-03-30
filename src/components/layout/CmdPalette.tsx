@@ -34,7 +34,6 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
 
   const items: PaletteItem[] = [
     ...ROUTES.map((r) => ({ label: r.label, type: "page", href: r.href })),
-    { label: "Blog", type: "page", href: "/blog" },
     { label: "Download Resume", type: "action", href: RESUME_URL },
     ...CASES.map((c) => ({ label: c.title, type: "case study", href: `/cases/${c.slug}` })),
     ...BLOG_POSTS.map((b) => ({ label: b.title, type: "article", href: `/blog/${b.slug}` })),
@@ -69,7 +68,7 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
       if (item.type === "action") {
         const link = document.createElement("a");
         link.href = item.href;
-        link.download = "Rufsan-Brand-Palette.pdf";
+        link.download = "Rufsan-Hossain-Santo-Resume.pdf";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -276,34 +275,37 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
 // ─── CURSOR GLOW ─────────────────────────────────────────────
 
 export function CursorGlow() {
-  const [pos, setPos] = useState({ x: -200, y: -200 });
+  const glowRef = useRef<HTMLDivElement>(null);
   const bp = useBreakpoint();
-
-  const handleMove = useCallback((e: MouseEvent) => {
-    setPos({ x: e.clientX, y: e.clientY });
-  }, []);
 
   useEffect(() => {
     if (bp === "mobile") return;
+    const handleMove = (e: MouseEvent) => {
+      if (glowRef.current) {
+        glowRef.current.style.transform = `translate(${String(e.clientX - 200)}px, ${String(e.clientY - 200)}px)`;
+      }
+    };
     window.addEventListener("mousemove", handleMove);
     return () => { window.removeEventListener("mousemove", handleMove); };
-  }, [handleMove, bp]);
+  }, [bp]);
 
   if (bp === "mobile") return null;
 
   return (
     <div
+      ref={glowRef}
       style={{
         position: "fixed",
-        top: pos.y - 200,
-        left: pos.x - 200,
+        top: 0,
+        left: 0,
         width: "25rem",
         height: "25rem",
         borderRadius: "50%",
         background: `radial-gradient(circle, ${ACCENT}06 0%, transparent 70%)`,
         pointerEvents: "none",
         zIndex: 1,
-        transition: "top 0.1s ease-out, left 0.1s ease-out",
+        transform: "translate(-200px, -200px)",
+        willChange: "transform",
       }}
     />
   );

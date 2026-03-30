@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ACCENT, TEXT, TEXT_DIM, SURFACE, GLASS, FONT_DISPLAY, FONT_BODY, FONT_MONO } from "@/lib/constants";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
@@ -35,7 +35,7 @@ export function CapGrid({ items }: { items: Capability[] }) {
             WebkitBackdropFilter: "blur(20px)",
             border: `1px solid ${h === i ? `${ACCENT}30` : "rgba(255,255,255,0.07)"}`,
             borderRadius: "1rem",
-            cursor: "pointer",
+            cursor: "default",
             transition: "all 0.3s ease",
             display: "flex",
             flexDirection: "column",
@@ -709,6 +709,7 @@ export function CTA({
 
 export function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   const [active, setActive] = useState(0);
+  const touchStartX = useRef<number | null>(null);
   const bp = useBreakpoint();
   const isMobile = bp === "mobile";
 
@@ -716,6 +717,19 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
     const timer = setInterval(() => { setActive((p) => (p + 1) % testimonials.length); }, 5000);
     return () => { clearInterval(timer); };
   }, [testimonials.length]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(diff) > 50) {
+      if (diff < 0) setActive((p) => (p + 1) % testimonials.length);
+      else setActive((p) => (p - 1 + testimonials.length) % testimonials.length);
+    }
+    touchStartX.current = null;
+  };
 
   return (
     <section
@@ -732,6 +746,8 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
       />
       <FadeIn>
         <div
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           style={{
             ...GLASS,
             borderRadius: isMobile ? "1rem" : "1.25rem",
@@ -815,6 +831,7 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
             {testimonials.map((_, i) => (
               <button
                 key={i}
+                aria-label={`Go to testimonial ${String(i + 1)}`}
                 onClick={() => { setActive(i); }}
                 style={{
                   width: active === i ? "2rem" : "0.5rem",

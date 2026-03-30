@@ -16,10 +16,9 @@ import { CTA } from "@/components/sections/Sections";
 export default function CaseStudyPage() {
   const { id: slug } = useParams<{ id: string }>();
   const p = getCaseBySlug(slug);
-  const [statsRef, _statsVis] = useInView();
+  const [statsRef] = useInView();
   const bp = useBreakpoint();
   const isMobile = bp === "mobile";
-  const _isTablet = bp === "tablet";
 
   if (!p)
     return (
@@ -526,7 +525,7 @@ export default function CaseStudyPage() {
                       margin: 0,
                     }}
                   >
-                    {rc.overview.slice(0, 120)}...
+                    {rc.overview.length <= 120 ? rc.overview : `${rc.overview.slice(0, rc.overview.lastIndexOf(" ", 120))}...`}
                   </p>
                   <div
                     style={{

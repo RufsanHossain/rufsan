@@ -14,7 +14,7 @@ import { useBreakpoint } from "@/hooks/useBreakpoint";
 function handleDownloadResume() {
   const link = document.createElement("a");
   link.href = RESUME_URL;
-  link.download = "Rufsan-Brand-Palette.pdf";
+  link.download = "Rufsan-Hossain-Santo-Resume.pdf";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
