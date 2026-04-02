@@ -33,6 +33,35 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${dmSans.variable} ${jetbrainsMono.variable} ${syne.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Person",
+                  "@id": "https://rufsansanto.com/#person",
+                  name: "Rufsan Hossain Santo",
+                  url: "https://rufsansanto.com",
+                  jobTitle: "Senior Full-Stack Developer & Agency Founder",
+                  sameAs: [
+                    "https://github.com/rufsan",
+                    "https://linkedin.com/in/rufsan",
+                  ],
+                  image: "https://rufsansanto.com/media/rufsan.png",
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://rufsansanto.com/#website",
+                  url: "https://rufsansanto.com",
+                  name: "Rufsan Hossain Santo",
+                  publisher: { "@id": "https://rufsansanto.com/#person" },
+                },
+              ],
+            }),
+          }}
+        />
         <style>{`
           * { margin: 0; padding: 0; box-sizing: border-box; }
           body { background: ${BG}; color: ${TEXT}; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
