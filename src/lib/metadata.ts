@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const SITE_URL = "https://rufsansanto.com";
+export const SITE_URL = "https://rufsansanto.com";
 const SITE_NAME = "Rufsan Hossain Santo";
 const SITE_DESCRIPTION =
   "Senior Full-Stack Developer & Agency Founder specializing in AI-integrated SaaS products, scalable architectures, and data-driven solutions.";
@@ -49,6 +49,9 @@ export const siteMetadata: Metadata = {
     title: `${SITE_NAME} — Full-Stack Developer & Agency Founder`,
     description: SITE_DESCRIPTION,
     images: ["/og-image.png"],
+  },
+  alternates: {
+    canonical: SITE_URL,
   },
   robots: {
     index: true,
