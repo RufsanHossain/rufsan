@@ -33,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${dmSans.variable} ${jetbrainsMono.variable} ${syne.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="alternate" type="application/rss+xml" title="Rufsan Hossain Santo — Blog" href="/feed.xml" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
