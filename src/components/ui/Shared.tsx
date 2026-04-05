@@ -251,17 +251,15 @@ function ImageMockup({ images, url, color }: { images: string[]; url: string; co
   return (
     <div>
       <BrowserFrame title={url} color={color}>
-        <div style={{ position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "relative", overflow: "hidden", aspectRatio: "16 / 10" }}>
           <Image
             src={images[idx]}
             alt={`Screenshot ${String(idx + 1)}`}
-            width={1200}
-            height={750}
+            fill
             sizes="(max-width: 767px) 100vw, 50vw"
             style={{
-              width: "100%",
-              height: "auto",
-              display: "block",
+              objectFit: "cover",
+              objectPosition: "top center",
               transition: "opacity 0.3s ease",
             }}
           />
