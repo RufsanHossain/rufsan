@@ -530,8 +530,10 @@ function BlogPostContent() {
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                 {relatedCases.map(
-                  (rc) =>
-                    rc && (
+                  (rc) => {
+                    if (!rc) return null;
+                    const route = Array.isArray(rc.verticalRoute) ? rc.verticalRoute[0] : rc.verticalRoute;
+                    return (
                       <FadeIn key={rc.id}>
                         <Link
                           href={`/cases/${rc.slug}`}
@@ -560,7 +562,7 @@ function BlogPostContent() {
                               fontSize: "1.25rem",
                             }}
                           >
-                            {rc.verticalRoute === "ai" ? "🧠" : rc.verticalRoute === "dev" ? "⚡" : "📊"}
+                            {route === "ai" ? "🧠" : route === "dev" ? "⚡" : "📊"}
                           </div>
                           <div>
                             <h4
@@ -590,8 +592,8 @@ function BlogPostContent() {
                           </span>
                         </Link>
                       </FadeIn>
-                    )
-                )}
+                    );
+                  })}
               </div>
             </div>
           </section>

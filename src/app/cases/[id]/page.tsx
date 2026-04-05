@@ -29,7 +29,8 @@ export default async function CaseStudyPage({
       </div>
     );
 
-  const related = getCasesByVertical(p.verticalRoute).filter(
+  const primaryRoute = Array.isArray(p.verticalRoute) ? p.verticalRoute[0] : p.verticalRoute;
+  const related = getCasesByVertical(primaryRoute).filter(
     (c) => c.id !== p.id
   );
 
@@ -40,7 +41,7 @@ export default async function CaseStudyPage({
         <Breadcrumb
           items={[
             { label: "Home", href: "/" },
-            { label: p.vertical, href: `/${p.verticalRoute}` },
+            { label: p.vertical, href: `/${primaryRoute}` },
             { label: p.title },
           ]}
         />

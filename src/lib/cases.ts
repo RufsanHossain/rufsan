@@ -7,7 +7,7 @@ export interface CaseStudy {
   id: string;
   slug: string;
   vertical: string;
-  verticalRoute: string;
+  verticalRoute: string | string[];
   title: string;
   outcome: string;
   overview: string;
@@ -70,20 +70,20 @@ export const CASES: CaseStudy[] = [
     mockupColor: "#2e1a2e",
   },
   {
-    id: "case-3", slug: "design-to-code-engine", vertical: "Development", verticalRoute: "dev",
-    title: "Design-to-Code Engine", outcome: "90% faster component dev",
-    overview: "Figma-to-production pipeline generating pixel-perfect, accessible React components with Tailwind CSS.",
-    metrics: [{ v: "90%", l: "Faster Dev Time" }, { v: "98%", l: "Pixel Accuracy" }, { v: "AA+", l: "Accessibility Score" }, { v: "500+", l: "Components Generated" }],
-    challenge: "Translating Figma's absolute positioning into responsive, semantic HTML with proper component boundaries.",
+    id: "case-3", slug: "lucid-journal", vertical: "AI / ML", verticalRoute: ["ai", "dev"],
+    title: "Lucid — AI-Powered Journal", outcome: "4 AI analysis lenses",
+    overview: "Intelligent journaling platform where AI thinks back — challenge mode, pattern recognition, coaching prompts, and synthesis reports help users turn reflection into self-awareness.",
+    metrics: [{ v: "4", l: "AI Lenses" }, { v: "$8/mo", l: "Pro Tier" }, { v: "< 2s", l: "AI Response" }, { v: "PWA", l: "Mobile Ready" }],
+    challenge: "Building AI analysis that feels insightful rather than generic — each lens needed to surface genuinely useful patterns from personal, unstructured writing.",
     solutionSteps: [
-      "Layout analysis engine detecting flex/grid from absolute coordinates",
-      "Component boundary detection via subtree hashing",
-      "Design token extraction mapping Figma styles to Tailwind",
-      "Responsive breakpoint inference from artboard variants",
+      "Four specialized AI lenses: Challenge, Pattern Recognition, Coaching, and Synthesis",
+      "Semantic search across entries for contextual pattern detection over weeks",
+      "Full-text + vector hybrid search for retrieving relevant past reflections",
+      "Progressive Web App with auto-save and offline quick capture",
     ],
-    stack: ["React", "Node.js", "Figma API", "TypeScript", "Tailwind CSS", "AST Parsing", "Babel", "PostCSS"],
-    results: "Dev time dropped 90%. 98% pixel accuracy. 500+ production components across 12 client projects.",
-    liveUrl: "https://designtocode.rufsan.dev",
+    stack: ["Next.js", "Anthropic Claude", "MongoDB", "Tailwind CSS", "PostHog", "TypeScript", "Vercel", "PWA"],
+    results: "Public beta live with free and Pro tiers. Four AI lenses deliver personalized weekly/monthly synthesis reports. Mobile-ready PWA with sub-2s AI responses.",
+    liveUrl: "https://lucid-one-taupe.vercel.app",
     mockupColor: "#1a1a2e",
   },
   {
@@ -175,5 +175,9 @@ export function getCaseBySlug(slug: string): CaseStudy | undefined {
 }
 
 export function getCasesByVertical(verticalRoute: string): CaseStudy[] {
-  return CASES.filter((c) => c.verticalRoute === verticalRoute);
+  return CASES.filter((c) =>
+    Array.isArray(c.verticalRoute)
+      ? c.verticalRoute.includes(verticalRoute)
+      : c.verticalRoute === verticalRoute
+  );
 }
