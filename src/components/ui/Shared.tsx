@@ -173,17 +173,21 @@ export function BrowserFrame({ title, color = "#1a1a2e", children }: BrowserFram
 
 interface ProjectMockupProps {
   project: CaseStudy;
+  carousel?: boolean;
 }
 
-export function ProjectMockup({ project }: ProjectMockupProps) {
+export function ProjectMockup({ project, carousel = true }: ProjectMockupProps) {
   const c = project.mockupColor;
   const url = project.liveUrl
     ? project.liveUrl.replace("https://", "")
     : `${project.title.toLowerCase().replace(/\s+/g, "-")}.app`;
 
-  // If project has real images, render an image carousel
+  // If project has real images, render carousel or single image
   if (project.images && project.images.length > 0) {
-    return <ImageMockup images={project.images} url={url} color={c} />;
+    if (carousel) {
+      return <ImageMockup images={project.images} url={url} color={c} />;
+    }
+    return <ImageMockup images={[project.images[0]]} url={url} color={c} />;
   }
 
   return (

@@ -275,7 +275,7 @@ export default function HomePage() {
                       order: isMobile ? 1 : undefined,
                     }}
                   >
-                    <ProjectMockup project={p} />
+                    <ProjectMockup project={p} carousel={false} />
                   </div>
 
                   {/* Text panel */}
