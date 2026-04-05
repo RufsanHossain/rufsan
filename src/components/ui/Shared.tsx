@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import { ACCENT, TEXT_DIM, GLASS, FONT_DISPLAY, FONT_BODY, FONT_MONO } from "@/lib/constants";
 import { useCounter } from "@/hooks/useCounter";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
@@ -179,6 +181,11 @@ export function ProjectMockup({ project }: ProjectMockupProps) {
     ? project.liveUrl.replace("https://", "")
     : `${project.title.toLowerCase().replace(/\s+/g, "-")}.app`;
 
+  // If project has real images, render an image carousel
+  if (project.images && project.images.length > 0) {
+    return <ImageMockup images={project.images} url={url} color={c} />;
+  }
+
   return (
     <BrowserFrame title={url} color={c}>
       <div style={{ padding: "1.25rem", minHeight: "13.75rem" }}>
@@ -233,5 +240,103 @@ export function ProjectMockup({ project }: ProjectMockupProps) {
         </div>
       </div>
     </BrowserFrame>
+  );
+}
+
+// ─── IMAGE MOCKUP (carousel for projects with real screenshots) ──
+
+function ImageMockup({ images, url, color }: { images: string[]; url: string; color: string }) {
+  const [idx, setIdx] = useState(0);
+
+  return (
+    <div>
+      <BrowserFrame title={url} color={color}>
+        <div style={{ position: "relative", overflow: "hidden" }}>
+          <Image
+            src={images[idx]}
+            alt={`Screenshot ${String(idx + 1)}`}
+            width={1200}
+            height={750}
+            sizes="(max-width: 767px) 100vw, 50vw"
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block",
+              transition: "opacity 0.3s ease",
+            }}
+          />
+        </div>
+      </BrowserFrame>
+
+      {images.length > 1 && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.75rem",
+            marginTop: "0.75rem",
+          }}
+        >
+          <button
+            onClick={() => { setIdx((i) => (i - 1 + images.length) % images.length); }}
+            aria-label="Previous screenshot"
+            style={{
+              width: "2rem",
+              height: "2rem",
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.06)",
+              border: "0.0625rem solid rgba(255,255,255,0.1)",
+              color: TEXT_DIM,
+              fontSize: "0.875rem",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            ‹
+          </button>
+          <div style={{ display: "flex", gap: "0.375rem" }}>
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => { setIdx(i); }}
+                aria-label={`Go to screenshot ${String(i + 1)}`}
+                style={{
+                  width: idx === i ? "1.25rem" : "0.375rem",
+                  height: "0.375rem",
+                  borderRadius: "0.1875rem",
+                  background: idx === i ? ACCENT : "rgba(255,255,255,0.15)",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 0,
+                  transition: "all 0.3s ease",
+                }}
+              />
+            ))}
+          </div>
+          <button
+            onClick={() => { setIdx((i) => (i + 1) % images.length); }}
+            aria-label="Next screenshot"
+            style={{
+              width: "2rem",
+              height: "2rem",
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.06)",
+              border: "0.0625rem solid rgba(255,255,255,0.1)",
+              color: TEXT_DIM,
+              fontSize: "0.875rem",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            ›
+          </button>
+        </div>
+      )}
+    </div>
   );
 }

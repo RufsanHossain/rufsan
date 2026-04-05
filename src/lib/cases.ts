@@ -18,6 +18,7 @@ export interface CaseStudy {
   results: string;
   liveUrl?: string;
   mockupColor: string;
+  images?: string[];
 }
 
 export const CASES: CaseStudy[] = [
@@ -85,6 +86,17 @@ export const CASES: CaseStudy[] = [
     results: "Public beta live with free and Pro ($8/mo) tiers. Four AI lenses deliver personalized weekly/monthly synthesis reports. Mobile-ready PWA with sub-2s AI responses.",
     liveUrl: "https://lucid-one-taupe.vercel.app",
     mockupColor: "#1a1a2e",
+    images: [
+      "/media/lucid.png",
+      "/media/lenses.png",
+      "/media/editor.jpg",
+      "/media/challenge.png",
+      "/media/quick-capture.png",
+      "/media/login.png",
+      "/media/insights.png",
+      "/media/report.png",
+      "/media/goals.png",
+    ],
   },
   {
     id: "case-4", slug: "multi-tenant-saas", vertical: "Development", verticalRoute: "dev",
