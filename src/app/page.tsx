@@ -402,7 +402,13 @@ export default function HomePage() {
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1rem" }}>
-                <span style={{ fontSize: "1.25rem" }}>🧠</span>
+                <div style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem", background: `${ACCENT}12`, border: `0.0625rem solid ${ACCENT}20`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z" />
+                    <line x1="9" y1="21" x2="15" y2="21" />
+                    <line x1="10" y1="24" x2="14" y2="24" />
+                  </svg>
+                </div>
                 <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: ACCENT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Building</span>
               </div>
               <h3 style={{ fontFamily: FONT_DISPLAY, fontSize: isMobile ? "1.125rem" : "1.25rem", fontWeight: 700, color: "#fafafa", marginBottom: "0.5rem" }}>
@@ -424,7 +430,12 @@ export default function HomePage() {
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1rem" }}>
-                <span style={{ fontSize: "1.25rem" }}>✍️</span>
+                <div style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem", background: `${ACCENT}12`, border: `0.0625rem solid ${ACCENT}20`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                  </svg>
+                </div>
                 <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: ACCENT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Building</span>
               </div>
               <h3 style={{ fontFamily: FONT_DISPLAY, fontSize: isMobile ? "1.125rem" : "1.25rem", fontWeight: 700, color: "#fafafa", marginBottom: "0.5rem" }}>
@@ -446,7 +457,13 @@ export default function HomePage() {
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1rem" }}>
-                <span style={{ fontSize: "1.25rem" }}>🔍</span>
+                <div style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem", background: `${ACCENT}12`, border: `0.0625rem solid ${ACCENT}20`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+                    <rect x="9" y="3" width="6" height="4" rx="1" />
+                    <path d="m9 14 2 2 4-4" />
+                  </svg>
+                </div>
                 <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: ACCENT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Building</span>
               </div>
               <h3 style={{ fontFamily: FONT_DISPLAY, fontSize: isMobile ? "1.125rem" : "1.25rem", fontWeight: 700, color: "#fafafa", marginBottom: "0.5rem" }}>
