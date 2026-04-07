@@ -382,11 +382,11 @@ export default function HomePage() {
 
       {/* ── Currently ── */}
       <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 2rem", maxWidth: "75rem", margin: "0 auto" }}>
-        <SectionHeader number="// Now" title="Currently" desc="What I'm building and exploring right now." />
+        <SectionHeader number="// Now" title="Currently" desc="What I'm building right now." />
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr",
             gap: "1rem",
             marginTop: "2rem",
           }}
@@ -402,14 +402,14 @@ export default function HomePage() {
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1rem" }}>
-                <span style={{ fontSize: "1.25rem" }}>🔨</span>
+                <span style={{ fontSize: "1.25rem" }}>🧠</span>
                 <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: ACCENT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Building</span>
               </div>
               <h3 style={{ fontFamily: FONT_DISPLAY, fontSize: isMobile ? "1.125rem" : "1.25rem", fontWeight: 700, color: "#fafafa", marginBottom: "0.5rem" }}>
                 <Link href="/cases/lucid-journal" style={{ color: "inherit", textDecoration: "none" }}>Lucid</Link>
               </h3>
-              <p style={{ fontFamily: FONT_BODY, fontSize: "0.9375rem", lineHeight: 1.7, color: TEXT_DIM, margin: 0 }}>
-                An AI-powered journal that thinks back — with challenge questions, pattern recognition, coaching prompts, and weekly synthesis reports. Currently in public beta.
+              <p style={{ fontFamily: FONT_BODY, fontSize: "0.875rem", lineHeight: 1.7, color: TEXT_DIM, margin: 0 }}>
+                AI-powered journal that thinks back — challenge questions, pattern recognition, coaching prompts, and weekly synthesis reports. In public beta.
               </p>
             </div>
           </FadeIn>
@@ -424,14 +424,36 @@ export default function HomePage() {
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1rem" }}>
-                <span style={{ fontSize: "1.25rem" }}>📚</span>
-                <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: ACCENT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Learning</span>
+                <span style={{ fontSize: "1.25rem" }}>✍️</span>
+                <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: ACCENT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Building</span>
               </div>
               <h3 style={{ fontFamily: FONT_DISPLAY, fontSize: isMobile ? "1.125rem" : "1.25rem", fontWeight: 700, color: "#fafafa", marginBottom: "0.5rem" }}>
-                Agentic AI Patterns
+                Rufsan Shares
               </h3>
-              <p style={{ fontFamily: FONT_BODY, fontSize: "0.9375rem", lineHeight: 1.7, color: TEXT_DIM, margin: 0 }}>
-                Exploring multi-agent orchestration, tool-use architectures, and autonomous workflows — applying these patterns to make Lucid's AI lenses more contextually aware.
+              <p style={{ fontFamily: FONT_BODY, fontSize: "0.875rem", lineHeight: 1.7, color: TEXT_DIM, margin: 0 }}>
+                Multi-user blogging platform with role-based access, rich text editor, and newsletter integration. Built with Next.js 16, Better Auth, and Prisma 7.
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <div
+              style={{
+                padding: isMobile ? "1.5rem 1.25rem" : "2rem 1.75rem",
+                ...GLASS,
+                borderRadius: "1rem",
+                borderLeft: `0.1875rem solid ${ACCENT}`,
+                height: "100%",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1rem" }}>
+                <span style={{ fontSize: "1.25rem" }}>🔍</span>
+                <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: ACCENT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Building</span>
+              </div>
+              <h3 style={{ fontFamily: FONT_DISPLAY, fontSize: isMobile ? "1.125rem" : "1.25rem", fontWeight: 700, color: "#fafafa", marginBottom: "0.5rem" }}>
+                Audex
+              </h3>
+              <p style={{ fontFamily: FONT_BODY, fontSize: "0.875rem", lineHeight: 1.7, color: TEXT_DIM, margin: 0 }}>
+                AI-powered code quality analysis platform — TypeScript monorepo with background workers, real-time updates, and modular packages. Built with Turborepo and pnpm.
               </p>
             </div>
           </FadeIn>
