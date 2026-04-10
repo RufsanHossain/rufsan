@@ -28,7 +28,10 @@ const nextConfig: NextConfig = {
     ],
   },
   headers: async () => [
-    { source: "/(.*)", headers: securityHeaders },
+    {
+      source: "/((?!.*\\.pdf$).*)",
+      headers: securityHeaders,
+    },
   ],
 };
 

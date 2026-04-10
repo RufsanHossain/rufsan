@@ -91,9 +91,9 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
         style={{ animation: "resumeModalIn 0.25s ease-out" }}
       >
         {/* PDF */}
-        <embed
+        <iframe
           src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=1`}
-          type="application/pdf"
+          title="Resume"
           className="w-full h-full border-none block"
         />
 
