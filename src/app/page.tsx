@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { CASES } from "@/lib/cases";
@@ -13,13 +12,12 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { CounterStat, SectionHeader, ProjectMockup } from "@/components/ui/Shared";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Toolkit, TestimonialsSection, BlogSection, CTA } from "@/components/sections/Sections";
-import { ResumeModal } from "@/components/ui/ResumeModal";
+
 import { VerticalIcon } from "@/components/ui/VerticalIcons";
 
 const FEATURED = [CASES[0], CASES[3], CASES[6]];
 
 export default function HomePage() {
-  const [resumeOpen, setResumeOpen] = useState(false);
   const [statsRef, statsVis] = useInView();
   const bp = useBreakpoint();
   const isMobile = bp === "mobile";
@@ -33,12 +31,11 @@ export default function HomePage() {
         h1={["I build", "intelligent", "software."]}
         subtitle="Senior Full-Stack Developer & Agency Founder specializing in AI-integrated SaaS products, scalable architectures, and data-driven solutions."
         btn1="View My Work →"
-        btn2="Download Resume"
+        btn2="Get in Touch"
         on1={() => {
           document.getElementById("featured-work")?.scrollIntoView({ behavior: "smooth" });
         }}
-        on2={() => { setResumeOpen(true); }}
-        btn2Resume
+        on2={() => { window.location.href = "/contact"; }}
       />
 
       {/* ── Animated Stats ── */}
@@ -317,11 +314,6 @@ export default function HomePage() {
         heading="Have a project<br/>in mind?"
         sub="Whether it's a SaaS product, an AI integration, or a data pipeline — I'd love to hear about it."
         btn="Start a Conversation"
-      />
-
-      <ResumeModal
-        open={resumeOpen}
-        onClose={() => { setResumeOpen(false); }}
       />
     </>
   );
