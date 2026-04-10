@@ -33,14 +33,14 @@ export function CapGrid({ items }: { items: Capability[] }) {
             isMobile ? "p-[1.5rem_1.25rem]" : "p-[2rem_1.5rem]",
             h === i
               ? "bg-white/[0.05] border border-accent/[0.19] shadow-[0_0.5rem_2.5rem_rgba(141,234,178,0.03)] -translate-y-1"
-              : "bg-surface border border-white/[0.07] shadow-none translate-y-0"
+              : "bg-surface border border-overlay-border shadow-none translate-y-0"
           )}
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="w-[2.75rem] h-[2.75rem] rounded-[0.75rem] bg-accent/[0.04] border border-accent/[0.094] flex items-center justify-center text-[1.25rem]">
               <VerticalIcon name={c.icon} size={20} />
             </div>
-            <h3 className="font-display text-[1.0625rem] font-bold text-[#fafafa] m-0">
+            <h3 className="font-display text-[1.0625rem] font-bold text-fg m-0">
               {c.title}
             </h3>
           </div>
@@ -76,10 +76,10 @@ export function CSList({ projects }: { projects: CaseStudy[] }) {
         <FadeIn key={i} delay={i * 0.1}>
           <div
             className={cn(
-              "bg-white/[0.03] backdrop-blur-[20px] rounded-[1rem] overflow-hidden transition-all duration-300",
+              "bg-overlay-subtle backdrop-blur-[20px] rounded-[1rem] overflow-hidden transition-all duration-300",
               exp === i
                 ? "border border-accent/[0.145] shadow-[0_0.5rem_2.5rem_rgba(141,234,178,0.024)]"
-                : "border border-white/[0.07] shadow-none"
+                : "border border-overlay-border shadow-none"
             )}
           >
             {/* Header row */}
@@ -97,7 +97,7 @@ export function CSList({ projects }: { projects: CaseStudy[] }) {
                 </span>
                 <h3
                   className={cn(
-                    "font-display font-bold text-[#fafafa] mb-2 mt-0",
+                    "font-display font-bold text-fg mb-2 mt-0",
                     isMobile ? "text-[1.25rem]" : "text-2xl"
                   )}
                 >
@@ -108,7 +108,7 @@ export function CSList({ projects }: { projects: CaseStudy[] }) {
                 </p>
               </div>
               <div
-                className="w-10 h-10 rounded-[0.625rem] bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-accent text-[1.125rem] shrink-0 self-center transition-transform duration-300"
+                className="w-10 h-10 rounded-[0.625rem] bg-overlay-subtle border border-overlay-border flex items-center justify-center text-accent text-[1.125rem] shrink-0 self-center transition-transform duration-300"
                 style={{ transform: exp === i ? "rotate(180deg)" : "rotate(0)" }}
               >
                 ↓
@@ -161,7 +161,7 @@ export function CSList({ projects }: { projects: CaseStudy[] }) {
                     {p.stack.slice(0, isMobile ? 4 : 5).map((s) => (
                       <span
                         key={s}
-                        className="py-[0.3125rem] px-3 bg-white/[0.04] border border-white/[0.08] rounded-[0.375rem] text-xs font-mono text-text"
+                        className="py-[0.3125rem] px-3 bg-overlay-subtle border border-overlay-border rounded-[0.375rem] text-xs font-mono text-text"
                       >
                         {s}
                       </span>
@@ -174,7 +174,7 @@ export function CSList({ projects }: { projects: CaseStudy[] }) {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => { e.stopPropagation(); }}
-                        className="inline-flex items-center gap-[0.375rem] bg-white/[0.04] border border-white/[0.08] py-2 px-5 rounded-lg text-text text-[0.8125rem] font-medium font-body no-underline transition-all duration-200 hover:border-accent/[0.19] hover:text-accent"
+                        className="inline-flex items-center gap-[0.375rem] bg-overlay-subtle border border-overlay-border py-2 px-5 rounded-lg text-text text-[0.8125rem] font-medium font-body no-underline transition-all duration-200 hover:border-accent/[0.19] hover:text-accent"
                       >
                         <ExtIcon /> Live Site
                       </a>
@@ -228,7 +228,7 @@ export function Toolkit({
       <FadeIn>
         <div
           className={cn(
-            "grid p-1 bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07]",
+            "grid p-1 bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border",
             isMobile
               ? "grid-cols-2 gap-[0.375rem] mb-6 rounded-[0.75rem] w-full"
               : "gap-1 mb-8 rounded-[0.625rem] w-fit"
@@ -247,7 +247,7 @@ export function Toolkit({
                 "rounded-[0.4375rem] font-body cursor-pointer transition-all duration-200 whitespace-nowrap text-center",
                 isMobile ? "py-2 px-3 text-xs" : "py-2 px-[1.125rem] text-[0.8125rem]",
                 ac === t.category
-                  ? "bg-white/[0.08] border border-accent/[0.125] text-[#fafafa] font-semibold"
+                  ? "bg-overlay-active border border-accent/[0.125] text-fg font-semibold"
                   : "bg-transparent border border-transparent text-text-dim font-medium"
               )}
             >
@@ -267,13 +267,13 @@ export function Toolkit({
               onMouseEnter={() => { sH(item); }}
               onMouseLeave={() => { sH(null); }}
               className={cn(
-                "bg-white/[0.03] backdrop-blur-[20px] rounded-[0.875rem] flex flex-col items-center justify-center gap-3 cursor-pointer transition-all duration-200",
+                "bg-overlay-subtle backdrop-blur-[20px] rounded-[0.875rem] flex flex-col items-center justify-center gap-3 cursor-pointer transition-all duration-200",
                 isMobile
                   ? "p-[1.5rem_1rem] min-h-[5.5rem]"
                   : "p-[2rem_1.25rem] min-h-[6.875rem]",
                 h === item
                   ? "border border-accent/[0.145] shadow-[0_0.25rem_1.5rem_rgba(141,234,178,0.024)]"
-                  : "border border-white/[0.07] shadow-none"
+                  : "border border-overlay-border shadow-none"
               )}
             >
               <div
@@ -289,7 +289,7 @@ export function Toolkit({
               <span
                 className={cn(
                   "font-body text-[0.8125rem] font-medium transition-colors duration-200 text-center",
-                  h === item ? "text-[#fafafa]" : "text-text-dim"
+                  h === item ? "text-fg" : "text-text-dim"
                 )}
               >
                 {item}
@@ -316,11 +316,11 @@ export function PRRow({ items }: { items: Principle[] }) {
           onMouseEnter={() => { sH(i); }}
           onMouseLeave={() => { sH(null); }}
           className={cn(
-            "bg-white/[0.03] backdrop-blur-[20px] rounded-[0.875rem] transition-all duration-300 cursor-default relative",
+            "bg-overlay-subtle backdrop-blur-[20px] rounded-[0.875rem] transition-all duration-300 cursor-default relative",
             isMobile ? "p-[1.25rem_1rem]" : "p-[1.75rem_1.5rem]",
             h === i
               ? "border border-accent/[0.145] shadow-[0_0.25rem_1.5rem_rgba(141,234,178,0.024)]"
-              : "border border-white/[0.07] shadow-none"
+              : "border border-overlay-border shadow-none"
           )}
         >
           {p.step && (
@@ -335,7 +335,7 @@ export function PRRow({ items }: { items: Principle[] }) {
           )}
           <div className="relative">
             <div className="w-2 h-2 rounded-full bg-accent mb-4 shadow-[0_0_0.5rem_rgba(141,234,178,0.25)]" />
-            <h4 className="font-display text-base font-bold text-[#fafafa] mt-0 mb-2">
+            <h4 className="font-display text-base font-bold text-fg mt-0 mb-2">
               {p.title}
             </h4>
             <p className="font-body text-[0.8125rem] leading-[1.6] text-text-dim m-0">
@@ -376,7 +376,7 @@ export function CTA({
       <FadeIn>
         <div
           className={cn(
-            "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] text-center relative overflow-hidden",
+            "bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border text-center relative overflow-hidden",
             isMobile
               ? "rounded-[1.25rem] p-[3rem_1.5rem]"
               : "rounded-[1.5rem] p-[5rem_3.75rem]"
@@ -393,7 +393,7 @@ export function CTA({
               {comment}
             </span>
             <h2
-              className="font-display text-[clamp(1.75rem,5vw,3.25rem)] font-extrabold text-[#fafafa] tracking-[-0.03em] mt-0 mb-4 leading-[1.1]"
+              className="font-display text-[clamp(1.75rem,5vw,3.25rem)] font-extrabold text-fg tracking-[-0.03em] mt-0 mb-4 leading-[1.1]"
               dangerouslySetInnerHTML={{ __html: heading }}
             />
             <p
@@ -407,7 +407,7 @@ export function CTA({
             <Link
               href={href}
               className={cn(
-                "inline-block bg-accent text-[#050505] border-none rounded-[0.625rem] text-[0.9375rem] font-semibold font-body no-underline transition-[transform,box-shadow] duration-200",
+                "inline-block bg-accent text-on-accent border-none rounded-[0.625rem] text-[0.9375rem] font-semibold font-body no-underline transition-[transform,box-shadow] duration-200",
                 isMobile ? "py-3.5 px-8" : "py-4 px-10"
               )}
             >
@@ -463,7 +463,7 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
           className={cn(
-            "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] relative",
+            "bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border relative",
             isMobile
               ? "rounded-[1rem] p-[2rem_1.25rem] min-h-0"
               : "rounded-[1.25rem] p-[3rem_3.5rem] min-h-[15rem]"
@@ -506,7 +506,7 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
                   {t.avatar}
                 </div>
                 <div>
-                  <div className="font-body text-[0.9375rem] font-semibold text-[#fafafa]">
+                  <div className="font-body text-[0.9375rem] font-semibold text-fg">
                     {t.name}
                   </div>
                   <div className="font-body text-[0.8125rem] text-text-dim">
@@ -567,7 +567,7 @@ export function BlogSection({ posts }: { posts: BlogPost[] }) {
               </span>
               <div className="h-px w-12 bg-accent/25" />
             </div>
-            <h2 className="font-display text-[clamp(2rem,4vw,3rem)] font-bold text-[#fafafa] tracking-[-0.03em] m-0">
+            <h2 className="font-display text-[clamp(2rem,4vw,3rem)] font-bold text-fg tracking-[-0.03em] m-0">
               Writing
             </h2>
             <p
@@ -581,7 +581,7 @@ export function BlogSection({ posts }: { posts: BlogPost[] }) {
           </div>
           <Link
             href="/blog"
-            className="bg-transparent border border-white/[0.08] py-2 px-5 rounded-lg text-text-dim text-[0.8125rem] font-body font-medium no-underline transition-all duration-200 whitespace-nowrap"
+            className="bg-transparent border border-overlay-border py-2 px-5 rounded-lg text-text-dim text-[0.8125rem] font-body font-medium no-underline transition-all duration-200 whitespace-nowrap"
           >
             View All Articles →
           </Link>
@@ -599,11 +599,11 @@ export function BlogSection({ posts }: { posts: BlogPost[] }) {
           >
             <div
               className={cn(
-                "bg-white/[0.03] backdrop-blur-[20px] rounded-[1rem] cursor-pointer transition-all duration-300 ease-in-out flex flex-col h-full",
+                "bg-overlay-subtle backdrop-blur-[20px] rounded-[1rem] cursor-pointer transition-all duration-300 ease-in-out flex flex-col h-full",
                 isMobile ? "p-[1.5rem_1.25rem]" : "p-[2rem_1.5rem]",
                 h === i
                   ? "border border-accent/[0.145] -translate-y-1 shadow-[0_0.5rem_2.5rem_rgba(141,234,178,0.03)]"
-                  : "border border-white/[0.07] translate-y-0 shadow-none"
+                  : "border border-overlay-border translate-y-0 shadow-none"
               )}
             >
               <div className="flex justify-between items-center mb-4">
@@ -614,7 +614,7 @@ export function BlogSection({ posts }: { posts: BlogPost[] }) {
                   {p.readTime}
                 </span>
               </div>
-              <h3 className="font-display text-[1.125rem] font-bold text-[#fafafa] mt-0 mb-3 leading-[1.3]">
+              <h3 className="font-display text-[1.125rem] font-bold text-fg mt-0 mb-3 leading-[1.3]">
                 {p.title}
               </h3>
               <p className="font-body text-[0.8125rem] leading-[1.7] text-text-dim m-0 flex-1">

@@ -72,7 +72,7 @@ export default function ContactPage() {
         ? "rgba(255,255,255,0.05)"
         : "rgba(255,255,255,0.03)",
     border: `1px solid ${errors[field] ? "rgba(239,68,68,0.4)" : focused === field ? `${ACCENT}40` : "rgba(255,255,255,0.08)"}`,
-    color: "#fafafa",
+    color: "var(--color-fg)",
   });
 
   /* ────────────────────── SUCCESS STATE ────────────────────── */
@@ -98,7 +98,7 @@ export default function ContactPage() {
                 ✓
               </div>
               <h1
-                className="font-display font-[800] text-[#fafafa] mb-4"
+                className="font-display font-[800] text-fg mb-4"
                 style={{
                   fontSize: isXs
                     ? "clamp(1.5rem, 9vw, 2rem)"
@@ -120,7 +120,7 @@ export default function ContactPage() {
               <Link
                 href="/"
                 className={cn(
-                  "inline-block bg-accent text-[#050505] rounded-lg text-[0.9375rem] font-semibold font-body no-underline",
+                  "inline-block bg-accent text-on-accent rounded-lg text-[0.9375rem] font-semibold font-body no-underline",
                   isXs ? "py-3 px-6" : "py-[0.875rem] px-8",
                 )}
               >
@@ -151,7 +151,7 @@ export default function ContactPage() {
           <div>
             <h1 className="font-display font-[800] tracking-[-0.04em] mb-5">
               <span
-                className="block leading-[1.08] text-[#fafafa]"
+                className="block leading-[1.08] text-fg"
                 style={{
                   fontSize: isXs
                     ? "clamp(1.375rem, 8.5vw, 1.75rem)"
@@ -163,7 +163,7 @@ export default function ContactPage() {
                 Let&apos;s build
               </span>
               <span
-                className="block leading-[1.1] text-[#fafafa] mt-0.5"
+                className="block leading-[1.1] text-fg mt-0.5"
                 style={{
                   fontSize: isXs
                     ? "clamp(1.25rem, 7.5vw, 1.5rem)"
@@ -253,7 +253,7 @@ export default function ContactPage() {
                 >
                   <div
                     className={cn(
-                      "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] flex items-center justify-center shrink-0",
+                      "bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border flex items-center justify-center shrink-0",
                       isXs ? "w-9 h-9 rounded-lg" : "w-11 h-11 rounded-xl",
                     )}
                   >
@@ -284,7 +284,7 @@ export default function ContactPage() {
             {/* ── Availability badge ── */}
             <div
               className={cn(
-                "bg-white/[0.03] backdrop-blur-[20px] border rounded-[0.875rem] flex items-center gap-[0.625rem] w-fit",
+                "bg-overlay-subtle backdrop-blur-[20px] border rounded-[0.875rem] flex items-center gap-[0.625rem] w-fit",
                 isXs ? "mt-5 py-3 px-3" : isMobile ? "mt-6 py-[0.875rem] px-4" : "mt-12 py-5 px-6",
               )}
               style={{ borderColor: `${ACCENT}15` }}
@@ -306,13 +306,13 @@ export default function ContactPage() {
         <FadeIn delay={0.15}>
           <div
             className={cn(
-              "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07]",
+              "bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border",
               isXs ? "rounded-2xl py-5 px-[0.875rem]" : isMobile ? "rounded-[1.25rem] py-7 px-5" : "rounded-[1.25rem] py-10 px-9",
             )}
           >
             <h3
               className={cn(
-                "font-display font-bold text-[#fafafa] mb-[0.375rem]",
+                "font-display font-bold text-fg mb-[0.375rem]",
                 isXs ? "text-lg" : isMobile ? "text-xl" : "text-[1.375rem]",
               )}
             >
@@ -395,16 +395,16 @@ export default function ContactPage() {
                   )}
                   style={{
                     ...inputDynamicStyle("type"),
-                    color: form.type ? "#fafafa" : undefined,
+                    color: form.type ? "var(--color-fg)" : undefined,
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")`,
                   }}
                 >
-                  <option value="" className="bg-[#111]">Project type</option>
-                  <option value="saas" className="bg-[#111]">SaaS Product</option>
-                  <option value="ai" className="bg-[#111]">AI / ML Integration</option>
-                  <option value="data" className="bg-[#111]">Data / Analytics</option>
-                  <option value="consulting" className="bg-[#111]">Consulting</option>
-                  <option value="other" className="bg-[#111]">Other</option>
+                  <option value="" className="bg-code-bg">Project type</option>
+                  <option value="saas" className="bg-code-bg">SaaS Product</option>
+                  <option value="ai" className="bg-code-bg">AI / ML Integration</option>
+                  <option value="data" className="bg-code-bg">Data / Analytics</option>
+                  <option value="consulting" className="bg-code-bg">Consulting</option>
+                  <option value="other" className="bg-code-bg">Other</option>
                 </select>
                 {errors.type && (
                   <span className="text-[0.6875rem] text-[#ef4444] font-body mt-1 block">
@@ -458,7 +458,7 @@ export default function ContactPage() {
                 )}
                 style={{
                   background: loading ? `${ACCENT}80` : ACCENT,
-                  color: "#050505",
+                  color: "var(--color-on-accent)",
                 }}
               >
                 {loading ? "Sending..." : "Send Message →"}

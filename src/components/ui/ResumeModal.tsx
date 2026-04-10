@@ -87,7 +87,7 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
       <div
         role="dialog"
         aria-label="Resume preview"
-        className="relative z-[1] w-[calc(100%-3rem)] max-w-3xl h-[75vh] max-h-[700px] rounded-2xl overflow-hidden bg-[#111] border border-white/[0.08] shadow-[0_2rem_6rem_rgba(0,0,0,0.7)]"
+        className="relative z-[1] w-[calc(100%-3rem)] max-w-3xl h-[75vh] max-h-[700px] rounded-2xl overflow-hidden bg-code-bg border border-overlay-border shadow-[0_2rem_6rem_rgba(0,0,0,0.7)]"
         style={{ animation: "resumeModalIn 0.25s ease-out" }}
       >
         {/* PDF */}
@@ -102,7 +102,7 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
           type="button"
           aria-label="Close"
           onClick={onClose}
-          className="absolute top-3 left-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-[8px] border border-white/10 text-[#fafafa] text-sm cursor-pointer flex items-center justify-center transition-all duration-200 z-[2]"
+          className="absolute top-3 left-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-[8px] border border-white/10 text-fg text-sm cursor-pointer flex items-center justify-center transition-all duration-200 z-[2]"
         >
           &#x2715;
         </button>
@@ -147,7 +147,7 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
                 }}
               >
                 {done ? (
-                  <span className="text-lg text-[#050505]">&#x2713;</span>
+                  <span className="text-lg text-on-accent">&#x2713;</span>
                 ) : downloading ? (
                   <span className="text-[0.625rem] font-bold text-accent font-mono">
                     {Math.min(Math.round(progress), 100)}%
@@ -158,11 +158,11 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
                     height="16"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="opacity-90"
+                    className="opacity-90 text-fg"
                   >
                     <path
                       d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10"
-                      stroke="#fafafa"
+                      stroke="currentColor"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"

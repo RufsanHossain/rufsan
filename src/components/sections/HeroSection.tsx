@@ -44,7 +44,7 @@ export function HeroPhoto() {
             )}
           />
           {!loaded && (
-            <div className="absolute inset-0 bg-[#111] flex items-center justify-center">
+            <div className="absolute inset-0 bg-code-bg flex items-center justify-center">
               <div className="w-20 h-20 rounded-[1.25rem] bg-accent/[0.06] flex items-center justify-center font-display text-[1.75rem] font-extrabold text-accent">
                 R
               </div>
@@ -125,7 +125,7 @@ export function HeroSection({
               <div
                 className={cn(
                   "inline-flex items-center gap-2 py-[0.375rem] px-4",
-                  "bg-white/[0.03] backdrop-blur-[20px] border border-accent/[0.125]",
+                  "bg-overlay-subtle backdrop-blur-[20px] border border-accent/[0.125]",
                   "rounded-[6.25rem] w-fit",
                   isMobile ? "mb-5" : "mb-7"
                 )}
@@ -146,7 +146,7 @@ export function HeroSection({
             <h1 className="font-display font-extrabold tracking-[-0.04em] m-0">
               <span
                 className={cn(
-                  "block leading-[1.08] text-[#fafafa]",
+                  "block leading-[1.08] text-fg",
                   isMobile
                     ? "text-[clamp(1.75rem,8vw,2.5rem)]"
                     : "text-[clamp(2.25rem,5vw,3.5rem)]"
@@ -156,7 +156,7 @@ export function HeroSection({
               </span>
               <span
                 className={cn(
-                  "block leading-[1.1] text-[#fafafa] mt-[0.125rem]",
+                  "block leading-[1.1] text-fg mt-[0.125rem]",
                   isMobile
                     ? "text-[clamp(1.5rem,7vw,2.125rem)]"
                     : "text-[clamp(1.875rem,4vw,2.875rem)]"
@@ -200,7 +200,7 @@ export function HeroSection({
               <button
                 onClick={on1}
                 className={cn(
-                  "bg-accent text-[#050505] border-none rounded-lg text-[0.9375rem] font-semibold font-body cursor-pointer",
+                  "bg-accent text-on-accent border-none rounded-lg text-[0.9375rem] font-semibold font-body cursor-pointer",
                   "transition-[transform,box-shadow] duration-200",
                   "hover:-translate-y-0.5 hover:shadow-[0_0.5rem_1.875rem_rgba(141,234,178,0.19)]",
                   isMobile

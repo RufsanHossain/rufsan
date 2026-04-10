@@ -9,10 +9,37 @@
   --color-text: #e4e4e7;
   --color-text-dim: #71717a;
   --color-border: #1a1a1a;
+  --color-fg: #fafafa;
+  --color-code-bg: #0a0a0a;
+  --color-nav-bg: rgba(5, 5, 5, 0.7);
+  --color-overlay-active: rgba(255, 255, 255, 0.06);
+  --color-overlay-subtle: rgba(255, 255, 255, 0.03);
+  --color-overlay-border: rgba(255, 255, 255, 0.08);
+  --color-overlay-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-on-accent: #050505;
 
   --font-display: 'Syne', sans-serif;
   --font-body: 'DM Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ── Light Mode Overrides ────────────────────────────────────── */
+
+[data-theme="light"] {
+  --color-bg: #fafafa;
+  --color-surface: rgba(0, 0, 0, 0.03);
+  --color-accent: #0f6b3a;
+  --color-text: #1a1a1a;
+  --color-text-dim: #52525b;
+  --color-border: #e5e5e5;
+  --color-fg: #111111;
+  --color-code-bg: #f4f4f5;
+  --color-nav-bg: rgba(255, 255, 255, 0.7);
+  --color-overlay-active: rgba(0, 0, 0, 0.06);
+  --color-overlay-subtle: rgba(0, 0, 0, 0.03);
+  --color-overlay-border: rgba(0, 0, 0, 0.08);
+  --color-overlay-border-subtle: rgba(0, 0, 0, 0.06);
+  --color-on-accent: #ffffff;
 }
 
 /* ── Base Reset ─────────────────────────────────────────────── */
@@ -27,7 +54,7 @@
 
   ::selection {
     background: color-mix(in srgb, var(--color-accent) 30%, transparent);
-    color: #fafafa;
+    color: var(--color-fg);
   }
 
   img,
@@ -137,6 +164,11 @@
 .sc-cs-metric-value { font-size: 2rem; }
 .sc-cs-chip { padding: 0.875rem 1.5rem; font-size: 0.875rem; }
 .sc-cs-related-card { padding: 2rem; }
+
+/* Timeline row border adapts to theme */
+[data-theme="light"] .sc-timeline-row {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
 
 @media (max-width: 1023px) {
   .sc-timeline-row { grid-template-columns: 8.75rem 1fr; gap: 1.5rem; }

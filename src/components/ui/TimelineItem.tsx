@@ -18,7 +18,7 @@ export function TimelineItem({ year, role, company, desc, index }: TimelineItemP
           {year}
         </span>
         <div>
-          <h4 className="font-display text-lg font-bold text-[#fafafa] m-0 mb-1">
+          <h4 className="font-display text-lg font-bold text-fg m-0 mb-1">
             {role}
           </h4>
           <span className="font-body text-sm text-accent block mb-[0.625rem]">

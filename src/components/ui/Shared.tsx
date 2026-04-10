@@ -30,7 +30,7 @@ export function SectionHeader({ number, title, desc }: SectionHeaderProps) {
         </div>
         <h2
           className={cn(
-            "font-display font-bold text-[#fafafa] tracking-[-0.03em] m-0",
+            "font-display font-bold text-fg tracking-[-0.03em] m-0",
             isMobile
               ? "text-[clamp(1.625rem,7vw,2.25rem)]"
               : "text-[clamp(2rem,4vw,3rem)]",
@@ -73,13 +73,13 @@ export function CounterStat({ value, label, trigger }: CounterStatProps) {
   return (
     <div
       className={cn(
-        "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-xl text-center",
+        "bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border rounded-xl text-center",
         isMobile ? "py-5 px-4" : "py-7 px-6",
       )}
     >
       <div
         className={cn(
-          "font-display font-bold text-[#fafafa]",
+          "font-display font-bold text-fg",
           isMobile ? "text-2xl" : "text-[2rem]",
         )}
       >
@@ -107,8 +107,8 @@ interface BrowserFrameProps {
 
 export function BrowserFrame({ title, color = "#1a1a2e", children }: BrowserFrameProps) {
   return (
-    <div className="rounded-2xl overflow-hidden border border-white/[0.08] shadow-[0_1.5rem_5rem_rgba(0,0,0,0.4)]">
-      <div className="h-9 bg-[#111] flex items-center px-3.5 gap-2 border-b border-white/[0.06]">
+    <div className="rounded-2xl overflow-hidden border border-overlay-border shadow-[0_1.5rem_5rem_rgba(0,0,0,0.4)]">
+      <div className="h-9 bg-code-bg flex items-center px-3.5 gap-2 border-b border-overlay-border-subtle">
         <div className="flex gap-1.5">
           <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
           <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
@@ -180,7 +180,7 @@ export function ProjectMockup({ project, carousel = true }: ProjectMockupProps) 
         </div>
         <div className="flex gap-1.5">
           <div className="h-7 w-20 rounded-[0.375rem]" style={{ background: `${ACCENT}25` }} />
-          <div className="h-7 w-[3.75rem] rounded-[0.375rem] bg-white/[0.06]" />
+          <div className="h-7 w-[3.75rem] rounded-[0.375rem] bg-overlay-active" />
         </div>
         <div className="mt-4 flex flex-col gap-1">
           {[70, 50, 85, 40].map((w, i) => (
@@ -223,7 +223,7 @@ function ImageMockup({ images, url, color }: { images: string[]; url: string; co
           <button
             onClick={() => { setIdx((i) => (i - 1 + images.length) % images.length); }}
             aria-label="Previous screenshot"
-            className="w-8 h-8 rounded-full bg-white/[0.06] border border-white/10 text-text-dim text-sm cursor-pointer flex items-center justify-center"
+            className="w-8 h-8 rounded-full bg-overlay-active border border-overlay-border text-text-dim text-sm cursor-pointer flex items-center justify-center"
           >
             &lsaquo;
           </button>
@@ -245,7 +245,7 @@ function ImageMockup({ images, url, color }: { images: string[]; url: string; co
           <button
             onClick={() => { setIdx((i) => (i + 1) % images.length); }}
             aria-label="Next screenshot"
-            className="w-8 h-8 rounded-full bg-white/[0.06] border border-white/10 text-text-dim text-sm cursor-pointer flex items-center justify-center"
+            className="w-8 h-8 rounded-full bg-overlay-active border border-overlay-border text-text-dim text-sm cursor-pointer flex items-center justify-center"
           >
             &rsaquo;
           </button>

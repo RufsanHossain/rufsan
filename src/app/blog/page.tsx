@@ -13,7 +13,7 @@ export default function BlogIndexPage() {
         <FadeIn>
           <div className="max-w-[45rem] pt-4">
             <h1 className="font-display font-[800] tracking-[-0.04em] mb-5">
-              <span className="sc-blog-title block leading-[1.08] text-[#fafafa]">
+              <span className="sc-blog-title block leading-[1.08] text-fg">
                 Writing
               </span>
               <span className="sc-blog-subtitle block leading-[1.12] text-text-dim mt-1">

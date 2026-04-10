@@ -140,7 +140,7 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
         role="dialog"
         aria-label="Command palette"
         className={cn(
-          "relative z-1 overflow-hidden bg-[rgba(10,10,10,0.95)] backdrop-blur-[20px] border border-white/[0.07]",
+          "relative z-1 overflow-hidden bg-code-bg/95 backdrop-blur-[20px] border border-overlay-border",
           isMobile
             ? "w-full max-h-[80vh] rounded-t-[1rem] rounded-b-none"
             : "w-[35rem] max-h-[26.25rem] rounded-[1rem]",
@@ -148,7 +148,7 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
         style={{ boxShadow: "0 1.5rem 5rem rgba(0,0,0,0.6), 0 0 3.75rem rgba(141,234,178,0.02)" }}
       >
         <div className={cn(
-          "flex items-center gap-3 border-b border-white/[0.06]",
+          "flex items-center gap-3 border-b border-overlay-border-subtle",
           isMobile ? "py-3.5 px-4" : "py-4 px-5",
         )}>
           <SearchIcon />
@@ -165,11 +165,11 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
             aria-controls="cmd-palette-list"
             aria-autocomplete="list"
             className={cn(
-              "flex-1 bg-transparent border-none outline-none text-[#fafafa] font-body",
+              "flex-1 bg-transparent border-none outline-none text-fg font-body",
               isMobile ? "text-base" : "text-[0.9375rem]",
             )}
           />
-          <kbd className="py-0.5 px-2 bg-white/[0.06] rounded text-[0.6875rem] font-mono text-text-dim">
+          <kbd className="py-0.5 px-2 bg-overlay-active rounded text-[0.6875rem] font-mono text-text-dim">
             ESC
           </kbd>
         </div>
@@ -195,7 +195,7 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
                 "w-full flex items-center justify-between border-none rounded-lg text-sm font-body cursor-pointer text-left transition-[background] duration-100 outline-none",
                 isMobile ? "py-3.5 px-4" : "py-3 px-4",
                 i === activeIndex
-                  ? "bg-white/[0.06] text-[#fafafa]"
+                  ? "bg-overlay-active text-fg"
                   : "bg-transparent text-text",
               )}
             >

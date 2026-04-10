@@ -60,7 +60,7 @@ export default function NotFound() {
         </Link>
 
         {/* Quick links card */}
-        <div className="bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] mt-12 rounded-2xl px-8 py-6">
+        <div className="bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border mt-12 rounded-2xl px-8 py-6">
           <p className="font-mono text-[0.6875rem] text-text-dim tracking-[0.1em] uppercase mb-4">
             Quick links
           </p>

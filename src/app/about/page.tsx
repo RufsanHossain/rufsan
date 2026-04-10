@@ -69,9 +69,9 @@ export default function AboutPage() {
               desc: "AI, ML, and the stack evolve daily. I stay current so my clients stay ahead.",
             },
           ].map((v, i) => (
-            <div key={i} className="sc-value-card bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl">
+            <div key={i} className="sc-value-card bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border rounded-2xl">
               <div className="w-2 h-2 rounded-full bg-accent mb-5 shadow-[0_0_0.5rem_rgba(141,234,178,0.25)]" />
-              <h3 className="font-display text-xl font-bold text-[#fafafa] mb-3">
+              <h3 className="font-display text-xl font-bold text-fg mb-3">
                 {v.title}
               </h3>
               <p className="font-body text-sm leading-[1.7] text-text-dim">

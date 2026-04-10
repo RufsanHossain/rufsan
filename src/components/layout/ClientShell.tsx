@@ -7,9 +7,11 @@ import { Footer } from "@/components/layout/Footer";
 import { CmdPalette, CursorGlow } from "@/components/layout/CmdPalette";
 import { RouteProgress } from "@/components/layout/RouteProgress";
 import { trackEvent } from "@/lib/analytics";
+import { useTheme } from "@/hooks/useTheme";
 
 export function ClientShell({ children }: { children: React.ReactNode }) {
   const [cmdOpen, setCmdOpen] = useState(false);
+  const { theme, toggle: toggleTheme } = useTheme();
   const pathname = usePathname();
   const mainRef = useRef<HTMLDivElement>(null);
   const isFirstRender = useRef(true);
@@ -53,7 +55,11 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-bg relative overflow-x-hidden">
       <RouteProgress />
       <CursorGlow />
-      <Nav onCmdK={() => { trackEvent("cmd_palette_open"); setCmdOpen(true); }} />
+      <Nav
+        onCmdK={() => { trackEvent("cmd_palette_open"); setCmdOpen(true); }}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      />
       <CmdPalette open={cmdOpen} onClose={() => { setCmdOpen(false); }} />
       <main
         ref={mainRef}

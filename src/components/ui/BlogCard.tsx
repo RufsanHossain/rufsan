@@ -18,7 +18,7 @@ export function BlogCard({ post: p, index }: BlogCardProps) {
         className="no-underline group"
       >
         <div
-          className="sc-blog-card-grid bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:border-accent/[0.15] hover:shadow-[0_0.5rem_2.5rem_rgba(141,234,178,0.024)]"
+          className="sc-blog-card-grid bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:border-accent/[0.15] hover:shadow-[0_0.5rem_2.5rem_rgba(141,234,178,0.024)]"
         >
           {/* Text side */}
           <div className="sc-blog-card-text flex flex-col justify-center">
@@ -33,7 +33,7 @@ export function BlogCard({ post: p, index }: BlogCardProps) {
               <span className="font-mono text-xs text-text-dim">{p.readTime}</span>
             </div>
             <h2
-              className="sc-blog-card-title font-display font-bold text-[#fafafa] m-0 mb-3 leading-[1.25] tracking-[-0.02em]"
+              className="sc-blog-card-title font-display font-bold text-fg m-0 mb-3 leading-[1.25] tracking-[-0.02em]"
             >
               {p.title}
             </h2>

@@ -25,7 +25,7 @@ export default function BlogError({
             fontFamily: "var(--font-syne), sans-serif",
             fontSize: "1.75rem",
             fontWeight: 700,
-            color: "#fafafa",
+            color: "var(--color-fg)",
             margin: "0 0 0.75rem",
           }}
         >
@@ -47,7 +47,7 @@ export default function BlogError({
             onClick={reset}
             style={{
               background: "#8deab2",
-              color: "#050505",
+              color: "var(--color-on-accent)",
               border: "none",
               padding: "0.75rem 1.5rem",
               borderRadius: "0.5rem",
@@ -62,9 +62,9 @@ export default function BlogError({
           <Link
             href="/blog"
             style={{
-              background: "rgba(255,255,255,0.06)",
-              color: "#fafafa",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: "var(--color-overlay-active)",
+              color: "var(--color-fg)",
+              border: "1px solid var(--color-overlay-border)",
               padding: "0.75rem 1.5rem",
               borderRadius: "0.5rem",
               fontSize: "0.875rem",

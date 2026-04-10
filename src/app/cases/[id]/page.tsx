@@ -56,7 +56,7 @@ export default async function CaseStudyPage({
                 >
                   {p.outcome}
                 </span>
-                <span className="py-[0.3125rem] px-[0.875rem] bg-white/[0.04] border border-white/[0.08] rounded-lg text-[0.8125rem] font-mono text-text-dim">
+                <span className="py-[0.3125rem] px-[0.875rem] bg-overlay-subtle border border-overlay-border rounded-lg text-[0.8125rem] font-mono text-text-dim">
                   {p.vertical}
                 </span>
                 {p.liveUrl && (
@@ -76,7 +76,7 @@ export default async function CaseStudyPage({
               </div>
 
               <h1 className="font-display font-[800] tracking-[-0.04em] m-0">
-                <span className="sc-cs-heading block leading-[1.1] text-[#fafafa]">
+                <span className="sc-cs-heading block leading-[1.1] text-fg">
                   {p.title}
                 </span>
               </h1>
@@ -102,7 +102,7 @@ export default async function CaseStudyPage({
         >
           {p.metrics.map((m, i) => (
             <FadeIn key={m.l} delay={i * 0.1}>
-              <div className="sc-case-card-sm bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] text-center">
+              <div className="sc-case-card-sm bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border text-center">
                 <div className="sc-cs-metric-value font-display font-bold text-accent">
                   {m.v}
                 </div>
@@ -120,10 +120,10 @@ export default async function CaseStudyPage({
         <FadeIn>
           <div className="sc-case-cs-grid">
             {/* Challenge */}
-            <div className="sc-case-card bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07]">
+            <div className="sc-case-card bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border">
               <div className="flex items-center gap-[0.625rem] mb-5">
                 <div className="w-2 h-2 rounded-full bg-[#ef4444]" />
-                <h3 className="sc-cs-subheading font-display font-bold text-[#fafafa] m-0">
+                <h3 className="sc-cs-subheading font-display font-bold text-fg m-0">
                   The Challenge
                 </h3>
               </div>
@@ -134,7 +134,7 @@ export default async function CaseStudyPage({
 
             {/* Solution */}
             <div
-              className="sc-case-card bg-white/[0.03] backdrop-blur-[20px]"
+              className="sc-case-card bg-overlay-subtle backdrop-blur-[20px]"
               style={{ border: `1px solid ${ACCENT}15` }}
             >
               <div className="flex items-center gap-[0.625rem] mb-5">
@@ -142,7 +142,7 @@ export default async function CaseStudyPage({
                   className="w-2 h-2 rounded-full bg-accent"
                   style={{ boxShadow: `0 0 0.5rem ${ACCENT}60` }}
                 />
-                <h3 className="sc-cs-subheading font-display font-bold text-[#fafafa] m-0">
+                <h3 className="sc-cs-subheading font-display font-bold text-fg m-0">
                   The Solution
                 </h3>
               </div>
@@ -175,7 +175,7 @@ export default async function CaseStudyPage({
         <FadeIn>
           <div className="flex gap-[0.625rem] flex-wrap">
             {p.stack.map((s) => (
-              <div key={s} className="sc-cs-chip bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-xl font-mono text-text font-medium">
+              <div key={s} className="sc-cs-chip bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border rounded-xl font-mono text-text font-medium">
                 {s}
               </div>
             ))}
@@ -188,7 +188,7 @@ export default async function CaseStudyPage({
         <SectionHeader number="// Results" title="Impact" />
         <FadeIn>
           <div
-            className="sc-case-card bg-white/[0.03] backdrop-blur-[20px]"
+            className="sc-case-card bg-overlay-subtle backdrop-blur-[20px]"
             style={{ border: `1px solid ${ACCENT}15` }}
           >
             <p className="sc-cs-overview font-body leading-[1.8] text-text m-0">
@@ -205,7 +205,7 @@ export default async function CaseStudyPage({
           <Stagger columns={2} mobileColumns={1}>
             {related.map((rc) => (
               <Link key={rc.id} href={`/cases/${rc.slug}`} className="no-underline">
-                <div className="sc-cs-related-card bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl transition-all duration-300">
+                <div className="sc-cs-related-card bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border rounded-2xl transition-all duration-300">
                   <span
                     className="py-1 px-3 rounded-[0.375rem] text-xs font-mono text-accent font-semibold"
                     style={{
@@ -215,7 +215,7 @@ export default async function CaseStudyPage({
                   >
                     {rc.outcome}
                   </span>
-                  <h4 className="font-display text-xl font-bold text-[#fafafa] mt-4 mb-2">
+                  <h4 className="font-display text-xl font-bold text-fg mt-4 mb-2">
                     {rc.title}
                   </h4>
                   <p className="font-body text-sm leading-[1.7] text-text-dim m-0">

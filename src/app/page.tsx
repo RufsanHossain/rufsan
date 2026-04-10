@@ -95,7 +95,7 @@ export default function HomePage() {
                 <div
                   className={cn(
                     "flex flex-col rounded-2xl cursor-pointer transition-all duration-300",
-                    "bg-surface backdrop-blur-[20px] border border-white/[0.07]",
+                    "bg-surface backdrop-blur-[20px] border border-overlay-border",
                     "hover:bg-white/[0.05] hover:border-accent/30 hover:-translate-y-1 hover:shadow-[0_0.5rem_2.5rem_rgba(141,234,178,0.03)]",
                     isMobile ? "p-[1.75rem_1.25rem] min-h-0" : "p-[2.25rem_1.75rem] min-h-[21.25rem]"
                   )}
@@ -110,7 +110,7 @@ export default function HomePage() {
                   </div>
                   <h3
                     className={cn(
-                      "font-display font-bold text-[#fafafa] mb-3",
+                      "font-display font-bold text-fg mb-3",
                       isMobile ? "text-xl" : "text-[1.375rem]"
                     )}
                   >
@@ -162,7 +162,7 @@ export default function HomePage() {
                 <div
                   className={cn(
                     "grid rounded-2xl overflow-hidden cursor-pointer transition-all duration-300",
-                    "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07]",
+                    "bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border",
                     "hover:border-accent/[0.15] hover:shadow-[0_0.5rem_2.5rem_rgba(141,234,178,0.02)]",
                     isMobile ? "grid-cols-1" : "grid-cols-[1fr_1.1fr]"
                   )}
@@ -188,7 +188,7 @@ export default function HomePage() {
                     </span>
                     <h3
                       className={cn(
-                        "font-display font-bold text-[#fafafa] mb-2",
+                        "font-display font-bold text-fg mb-2",
                         isMobile ? "text-xl" : "text-[1.375rem]"
                       )}
                     >
@@ -201,7 +201,7 @@ export default function HomePage() {
                       {p.stack.slice(0, isMobile ? 3 : 4).map((s) => (
                         <span
                           key={s}
-                          className="py-1 px-2.5 bg-white/[0.04] border border-white/[0.06] rounded-md text-[0.6875rem] font-mono text-text-dim"
+                          className="py-1 px-2.5 bg-overlay-subtle border border-overlay-border-subtle rounded-md text-[0.6875rem] font-mono text-text-dim"
                         >
                           {s}
                         </span>
@@ -239,7 +239,7 @@ export default function HomePage() {
           <FadeIn>
             <div
               className={cn(
-                "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl border-l-[0.1875rem] border-l-accent h-full",
+                "bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border rounded-2xl border-l-[0.1875rem] border-l-accent h-full",
                 isMobile ? "p-[1.5rem_1.25rem]" : "p-[2rem_1.75rem]"
               )}
             >
@@ -253,7 +253,7 @@ export default function HomePage() {
                 </div>
                 <span className="font-mono text-xs text-accent font-semibold uppercase tracking-[0.05em]">Building</span>
               </div>
-              <h3 className={cn("font-display font-bold text-[#fafafa] mb-2", isMobile ? "text-[1.125rem]" : "text-xl")}>
+              <h3 className={cn("font-display font-bold text-fg mb-2", isMobile ? "text-[1.125rem]" : "text-xl")}>
                 <Link href="/cases/lucid-journal" className="text-inherit no-underline">Lucid</Link>
               </h3>
               <p className="font-body text-sm leading-[1.7] text-text-dim">
@@ -264,7 +264,7 @@ export default function HomePage() {
           <FadeIn delay={0.1}>
             <div
               className={cn(
-                "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl border-l-[0.1875rem] border-l-accent h-full",
+                "bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border rounded-2xl border-l-[0.1875rem] border-l-accent h-full",
                 isMobile ? "p-[1.5rem_1.25rem]" : "p-[2rem_1.75rem]"
               )}
             >
@@ -277,7 +277,7 @@ export default function HomePage() {
                 </div>
                 <span className="font-mono text-xs text-accent font-semibold uppercase tracking-[0.05em]">Building</span>
               </div>
-              <h3 className={cn("font-display font-bold text-[#fafafa] mb-2", isMobile ? "text-[1.125rem]" : "text-xl")}>
+              <h3 className={cn("font-display font-bold text-fg mb-2", isMobile ? "text-[1.125rem]" : "text-xl")}>
                 Rufsan Shares
               </h3>
               <p className="font-body text-sm leading-[1.7] text-text-dim">
@@ -288,7 +288,7 @@ export default function HomePage() {
           <FadeIn delay={0.2}>
             <div
               className={cn(
-                "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl border-l-[0.1875rem] border-l-accent h-full",
+                "bg-overlay-subtle backdrop-blur-[20px] border border-overlay-border rounded-2xl border-l-[0.1875rem] border-l-accent h-full",
                 isMobile ? "p-[1.5rem_1.25rem]" : "p-[2rem_1.75rem]"
               )}
             >
@@ -302,7 +302,7 @@ export default function HomePage() {
                 </div>
                 <span className="font-mono text-xs text-accent font-semibold uppercase tracking-[0.05em]">Building</span>
               </div>
-              <h3 className={cn("font-display font-bold text-[#fafafa] mb-2", isMobile ? "text-[1.125rem]" : "text-xl")}>
+              <h3 className={cn("font-display font-bold text-fg mb-2", isMobile ? "text-[1.125rem]" : "text-xl")}>
                 Audex
               </h3>
               <p className="font-body text-sm leading-[1.7] text-text-dim">
