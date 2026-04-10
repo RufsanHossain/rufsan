@@ -6,15 +6,21 @@ type Theme = "dark" | "light";
 
 const STORAGE_KEY = "theme";
 
-function getInitialTheme(): Theme {
-  if (typeof window === "undefined") return "dark";
+function getStoredTheme(): Theme {
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored === "dark" || stored === "light") return stored;
   return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
 }
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  // Always start with "dark" to match server render; the inline <script> in
+  // layout.tsx already sets the correct data-theme before paint, so there's
+  // no flash. We sync React state in useEffect below.
+  const [theme, setTheme] = useState<Theme>("dark");
+
+  useEffect(() => {
+    setTheme(getStoredTheme());
+  }, []);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
