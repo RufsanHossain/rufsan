@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { RESUME_URL } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import { CASES } from "@/lib/cases";
 import { BLOG_POSTS } from "@/lib/blog";
@@ -323,7 +322,6 @@ export default function HomePage() {
       <ResumeModal
         open={resumeOpen}
         onClose={() => { setResumeOpen(false); }}
-        resumeUrl={RESUME_URL}
       />
     </>
   );

@@ -14,10 +14,9 @@ export default function AboutPage() {
         h1={["Engineer.", "Founder.", "Builder."]}
         subtitle="I'm Rufsan — a senior full-stack developer and agency founder building intelligent SaaS products for the US market."
         btn1="View My Work →"
-        btn2="Download Resume"
+        btn2="Contact Me"
         action1={{ type: "navigate", href: "/dev" }}
-        action2={{ type: "download" }}
-        btn2Resume
+        action2={{ type: "navigate", href: "/contact" }}
       />
 
       {/* ── About Me ── */}

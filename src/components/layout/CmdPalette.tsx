@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { RESUME_URL } from "@/lib/constants";
 import { ROUTES } from "@/lib/navigation";
 import { CASES } from "@/lib/cases";
 import { BLOG_POSTS } from "@/lib/blog";
@@ -35,7 +34,6 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
 
   const items: PaletteItem[] = [
     ...ROUTES.map((r) => ({ label: r.label, type: "page", href: r.href })),
-    { label: "Download Resume", type: "action", href: RESUME_URL },
     ...CASES.map((c) => ({ label: c.title, type: "case study", href: `/cases/${c.slug}` })),
     ...BLOG_POSTS.map((b) => ({ label: b.title, type: "article", href: `/blog/${b.slug}` })),
   ];
@@ -66,16 +64,7 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
   const handleSelect = useCallback(
     (item: PaletteItem) => {
       onClose();
-      if (item.type === "action") {
-        const link = document.createElement("a");
-        link.href = item.href;
-        link.download = "Rufsan-Hossain-Santo-Resume.pdf";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        router.push(item.href);
-      }
+      router.push(item.href);
     },
     [onClose, router]
   );

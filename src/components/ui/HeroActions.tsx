@@ -2,12 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { RESUME_URL } from "@/lib/constants";
 
 type HeroAction =
   | { type: "scroll"; target: string }
-  | { type: "navigate"; href: string }
-  | { type: "download" };
+  | { type: "navigate"; href: string };
 
 interface HeroWithActionsProps {
   breadcrumb?: { label: string; href?: string }[];
@@ -30,15 +28,6 @@ function executeAction(action: HeroAction, router: ReturnType<typeof useRouter>)
     case "navigate":
       router.push(action.href);
       break;
-    case "download": {
-      const link = document.createElement("a");
-      link.href = RESUME_URL;
-      link.download = "Rufsan-Hossain-Santo-Resume.pdf";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      break;
-    }
   }
 }
 

@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
-import { trackEvent } from "@/lib/analytics";
+
 
 interface ResumeModalProps {
   open: boolean;
   onClose: () => void;
-  resumeUrl: string;
 }
 
 const EXPERIENCE = [
@@ -88,7 +87,7 @@ const APPROACH = [
   "Building in public",
 ];
 
-export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
+export function ResumeModal({ open, onClose }: ResumeModalProps) {
   const handleEsc = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -106,16 +105,6 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
       document.body.style.overflow = "";
     };
   }, [open, handleEsc]);
-
-  const handleDownload = () => {
-    trackEvent("resume_download");
-    const link = document.createElement("a");
-    link.href = resumeUrl;
-    link.download = "Rufsan-Hossain-Santo-Resume.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
 
   if (!open) return null;
 
@@ -145,16 +134,6 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
             <span className="ml-3 font-mono text-[0.6875rem] text-text-dim">resume.pdf</span>
           </div>
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={handleDownload}
-              className="flex items-center gap-1.5 py-1 px-3 bg-accent text-on-accent rounded-md text-xs font-semibold font-body cursor-pointer border-none"
-            >
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-                <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Download
-            </button>
             <button
               type="button"
               aria-label="Close"
