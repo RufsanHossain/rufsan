@@ -250,7 +250,7 @@ export default function HomePage() {
                 <span className="font-mono text-xs text-accent font-semibold uppercase tracking-[0.05em]">Building</span>
               </div>
               <h3 className={cn("font-display font-bold text-fg mb-2", isMobile ? "text-[1.125rem]" : "text-xl")}>
-                <Link href="/cases/lucid-journal" className="text-inherit no-underline">Lucid</Link>
+                <Link href="/cases/sorushi-journal" className="text-inherit no-underline">Sorushi</Link>
               </h3>
               <p className="font-body text-sm leading-[1.7] text-text-dim">
                 AI-powered journal that thinks back — challenge questions, pattern recognition, coaching prompts, and weekly synthesis reports. In public beta.

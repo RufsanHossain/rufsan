@@ -71,8 +71,8 @@ export const CASES: CaseStudy[] = [
     mockupColor: "#2e1a2e",
   },
   {
-    id: "case-3", slug: "lucid-journal", vertical: "AI / ML", verticalRoute: ["ai", "dev"],
-    title: "Lucid — AI-Powered Journal", outcome: "4 AI analysis lenses",
+    id: "case-3", slug: "sorushi-journal", vertical: "AI / ML", verticalRoute: ["ai", "dev"],
+    title: "Sorushi — AI-Powered Journal", outcome: "4 AI analysis lenses",
     overview: "A journal that thinks back. Rich-text journaling with mood tracking, quick capture, and four AI lenses — Challenge Mode, Pattern Recognition, Coaching Prompts, and Synthesis Reports — that turn daily writing into compounding self-awareness.",
     metrics: [{ v: "4", l: "AI Lenses" }, { v: "< 2s", l: "AI Response" }, { v: "PWA", l: "Mobile Ready" }, { v: "$8/mo", l: "Pro Tier" }],
     challenge: "Making AI analysis feel genuinely insightful rather than generic. Each lens needed to surface useful patterns from personal, unstructured writing — while the editor had to feel distraction-free yet powerful.",
@@ -84,7 +84,7 @@ export const CASES: CaseStudy[] = [
     ],
     stack: ["Next.js", "Anthropic Claude", "MongoDB", "Tailwind CSS", "PostHog", "TypeScript", "Vercel", "PWA"],
     results: "Public beta live with free and Pro ($8/mo) tiers. Four AI lenses deliver personalized weekly/monthly synthesis reports. Mobile-ready PWA with sub-2s AI responses.",
-    liveUrl: "https://lucid-one-taupe.vercel.app",
+    liveUrl: "https://sorushi.com",
     mockupColor: "#1a1a2e",
     images: [
       "/media/lucid.png",
