@@ -391,12 +391,14 @@ export default function ContactPage() {
                   onBlur={() => { setFocused(null); }}
                   className={cn(
                     inputClasses("type"),
-                    "appearance-none bg-no-repeat bg-[right_1rem_center] pr-10",
+                    "appearance-none pr-10",
                   )}
                   style={{
                     ...inputDynamicStyle("type"),
                     color: form.type ? "var(--color-fg)" : undefined,
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "right 1rem center",
                   }}
                 >
                   <option value="" className="bg-code-bg">Project type</option>
