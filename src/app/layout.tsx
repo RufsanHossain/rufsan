@@ -29,7 +29,7 @@ export const metadata = siteMetadata;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${jetbrainsMono.variable} ${syne.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${dmSans.variable} ${jetbrainsMono.variable} ${syne.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script
