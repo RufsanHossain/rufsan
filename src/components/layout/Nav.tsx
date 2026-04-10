@@ -113,7 +113,7 @@ export function Nav({ onCmdK, theme, onToggleTheme }: NavProps) {
             {!isMobile && (
               <Link
                 href="/contact"
-                className="bg-accent text-on-accent border-none py-2 px-5 rounded-md text-[0.8125rem] font-semibold font-body no-underline"
+                className="bg-accent text-accent-fg border-none py-2 px-5 rounded-md text-[0.8125rem] font-semibold font-body no-underline"
               >
                 Let&apos;s Talk
               </Link>
@@ -214,7 +214,7 @@ export function Nav({ onCmdK, theme, onToggleTheme }: NavProps) {
             <Link
               href="/contact"
               onClick={() => { setMenuOpen(false); }}
-              className="block bg-accent text-on-accent py-4 px-5 rounded-[0.625rem] text-[0.9375rem] font-semibold font-body no-underline text-center mt-3"
+              className="block bg-accent text-accent-fg py-4 px-5 rounded-[0.625rem] text-[0.9375rem] font-semibold font-body no-underline text-center mt-3"
             >
               Let&apos;s Talk
             </Link>

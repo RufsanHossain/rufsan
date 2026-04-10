@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "portfolio-dev",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["pnpm", "dev"],
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
       "port": 3000
     }
   ]

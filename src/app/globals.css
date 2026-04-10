@@ -16,7 +16,7 @@
   --color-overlay-subtle: rgba(255, 255, 255, 0.03);
   --color-overlay-border: rgba(255, 255, 255, 0.08);
   --color-overlay-border-subtle: rgba(255, 255, 255, 0.06);
-  --color-on-accent: #050505;
+  --color-accent-fg: #050505;
 
   --font-display: 'Syne', sans-serif;
   --font-body: 'DM Sans', sans-serif;
@@ -39,7 +39,7 @@
   --color-overlay-subtle: rgba(0, 0, 0, 0.03);
   --color-overlay-border: rgba(0, 0, 0, 0.08);
   --color-overlay-border-subtle: rgba(0, 0, 0, 0.06);
-  --color-on-accent: #ffffff;
+  --color-accent-fg: #ffffff;
 }
 
 /* ── Base Reset ─────────────────────────────────────────────── */

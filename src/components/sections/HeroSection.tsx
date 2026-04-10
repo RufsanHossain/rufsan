@@ -200,7 +200,7 @@ export function HeroSection({
               <button
                 onClick={on1}
                 className={cn(
-                  "bg-accent text-on-accent border-none rounded-lg text-[0.9375rem] font-semibold font-body cursor-pointer",
+                  "bg-accent text-accent-fg border-none rounded-lg text-[0.9375rem] font-semibold font-body cursor-pointer",
                   "transition-[transform,box-shadow] duration-200",
                   "hover:-translate-y-0.5 hover:shadow-[0_0.5rem_1.875rem_rgba(141,234,178,0.19)]",
                   isMobile

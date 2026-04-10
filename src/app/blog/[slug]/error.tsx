@@ -47,7 +47,7 @@ export default function BlogError({
             onClick={reset}
             style={{
               background: "#8deab2",
-              color: "var(--color-on-accent)",
+              color: "var(--color-accent-fg)",
               border: "none",
               padding: "0.75rem 1.5rem",
               borderRadius: "0.5rem",

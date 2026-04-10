@@ -120,7 +120,7 @@ export default function ContactPage() {
               <Link
                 href="/"
                 className={cn(
-                  "inline-block bg-accent text-on-accent rounded-lg text-[0.9375rem] font-semibold font-body no-underline",
+                  "inline-block bg-accent text-accent-fg rounded-lg text-[0.9375rem] font-semibold font-body no-underline",
                   isXs ? "py-3 px-6" : "py-[0.875rem] px-8",
                 )}
               >
@@ -458,7 +458,7 @@ export default function ContactPage() {
                 )}
                 style={{
                   background: loading ? `${ACCENT}80` : ACCENT,
-                  color: "var(--color-on-accent)",
+                  color: "var(--color-accent-fg)",
                 }}
               >
                 {loading ? "Sending..." : "Send Message →"}

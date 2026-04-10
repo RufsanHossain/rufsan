@@ -407,7 +407,7 @@ export function CTA({
             <Link
               href={href}
               className={cn(
-                "inline-block bg-accent text-on-accent border-none rounded-[0.625rem] text-[0.9375rem] font-semibold font-body no-underline transition-[transform,box-shadow] duration-200",
+                "inline-block bg-accent text-accent-fg border-none rounded-[0.625rem] text-[0.9375rem] font-semibold font-body no-underline transition-[transform,box-shadow] duration-200",
                 isMobile ? "py-3.5 px-8" : "py-4 px-10"
               )}
             >
