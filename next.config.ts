@@ -9,7 +9,7 @@ const csp = [
   "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
   "frame-src 'self'",
   "frame-ancestors 'self'",
-  "object-src 'none'",
+  "object-src 'self'",
   "base-uri 'self'",
   "form-action 'self'",
 ].join("; ");
