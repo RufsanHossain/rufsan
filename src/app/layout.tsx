@@ -2,7 +2,6 @@ import "@/app/globals.css";
 import { siteMetadata } from "@/lib/metadata";
 import { ClientShell } from "@/components/layout/ClientShell";
 import { Analytics } from "@vercel/analytics/next";
-import { BG, TEXT, BORDER, ACCENT } from "@/lib/constants";
 import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google";
 
 const dmSans = DM_Sans({
@@ -63,16 +62,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }),
           }}
         />
-        <style>{`
-          * { margin: 0; padding: 0; box-sizing: border-box; }
-          body { background: ${BG}; color: ${TEXT}; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-          @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-          ::-webkit-scrollbar { width: 0.375rem; }
-          ::-webkit-scrollbar-track { background: ${BG}; }
-          ::-webkit-scrollbar-thumb { background: ${BORDER}; border-radius: 0.1875rem; }
-          ::selection { background: ${ACCENT}30; color: #fafafa; }
-          img, video, svg { max-width: 100%; height: auto; }
-        `}</style>
       </head>
       <body>
         <ClientShell>

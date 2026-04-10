@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ACCENT, TEXT_DIM, SURFACE, GLASS, RESUME_URL, FONT_DISPLAY, FONT_BODY, FONT_MONO } from "@/lib/constants";
+import { RESUME_URL } from "@/lib/constants";
+import { cn } from "@/lib/cn";
 import { CASES } from "@/lib/cases";
 import { BLOG_POSTS } from "@/lib/blog";
 import { TESTIMONIALS } from "@/lib/testimonials";
@@ -19,8 +20,6 @@ import { VerticalIcon } from "@/components/ui/VerticalIcons";
 const FEATURED = [CASES[0], CASES[3], CASES[6]];
 
 export default function HomePage() {
-  const [vh, svh] = useState<string | null>(null);
-  const [ph, sph] = useState<number | null>(null);
   const [resumeOpen, setResumeOpen] = useState(false);
   const [statsRef, statsVis] = useInView();
   const bp = useBreakpoint();
@@ -46,20 +45,16 @@ export default function HomePage() {
       {/* ── Animated Stats ── */}
       <section
         ref={statsRef as React.RefObject<HTMLElement>}
-        style={{
-          padding: isMobile ? "1.25rem 1rem 3.5rem" : "1.25rem 2rem 5rem",
-          maxWidth: "75rem",
-          margin: "0 auto",
-        }}
+        className={cn(
+          "mx-auto max-w-[75rem]",
+          isMobile ? "px-4 pt-5 pb-14" : "px-8 pt-5 pb-20"
+        )}
       >
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile
-              ? "repeat(2, 1fr)"
-              : "repeat(4, 1fr)",
-            gap: "0.75rem",
-          }}
+          className={cn(
+            "grid gap-3",
+            isMobile ? "grid-cols-2" : "grid-cols-4"
+          )}
         >
           {HOME_STATS.map((s, i) => (
             <FadeIn key={s.l} delay={i * 0.1}>
@@ -71,13 +66,10 @@ export default function HomePage() {
 
       {/* ── What I Do ── */}
       <section
-        style={{
-          padding: isMobile
-            ? "2.5rem 1rem 3.5rem"
-            : "2.5rem 2rem 5rem",
-          maxWidth: "75rem",
-          margin: "0 auto",
-        }}
+        className={cn(
+          "mx-auto max-w-[75rem]",
+          isMobile ? "px-4 pt-10 pb-14" : "px-8 pt-10 pb-20"
+        )}
       >
         <SectionHeader
           number="// 01"
@@ -85,137 +77,59 @@ export default function HomePage() {
           desc="Three interconnected verticals — intelligent, data-driven software."
         />
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile
-              ? "1fr"
+          className={cn(
+            "grid gap-4",
+            isMobile
+              ? "grid-cols-1"
               : isTablet
-                ? "repeat(2, 1fr)"
-                : "repeat(3, 1fr)",
-            gap: "1rem",
-          }}
+                ? "grid-cols-2"
+                : "grid-cols-3"
+          )}
         >
           {HOME_VERTICALS.map((v, i) => (
             <FadeIn key={v.id} delay={i * 0.08}>
               <Link
                 href={v.route}
-                style={{ textDecoration: "none" }}
-                onMouseEnter={() => { svh(v.id); }}
-                onMouseLeave={() => { svh(null); }}
+                className="no-underline group"
               >
                 <div
-                  style={{
-                    padding: isMobile ? "1.75rem 1.25rem" : "2.25rem 1.75rem",
-                    background:
-                      vh === v.id
-                        ? "rgba(255,255,255,0.05)"
-                        : SURFACE,
-                    backdropFilter: "blur(20px)",
-                    border: `1px solid ${vh === v.id ? `${ACCENT}30` : "rgba(255,255,255,0.07)"}`,
-                    borderRadius: "1rem",
-                    cursor: "pointer",
-                    transition: "all 0.3s",
-                    display: "flex",
-                    flexDirection: "column",
-                    minHeight: isMobile ? "auto" : "21.25rem",
-                    boxShadow:
-                      vh === v.id ? `0 0.5rem 2.5rem ${ACCENT}08` : "none",
-                    transform:
-                      vh === v.id ? "translateY(-4px)" : "translateY(0)",
-                  }}
+                  className={cn(
+                    "flex flex-col rounded-2xl cursor-pointer transition-all duration-300",
+                    "bg-surface backdrop-blur-[20px] border border-white/[0.07]",
+                    "hover:bg-white/[0.05] hover:border-accent/30 hover:-translate-y-1 hover:shadow-[0_0.5rem_2.5rem_rgba(141,234,178,0.03)]",
+                    isMobile ? "p-[1.75rem_1.25rem] min-h-0" : "p-[2.25rem_1.75rem] min-h-[21.25rem]"
+                  )}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: "1.25rem",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "3rem",
-                        height: "3rem",
-                        borderRadius: "0.75rem",
-                        background: `${ACCENT}0a`,
-                        border: `1px solid ${ACCENT}18`,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "1.375rem",
-                      }}
-                    >
+                  <div className="flex justify-between mb-5">
+                    <div className="w-12 h-12 rounded-xl bg-accent/[0.04] border border-accent/[0.09] flex items-center justify-center text-[1.375rem]">
                       <VerticalIcon name={v.icon} size={22} />
                     </div>
-                    <span
-                      style={{
-                        fontFamily: FONT_MONO,
-                        fontSize: "0.75rem",
-                        color: `${ACCENT}60`,
-                      }}
-                    >
+                    <span className="font-mono text-xs text-accent/60">
                       {v.n}
                     </span>
                   </div>
                   <h3
-                    style={{
-                      fontFamily: FONT_DISPLAY,
-                      fontSize: isMobile ? "1.25rem" : "1.375rem",
-                      fontWeight: 700,
-                      color: "#fafafa",
-                      margin: "0 0 0.75rem",
-                    }}
+                    className={cn(
+                      "font-display font-bold text-[#fafafa] mb-3",
+                      isMobile ? "text-xl" : "text-[1.375rem]"
+                    )}
                   >
                     {v.title}
                   </h3>
-                  <p
-                    style={{
-                      fontFamily: FONT_BODY,
-                      fontSize: "0.875rem",
-                      lineHeight: 1.7,
-                      color: TEXT_DIM,
-                      margin: 0,
-                      flex: 1,
-                    }}
-                  >
+                  <p className="font-body text-sm leading-[1.7] text-text-dim flex-1">
                     {v.desc}
                   </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      gap: "0.375rem",
-                      marginTop: "1.5rem",
-                    }}
-                  >
+                  <div className="flex flex-wrap gap-[0.375rem] mt-6">
                     {v.tags.map((tag) => (
                       <span
                         key={tag}
-                        style={{
-                          padding: "0.25rem 0.625rem",
-                          background: `${ACCENT}08`,
-                          border: `1px solid ${ACCENT}15`,
-                          borderRadius: "0.375rem",
-                          fontSize: "0.6875rem",
-                          fontFamily: FONT_MONO,
-                          color: ACCENT,
-                        }}
+                        className="px-2.5 py-1 bg-accent/[0.03] border border-accent/[0.08] rounded-md text-[0.6875rem] font-mono text-accent"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <div
-                    style={{
-                      marginTop: "1.5rem",
-                      paddingTop: "1.25rem",
-                      borderTop: "1px solid rgba(255,255,255,0.05)",
-                      color: vh === v.id ? ACCENT : TEXT_DIM,
-                      fontSize: "0.8125rem",
-                      fontFamily: FONT_BODY,
-                      fontWeight: 500,
-                      transition: "color 0.3s",
-                    }}
-                  >
+                  <div className="mt-6 pt-5 border-t border-white/[0.05] text-text-dim group-hover:text-accent text-[0.8125rem] font-body font-medium transition-colors duration-300">
                     Explore →
                   </div>
                 </div>
@@ -228,139 +142,72 @@ export default function HomePage() {
       {/* ── Featured Work ── */}
       <section
         id="featured-work"
-        style={{
-          padding: isMobile ? "3rem 1rem" : "5rem 2rem",
-          maxWidth: "75rem",
-          margin: "0 auto",
-        }}
+        className={cn(
+          "mx-auto max-w-[75rem]",
+          isMobile ? "px-4 py-12" : "px-8 py-20"
+        )}
       >
         <SectionHeader
           number="// 02"
           title="Featured Work"
           desc="Selected projects — outcomes, not just code."
         />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-          }}
-        >
+        <div className="flex flex-col gap-4">
           {FEATURED.map((p, i) => (
             <FadeIn key={i} delay={i * 0.1}>
               <Link
                 href={`/cases/${p.slug}`}
-                style={{ textDecoration: "none" }}
-                onMouseEnter={() => { sph(i); }}
-                onMouseLeave={() => { sph(null); }}
+                className="no-underline group"
               >
                 <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: isMobile ? "1fr" : "1fr 1.1fr",
-                    ...GLASS,
-                    border: `1px solid ${ph === i ? `${ACCENT}25` : "rgba(255,255,255,0.07)"}`,
-                    borderRadius: "1rem",
-                    overflow: "hidden",
-                    cursor: "pointer",
-                    transition: "all 0.3s",
-                    boxShadow:
-                      ph === i ? `0 0.5rem 2.5rem ${ACCENT}06` : "none",
-                  }}
+                  className={cn(
+                    "grid rounded-2xl overflow-hidden cursor-pointer transition-all duration-300",
+                    "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07]",
+                    "hover:border-accent/[0.15] hover:shadow-[0_0.5rem_2.5rem_rgba(141,234,178,0.02)]",
+                    isMobile ? "grid-cols-1" : "grid-cols-[1fr_1.1fr]"
+                  )}
                 >
                   {/* Mockup panel */}
                   <div
-                    style={{
-                      padding: isMobile ? "1rem" : "1.25rem",
-                      order: isMobile ? 1 : undefined,
-                    }}
+                    className={cn(
+                      isMobile ? "p-4 order-1" : "p-5"
+                    )}
                   >
                     <ProjectMockup project={p} carousel={false} />
                   </div>
 
                   {/* Text panel */}
                   <div
-                    style={{
-                      padding: isMobile
-                        ? "1.25rem 1rem 1.5rem"
-                        : "2rem 1.75rem",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      order: isMobile ? 2 : undefined,
-                    }}
+                    className={cn(
+                      "flex flex-col justify-center",
+                      isMobile ? "px-4 pt-5 pb-6 order-2" : "p-[2rem_1.75rem]"
+                    )}
                   >
-                    <span
-                      style={{
-                        padding: "0.1875rem 0.625rem",
-                        background: `${ACCENT}10`,
-                        border: `1px solid ${ACCENT}18`,
-                        borderRadius: "0.375rem",
-                        fontSize: "0.6875rem",
-                        fontFamily: FONT_MONO,
-                        color: ACCENT,
-                        width: "fit-content",
-                        marginBottom: "0.75rem",
-                      }}
-                    >
+                    <span className="px-2.5 py-[0.1875rem] bg-accent/[0.06] border border-accent/[0.09] rounded-md text-[0.6875rem] font-mono text-accent w-fit mb-3">
                       {p.vertical}
                     </span>
                     <h3
-                      style={{
-                        fontFamily: FONT_DISPLAY,
-                        fontSize: isMobile ? "1.25rem" : "1.375rem",
-                        fontWeight: 700,
-                        color: "#fafafa",
-                        margin: "0 0 0.5rem",
-                      }}
+                      className={cn(
+                        "font-display font-bold text-[#fafafa] mb-2",
+                        isMobile ? "text-xl" : "text-[1.375rem]"
+                      )}
                     >
                       {p.title}
                     </h3>
-                    <p
-                      style={{
-                        fontFamily: FONT_BODY,
-                        fontSize: "0.875rem",
-                        lineHeight: 1.7,
-                        color: TEXT_DIM,
-                        margin: "0 0 1rem",
-                      }}
-                    >
+                    <p className="font-body text-sm leading-[1.7] text-text-dim mb-4">
                       {p.overview}
                     </p>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "0.375rem",
-                        flexWrap: "wrap",
-                      }}
-                    >
+                    <div className="flex gap-[0.375rem] flex-wrap">
                       {p.stack.slice(0, isMobile ? 3 : 4).map((s) => (
                         <span
                           key={s}
-                          style={{
-                            padding: "0.25rem 0.625rem",
-                            background: "rgba(255,255,255,0.04)",
-                            border: "1px solid rgba(255,255,255,0.06)",
-                            borderRadius: "0.375rem",
-                            fontSize: "0.6875rem",
-                            fontFamily: FONT_MONO,
-                            color: TEXT_DIM,
-                          }}
+                          className="py-1 px-2.5 bg-white/[0.04] border border-white/[0.06] rounded-md text-[0.6875rem] font-mono text-text-dim"
                         >
                           {s}
                         </span>
                       ))}
                     </div>
-                    <div
-                      style={{
-                        marginTop: "1rem",
-                        color: ph === i ? ACCENT : TEXT_DIM,
-                        fontSize: "0.8125rem",
-                        fontFamily: FONT_BODY,
-                        fontWeight: 500,
-                        transition: "color 0.3s",
-                      }}
-                    >
+                    <div className="mt-4 text-text-dim group-hover:text-accent text-[0.8125rem] font-body font-medium transition-colors duration-300">
                       View Case Study →
                     </div>
                   </div>
@@ -381,95 +228,84 @@ export default function HomePage() {
       <BlogSection posts={BLOG_POSTS} />
 
       {/* ── Currently ── */}
-      <section style={{ padding: isMobile ? "3rem 1rem" : "5rem 2rem", maxWidth: "75rem", margin: "0 auto" }}>
+      <section className={cn("mx-auto max-w-[75rem]", isMobile ? "px-4 py-12" : "px-8 py-20")}>
         <SectionHeader number="// Now" title="Currently" desc="What I'm building right now." />
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr",
-            gap: "1rem",
-            marginTop: "2rem",
-          }}
+          className={cn(
+            "grid gap-4 mt-8",
+            isMobile ? "grid-cols-1" : "grid-cols-3"
+          )}
         >
           <FadeIn>
             <div
-              style={{
-                padding: isMobile ? "1.5rem 1.25rem" : "2rem 1.75rem",
-                ...GLASS,
-                borderRadius: "1rem",
-                borderLeft: `0.1875rem solid ${ACCENT}`,
-                height: "100%",
-              }}
+              className={cn(
+                "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl border-l-[0.1875rem] border-l-accent h-full",
+                isMobile ? "p-[1.5rem_1.25rem]" : "p-[2rem_1.75rem]"
+              )}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1rem" }}>
-                <div style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem", background: `${ACCENT}12`, border: `0.0625rem solid ${ACCENT}20`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <div className="flex items-center gap-2.5 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-accent/[0.07] border border-accent/[0.12] flex items-center justify-center">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-accent" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z" />
                     <line x1="9" y1="21" x2="15" y2="21" />
                     <line x1="10" y1="24" x2="14" y2="24" />
                   </svg>
                 </div>
-                <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: ACCENT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Building</span>
+                <span className="font-mono text-xs text-accent font-semibold uppercase tracking-[0.05em]">Building</span>
               </div>
-              <h3 style={{ fontFamily: FONT_DISPLAY, fontSize: isMobile ? "1.125rem" : "1.25rem", fontWeight: 700, color: "#fafafa", marginBottom: "0.5rem" }}>
-                <Link href="/cases/lucid-journal" style={{ color: "inherit", textDecoration: "none" }}>Lucid</Link>
+              <h3 className={cn("font-display font-bold text-[#fafafa] mb-2", isMobile ? "text-[1.125rem]" : "text-xl")}>
+                <Link href="/cases/lucid-journal" className="text-inherit no-underline">Lucid</Link>
               </h3>
-              <p style={{ fontFamily: FONT_BODY, fontSize: "0.875rem", lineHeight: 1.7, color: TEXT_DIM, margin: 0 }}>
+              <p className="font-body text-sm leading-[1.7] text-text-dim">
                 AI-powered journal that thinks back — challenge questions, pattern recognition, coaching prompts, and weekly synthesis reports. In public beta.
               </p>
             </div>
           </FadeIn>
           <FadeIn delay={0.1}>
             <div
-              style={{
-                padding: isMobile ? "1.5rem 1.25rem" : "2rem 1.75rem",
-                ...GLASS,
-                borderRadius: "1rem",
-                borderLeft: `0.1875rem solid ${ACCENT}`,
-                height: "100%",
-              }}
+              className={cn(
+                "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl border-l-[0.1875rem] border-l-accent h-full",
+                isMobile ? "p-[1.5rem_1.25rem]" : "p-[2rem_1.75rem]"
+              )}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1rem" }}>
-                <div style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem", background: `${ACCENT}12`, border: `0.0625rem solid ${ACCENT}20`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <div className="flex items-center gap-2.5 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-accent/[0.07] border border-accent/[0.12] flex items-center justify-center">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-accent" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 20h9" />
                     <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
                   </svg>
                 </div>
-                <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: ACCENT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Building</span>
+                <span className="font-mono text-xs text-accent font-semibold uppercase tracking-[0.05em]">Building</span>
               </div>
-              <h3 style={{ fontFamily: FONT_DISPLAY, fontSize: isMobile ? "1.125rem" : "1.25rem", fontWeight: 700, color: "#fafafa", marginBottom: "0.5rem" }}>
+              <h3 className={cn("font-display font-bold text-[#fafafa] mb-2", isMobile ? "text-[1.125rem]" : "text-xl")}>
                 Rufsan Shares
               </h3>
-              <p style={{ fontFamily: FONT_BODY, fontSize: "0.875rem", lineHeight: 1.7, color: TEXT_DIM, margin: 0 }}>
+              <p className="font-body text-sm leading-[1.7] text-text-dim">
                 Multi-user blogging platform with role-based access, rich text editor, and newsletter integration. Built with Next.js 16, Better Auth, and Prisma 7.
               </p>
             </div>
           </FadeIn>
           <FadeIn delay={0.2}>
             <div
-              style={{
-                padding: isMobile ? "1.5rem 1.25rem" : "2rem 1.75rem",
-                ...GLASS,
-                borderRadius: "1rem",
-                borderLeft: `0.1875rem solid ${ACCENT}`,
-                height: "100%",
-              }}
+              className={cn(
+                "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl border-l-[0.1875rem] border-l-accent h-full",
+                isMobile ? "p-[1.5rem_1.25rem]" : "p-[2rem_1.75rem]"
+              )}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1rem" }}>
-                <div style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem", background: `${ACCENT}12`, border: `0.0625rem solid ${ACCENT}20`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <div className="flex items-center gap-2.5 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-accent/[0.07] border border-accent/[0.12] flex items-center justify-center">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-accent" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
                     <rect x="9" y="3" width="6" height="4" rx="1" />
                     <path d="m9 14 2 2 4-4" />
                   </svg>
                 </div>
-                <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: ACCENT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Building</span>
+                <span className="font-mono text-xs text-accent font-semibold uppercase tracking-[0.05em]">Building</span>
               </div>
-              <h3 style={{ fontFamily: FONT_DISPLAY, fontSize: isMobile ? "1.125rem" : "1.25rem", fontWeight: 700, color: "#fafafa", marginBottom: "0.5rem" }}>
+              <h3 className={cn("font-display font-bold text-[#fafafa] mb-2", isMobile ? "text-[1.125rem]" : "text-xl")}>
                 Audex
               </h3>
-              <p style={{ fontFamily: FONT_BODY, fontSize: "0.875rem", lineHeight: 1.7, color: TEXT_DIM, margin: 0 }}>
+              <p className="font-body text-sm leading-[1.7] text-text-dim">
                 AI-powered code quality analysis platform — TypeScript monorepo with background workers, real-time updates, and modular packages. Built with Turborepo and pnpm.
               </p>
             </div>

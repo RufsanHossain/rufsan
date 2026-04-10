@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { ACCENT, TEXT, TEXT_DIM, GLASS, FONT_BODY, FONT_MONO, RESUME_URL } from "@/lib/constants";
+import { RESUME_URL } from "@/lib/constants";
 import { ROUTES } from "@/lib/navigation";
 import { CASES } from "@/lib/cases";
 import { BLOG_POSTS } from "@/lib/blog";
 import { SearchIcon } from "@/components/ui/Icons";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { cn } from "@/lib/cn";
 
 // ─── COMMAND PALETTE ─────────────────────────────────────────
 
@@ -123,56 +124,33 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
 
   return (
     <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 200,
-        display: "flex",
-        alignItems: isMobile ? "flex-end" : "flex-start",
-        justifyContent: "center",
-        paddingTop: isMobile ? 0 : "10rem",
-      }}
+      className={cn(
+        "fixed inset-0 z-200 flex justify-center",
+        isMobile ? "items-end pt-0" : "items-start pt-40",
+      )}
     >
       {/* Backdrop */}
       <button
         type="button"
         aria-label="Close command palette"
         onClick={onClose}
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "rgba(0,0,0,0.7)",
-          backdropFilter: "blur(8px)",
-          border: "none",
-          cursor: "default",
-          padding: 0,
-          width: "100%",
-        }}
+        className="absolute inset-0 bg-black/70 backdrop-blur-[8px] border-none cursor-default p-0 w-full"
       />
       <div
         role="dialog"
         aria-label="Command palette"
-        style={{
-          position: "relative",
-          zIndex: 1,
-          width: isMobile ? "100%" : "35rem",
-          maxHeight: isMobile ? "80vh" : "26.25rem",
-          ...GLASS,
-          background: "rgba(10,10,10,0.95)",
-          borderRadius: isMobile ? "1rem 1rem 0 0" : "1rem",
-          overflow: "hidden",
-          boxShadow: `0 1.5rem 5rem rgba(0,0,0,0.6), 0 0 3.75rem ${ACCENT}06`,
-        }}
+        className={cn(
+          "relative z-1 overflow-hidden bg-[rgba(10,10,10,0.95)] backdrop-blur-[20px] border border-white/[0.07]",
+          isMobile
+            ? "w-full max-h-[80vh] rounded-t-[1rem] rounded-b-none"
+            : "w-[35rem] max-h-[26.25rem] rounded-[1rem]",
+        )}
+        style={{ boxShadow: "0 1.5rem 5rem rgba(0,0,0,0.6), 0 0 3.75rem rgba(141,234,178,0.02)" }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.75rem",
-            padding: isMobile ? "0.875rem 1rem" : "1rem 1.25rem",
-            borderBottom: "0.0625rem solid rgba(255,255,255,0.06)",
-          }}
-        >
+        <div className={cn(
+          "flex items-center gap-3 border-b border-white/[0.06]",
+          isMobile ? "py-3.5 px-4" : "py-4 px-5",
+        )}>
           <SearchIcon />
           <input
             ref={inputRef}
@@ -186,26 +164,12 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
             aria-expanded
             aria-controls="cmd-palette-list"
             aria-autocomplete="list"
-            style={{
-              flex: 1,
-              background: "transparent",
-              border: "none",
-              outline: "none",
-              color: "#fafafa",
-              fontSize: isMobile ? "1rem" : "0.9375rem",
-              fontFamily: FONT_BODY,
-            }}
+            className={cn(
+              "flex-1 bg-transparent border-none outline-none text-[#fafafa] font-body",
+              isMobile ? "text-base" : "text-[0.9375rem]",
+            )}
           />
-          <kbd
-            style={{
-              padding: "0.125rem 0.5rem",
-              background: "rgba(255,255,255,0.06)",
-              borderRadius: "0.25rem",
-              fontSize: "0.6875rem",
-              fontFamily: FONT_MONO,
-              color: TEXT_DIM,
-            }}
-          >
+          <kbd className="py-0.5 px-2 bg-white/[0.06] rounded text-[0.6875rem] font-mono text-text-dim">
             ESC
           </kbd>
         </div>
@@ -213,11 +177,8 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
           ref={listRef}
           id="cmd-palette-list"
           role="listbox"
-          style={{
-            maxHeight: isMobile ? "calc(80vh - 3.25rem)" : "21.25rem",
-            overflowY: "auto",
-            padding: "0.5rem",
-          }}
+          className="overflow-y-auto p-2"
+          style={{ maxHeight: isMobile ? "calc(80vh - 3.25rem)" : "21.25rem" }}
         >
           {filtered.map((item, i) => (
             <button
@@ -230,39 +191,22 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
               aria-selected={i === activeIndex}
               onClick={() => { handleSelect(item); }}
               onMouseEnter={() => { setActiveIndex(i); }}
-              style={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: isMobile ? "0.875rem 1rem" : "0.75rem 1rem",
-                background: i === activeIndex ? "rgba(255,255,255,0.06)" : "transparent",
-                border: "none",
-                borderRadius: "0.5rem",
-                color: i === activeIndex ? "#fafafa" : TEXT,
-                fontSize: "0.875rem",
-                fontFamily: FONT_BODY,
-                cursor: "pointer",
-                textAlign: "left",
-                transition: "background 0.1s",
-                outline: "none",
-              }}
+              className={cn(
+                "w-full flex items-center justify-between border-none rounded-lg text-sm font-body cursor-pointer text-left transition-[background] duration-100 outline-none",
+                isMobile ? "py-3.5 px-4" : "py-3 px-4",
+                i === activeIndex
+                  ? "bg-white/[0.06] text-[#fafafa]"
+                  : "bg-transparent text-text",
+              )}
             >
               <span>{item.label}</span>
-              <span
-                style={{
-                  fontSize: "0.6875rem",
-                  color: TEXT_DIM,
-                  fontFamily: FONT_MONO,
-                  textTransform: "uppercase",
-                }}
-              >
+              <span className="text-[0.6875rem] text-text-dim font-mono uppercase">
                 {item.type}
               </span>
             </button>
           ))}
           {filtered.length === 0 && (
-            <div style={{ padding: "1.5rem", textAlign: "center", color: TEXT_DIM, fontSize: "0.875rem" }}>
+            <div className="py-6 text-center text-text-dim text-sm">
               No results found
             </div>
           )}
@@ -294,18 +238,10 @@ export function CursorGlow() {
   return (
     <div
       ref={glowRef}
+      className="fixed top-0 left-0 w-[25rem] h-[25rem] rounded-full pointer-events-none z-1 will-change-transform"
       style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "25rem",
-        height: "25rem",
-        borderRadius: "50%",
-        background: `radial-gradient(circle, ${ACCENT}06 0%, transparent 70%)`,
-        pointerEvents: "none",
-        zIndex: 1,
+        background: "radial-gradient(circle, rgba(141,234,178,0.024) 0%, transparent 70%)",
         transform: "translate(-200px, -200px)",
-        willChange: "transform",
       }}
     />
   );

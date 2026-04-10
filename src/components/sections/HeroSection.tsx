@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ACCENT, TEXT_DIM, GLASS, PHOTO_URL, FONT_DISPLAY, FONT_BODY, FONT_MONO } from "@/lib/constants";
+import { PHOTO_URL } from "@/lib/constants";
+import { cn } from "@/lib/cn";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { DownloadIcon } from "@/components/ui/Icons";
@@ -17,32 +18,18 @@ export function HeroPhoto() {
 
   return (
     <FadeIn delay={0.2} direction={isMobile ? "up" : "left"}>
-      <div style={{ position: "relative" }}>
+      <div className="relative">
         <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] rounded-full pointer-events-none"
           style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "110%",
-            height: "110%",
-            background: `radial-gradient(circle, ${ACCENT}08 0%, transparent 70%)`,
-            borderRadius: "50%",
-            pointerEvents: "none",
+            background: "radial-gradient(circle, rgba(141,234,178,0.03) 0%, transparent 70%)",
           }}
         />
         <div
-          style={{
-            width: "100%",
-            maxWidth: isMobile ? "17.5rem" : "26.25rem",
-            aspectRatio: "3/4",
-            borderRadius: "1.5rem",
-            overflow: "hidden",
-            border: "none",
-            position: "relative",
-            boxShadow: `0 1.5rem 5rem rgba(0,0,0,0.4)`,
-            margin: isMobile ? "0 auto" : undefined,
-          }}
+          className={cn(
+            "w-full aspect-[3/4] rounded-[1.5rem] overflow-hidden border-none relative shadow-[0_1.5rem_5rem_rgba(0,0,0,0.4)]",
+            isMobile ? "max-w-[17.5rem] mx-auto" : "max-w-[26.25rem]"
+          )}
         >
           <Image
             src={PHOTO_URL}
@@ -51,38 +38,14 @@ export function HeroPhoto() {
             sizes="(max-width: 640px) 17.5rem, 26.25rem"
             priority
             onLoad={() => { setLoaded(true); }}
-            style={{
-              objectFit: "cover",
-              opacity: loaded ? 1 : 0,
-              transition: "opacity 0.6s ease",
-            }}
+            className={cn(
+              "object-cover transition-opacity duration-[600ms] ease-in-out",
+              loaded ? "opacity-100" : "opacity-0"
+            )}
           />
           {!loaded && (
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "#111",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div
-                style={{
-                  width: "5rem",
-                  height: "5rem",
-                  borderRadius: "1.25rem",
-                  background: `${ACCENT}10`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontFamily: FONT_DISPLAY,
-                  fontSize: "1.75rem",
-                  fontWeight: 800,
-                  color: ACCENT,
-                }}
-              >
+            <div className="absolute inset-0 bg-[#111] flex items-center justify-center">
+              <div className="w-20 h-20 rounded-[1.25rem] bg-accent/[0.06] flex items-center justify-center font-display text-[1.75rem] font-extrabold text-accent">
                 R
               </div>
             </div>
@@ -131,62 +94,48 @@ export function HeroSection({
 
   return (
     <section
-      style={{
-        padding: isMobile ? "6.25rem 1rem 2.5rem" : "8.125rem 2rem 3.75rem",
-        maxWidth: "75rem",
-        margin: "0 auto",
-        position: "relative",
-      }}
+      className={cn(
+        "max-w-[75rem] mx-auto relative",
+        isMobile ? "pt-[6.25rem] px-4 pb-10" : "pt-[8.125rem] px-8 pb-[3.75rem]"
+      )}
     >
       <div
-        style={{
-          display: isMobile ? "flex" : "grid",
-          flexDirection: isMobile ? "column" : undefined,
-          gridTemplateColumns: isMobile ? undefined : isTablet ? "1fr 0.8fr" : "1.15fr 0.85fr",
-          gap: isMobile ? "2.5rem" : "3.5rem",
-          alignItems: "center",
-          minHeight: isMobile ? "auto" : "32.5rem",
-        }}
+        className={cn(
+          "items-center",
+          isMobile
+            ? "flex flex-col gap-10"
+            : "grid gap-[3.5rem] min-h-[32.5rem]"
+        )}
+        style={
+          !isMobile
+            ? { gridTemplateColumns: isTablet ? "1fr 0.8fr" : "1.15fr 0.85fr" }
+            : undefined
+        }
       >
         {/* Text content */}
         <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            order: isMobile ? 2 : 1,
-          }}
+          className={cn(
+            "flex flex-col justify-center",
+            isMobile ? "order-2" : "order-1"
+          )}
         >
           {breadcrumb && <Breadcrumb items={breadcrumb} />}
           {badge && (
             <FadeIn delay={0}>
               <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  padding: "0.375rem 1rem",
-                  ...GLASS,
-                  border: `0.0625rem solid ${ACCENT}20`,
-                  borderRadius: "6.25rem",
-                  marginBottom: isMobile ? "1.25rem" : "1.75rem",
-                  width: "fit-content",
-                }}
+                className={cn(
+                  "inline-flex items-center gap-2 py-[0.375rem] px-4",
+                  "bg-white/[0.03] backdrop-blur-[20px] border border-accent/[0.125]",
+                  "rounded-[6.25rem] w-fit",
+                  isMobile ? "mb-5" : "mb-7"
+                )}
               >
                 {badgeIcon === "pulse" ? (
-                  <div
-                    style={{
-                      width: "0.375rem",
-                      height: "0.375rem",
-                      borderRadius: "50%",
-                      background: ACCENT,
-                      animation: "pulse 2s infinite",
-                    }}
-                  />
+                  <div className="w-[0.375rem] h-[0.375rem] rounded-full bg-accent animate-[pulse_2s_infinite]" />
                 ) : (
-                  <span style={{ fontSize: "0.875rem" }}>{badgeIcon}</span>
+                  <span className="text-sm">{badgeIcon}</span>
                 )}
-                <span style={{ fontSize: "0.8125rem", color: ACCENT, fontFamily: FONT_MONO, fontWeight: 500 }}>
+                <span className="text-[0.8125rem] text-accent font-mono font-medium">
                   {badge}
                 </span>
               </div>
@@ -194,36 +143,34 @@ export function HeroSection({
           )}
 
           <FadeIn delay={0.1}>
-            <h1 style={{ fontFamily: FONT_DISPLAY, fontWeight: 800, letterSpacing: "-0.04em", margin: 0 }}>
+            <h1 className="font-display font-extrabold tracking-[-0.04em] m-0">
               <span
-                style={{
-                  display: "block",
-                  fontSize: isMobile ? "clamp(1.75rem, 8vw, 2.5rem)" : "clamp(2.25rem, 5vw, 3.5rem)",
-                  lineHeight: 1.08,
-                  color: "#fafafa",
-                }}
+                className={cn(
+                  "block leading-[1.08] text-[#fafafa]",
+                  isMobile
+                    ? "text-[clamp(1.75rem,8vw,2.5rem)]"
+                    : "text-[clamp(2.25rem,5vw,3.5rem)]"
+                )}
               >
                 {h1[0]}
               </span>
               <span
-                style={{
-                  display: "block",
-                  fontSize: isMobile ? "clamp(1.5rem, 7vw, 2.125rem)" : "clamp(1.875rem, 4vw, 2.875rem)",
-                  lineHeight: 1.1,
-                  color: "#fafafa",
-                  marginTop: "0.125rem",
-                }}
+                className={cn(
+                  "block leading-[1.1] text-[#fafafa] mt-[0.125rem]",
+                  isMobile
+                    ? "text-[clamp(1.5rem,7vw,2.125rem)]"
+                    : "text-[clamp(1.875rem,4vw,2.875rem)]"
+                )}
               >
                 {h1[1]}
               </span>
               <span
-                style={{
-                  display: "block",
-                  fontSize: isMobile ? "clamp(1.25rem, 6vw, 1.75rem)" : "clamp(1.5rem, 3.2vw, 2.375rem)",
-                  lineHeight: 1.12,
-                  color: TEXT_DIM,
-                  marginTop: "0.25rem",
-                }}
+                className={cn(
+                  "block leading-[1.12] text-text-dim mt-1",
+                  isMobile
+                    ? "text-[clamp(1.25rem,6vw,1.75rem)]"
+                    : "text-[clamp(1.5rem,3.2vw,2.375rem)]"
+                )}
               >
                 {h1[2]}
               </span>
@@ -232,15 +179,12 @@ export function HeroSection({
 
           <FadeIn delay={0.2}>
             <p
-              style={{
-                fontFamily: FONT_BODY,
-                fontSize: isMobile ? "0.9375rem" : "1.0625rem",
-                lineHeight: 1.7,
-                color: TEXT_DIM,
-                maxWidth: "31.25rem",
-                marginTop: isMobile ? "1.25rem" : "1.75rem",
-                marginBottom: isMobile ? "1.75rem" : "2.25rem",
-              }}
+              className={cn(
+                "font-body leading-[1.7] text-text-dim max-w-[31.25rem]",
+                isMobile
+                  ? "text-[0.9375rem] mt-5 mb-7"
+                  : "text-[1.0625rem] mt-7 mb-9"
+              )}
             >
               {subtitle}
             </p>
@@ -248,83 +192,40 @@ export function HeroSection({
 
           <FadeIn delay={0.3}>
             <div
-              style={{
-                display: "flex",
-                gap: isMobile ? "0.75rem" : "1rem",
-                flexDirection: isMobile ? "column" : "row",
-                flexWrap: "wrap",
-              }}
+              className={cn(
+                "flex flex-wrap",
+                isMobile ? "flex-col gap-3" : "flex-row gap-4"
+              )}
             >
               <button
                 onClick={on1}
-                style={{
-                  background: ACCENT,
-                  color: "#050505",
-                  border: "none",
-                  padding: isMobile ? "0.875rem 1.5rem" : "0.875rem 2rem",
-                  borderRadius: "0.5rem",
-                  fontSize: "0.9375rem",
-                  fontWeight: 600,
-                  fontFamily: FONT_BODY,
-                  cursor: "pointer",
-                  transition: "transform 0.2s, box-shadow 0.2s",
-                  boxShadow: `0 0 0 0 ${ACCENT}00`,
-                  width: isMobile ? "100%" : "auto",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-0.125rem)";
-                  e.currentTarget.style.boxShadow = `0 0.5rem 1.875rem ${ACCENT}30`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = `0 0 0 0 ${ACCENT}00`;
-                }}
+                className={cn(
+                  "bg-accent text-[#050505] border-none rounded-lg text-[0.9375rem] font-semibold font-body cursor-pointer",
+                  "transition-[transform,box-shadow] duration-200",
+                  "hover:-translate-y-0.5 hover:shadow-[0_0.5rem_1.875rem_rgba(141,234,178,0.19)]",
+                  isMobile
+                    ? "py-3.5 px-6 w-full"
+                    : "py-3.5 px-8 w-auto"
+                )}
               >
                 {btn1}
               </button>
               <button
                 onClick={on2}
-                style={{
-                  background: `${ACCENT}08`,
-                  color: ACCENT,
-                  border: `1.5px solid ${ACCENT}50`,
-                  padding: isMobile ? "0.875rem 1.5rem" : "0.875rem 2rem",
-                  borderRadius: "0.5rem",
-                  fontSize: "0.9375rem",
-                  fontWeight: 600,
-                  fontFamily: FONT_BODY,
-                  cursor: "pointer",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "0.5rem",
-                  transition: "all 0.25s ease",
-                  width: isMobile ? "100%" : "auto",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = `${ACCENT}15`;
-                  e.currentTarget.style.borderColor = ACCENT;
-                  e.currentTarget.style.boxShadow = `0 0 1.5rem ${ACCENT}20, inset 0 0 1rem ${ACCENT}06`;
-                  e.currentTarget.style.transform = "translateY(-0.125rem)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = `${ACCENT}08`;
-                  e.currentTarget.style.borderColor = `${ACCENT}50`;
-                  e.currentTarget.style.boxShadow = "none";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
+                className={cn(
+                  "bg-accent/[0.03] text-accent border-[1.5px] border-accent/[0.31] rounded-lg",
+                  "text-[0.9375rem] font-semibold font-body cursor-pointer",
+                  "inline-flex items-center justify-center gap-2",
+                  "transition-all duration-[250ms] ease-in-out relative overflow-hidden",
+                  "hover:bg-accent/[0.08] hover:border-accent hover:shadow-[0_0_1.5rem_rgba(141,234,178,0.125),inset_0_0_1rem_rgba(141,234,178,0.024)] hover:-translate-y-0.5",
+                  isMobile
+                    ? "py-3.5 px-6 w-full"
+                    : "py-3.5 px-8 w-auto"
+                )}
               >
                 {btn2}
                 {btn2Resume && (
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      animation: "heroDownloadBounce 2s ease-in-out infinite",
-                    }}
-                  >
+                  <span className="inline-flex items-center animate-[heroDownloadBounce_2s_ease-in-out_infinite]">
                     <DownloadIcon />
                   </span>
                 )}
@@ -334,7 +235,7 @@ export function HeroSection({
         </div>
 
         {/* Photo */}
-        <div style={{ order: isMobile ? 1 : 2 }}>
+        <div className={isMobile ? "order-1" : "order-2"}>
           <HeroPhoto />
         </div>
       </div>

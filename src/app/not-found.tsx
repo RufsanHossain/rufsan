@@ -1,15 +1,4 @@
 import Link from "next/link";
-import {
-  ACCENT,
-  BG,
-  TEXT,
-  TEXT_DIM,
-  BORDER,
-  GLASS,
-  FONT_DISPLAY,
-  FONT_BODY,
-  FONT_MONO,
-} from "@/lib/constants";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -23,81 +12,26 @@ const quickLinks = [
 
 export default function NotFound() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: BG,
-        padding: "2rem",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
+    <main className="min-h-screen flex items-center justify-center bg-bg p-8 relative overflow-hidden">
       {/* Ambient glow */}
       <div
-        style={{
-          position: "absolute",
-          top: "20%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "600px",
-          height: "600px",
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${ACCENT}08 0%, transparent 70%)`,
-          pointerEvents: "none",
-        }}
+        className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(141,234,178,0.03) 0%, transparent 70%)" }}
       />
 
-      <div
-        style={{
-          position: "relative",
-          maxWidth: "560px",
-          width: "100%",
-          textAlign: "center",
-        }}
-      >
+      <div className="relative max-w-[560px] w-full text-center">
         {/* 404 code */}
-        <p
-          style={{
-            fontFamily: FONT_MONO,
-            fontSize: "0.8125rem",
-            color: ACCENT,
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            marginBottom: "1.5rem",
-          }}
-        >
+        <p className="font-mono text-[0.8125rem] text-accent tracking-[0.15em] uppercase mb-6">
           404 &mdash; Page not found
         </p>
 
         {/* Heading */}
-        <h1
-          style={{
-            fontFamily: FONT_DISPLAY,
-            fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
-            fontWeight: 700,
-            color: TEXT,
-            lineHeight: 1.15,
-            margin: "0 0 1rem",
-          }}
-        >
-          Nothing here<span style={{ color: ACCENT }}>.</span>
+        <h1 className="font-display text-[clamp(2.25rem,5vw,3.5rem)] font-bold text-text leading-[1.15] mb-4">
+          Nothing here<span className="text-accent">.</span>
         </h1>
 
         {/* Subtitle */}
-        <p
-          style={{
-            fontFamily: FONT_BODY,
-            fontSize: "1.0625rem",
-            color: TEXT_DIM,
-            lineHeight: 1.6,
-            margin: "0 0 2.5rem",
-            maxWidth: "420px",
-            marginInline: "auto",
-          }}
-        >
+        <p className="font-body text-[1.0625rem] text-text-dim leading-[1.6] mb-10 max-w-[420px] mx-auto">
           The page you&rsquo;re looking for doesn&rsquo;t exist or has been
           moved. Let&rsquo;s get you back on track.
         </p>
@@ -105,27 +39,14 @@ export default function NotFound() {
         {/* Primary CTA */}
         <Link
           href="/"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontFamily: FONT_BODY,
-            fontSize: "0.9375rem",
-            fontWeight: 500,
-            color: BG,
-            background: ACCENT,
-            padding: "0.75rem 1.75rem",
-            borderRadius: "9999px",
-            textDecoration: "none",
-            transition: "opacity 0.2s",
-          }}
+          className="inline-flex items-center gap-2 font-body text-[0.9375rem] font-medium text-bg bg-accent px-7 py-3 rounded-full no-underline transition-opacity duration-200 hover:opacity-90"
         >
           <svg
             width="16"
             height="16"
             viewBox="0 0 16 16"
             fill="none"
-            style={{ flexShrink: 0 }}
+            className="shrink-0"
           >
             <path
               d="M10 12L6 8l4-4"
@@ -139,49 +60,17 @@ export default function NotFound() {
         </Link>
 
         {/* Quick links card */}
-        <div
-          style={{
-            ...GLASS,
-            marginTop: "3rem",
-            borderRadius: "1rem",
-            padding: "1.5rem 2rem",
-          }}
-        >
-          <p
-            style={{
-              fontFamily: FONT_MONO,
-              fontSize: "0.6875rem",
-              color: TEXT_DIM,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              marginBottom: "1rem",
-            }}
-          >
+        <div className="bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] mt-12 rounded-2xl px-8 py-6">
+          <p className="font-mono text-[0.6875rem] text-text-dim tracking-[0.1em] uppercase mb-4">
             Quick links
           </p>
 
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              gap: "0.5rem",
-            }}
-          >
+          <div className="flex flex-wrap justify-center gap-2">
             {quickLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                style={{
-                  fontFamily: FONT_BODY,
-                  fontSize: "0.8125rem",
-                  color: TEXT,
-                  textDecoration: "none",
-                  padding: "0.375rem 0.875rem",
-                  borderRadius: "9999px",
-                  border: `1px solid ${BORDER}`,
-                  transition: "border-color 0.2s, color 0.2s",
-                }}
+                className="font-body text-[0.8125rem] text-text no-underline py-[0.375rem] px-[0.875rem] rounded-full border border-border transition-colors duration-200 hover:border-accent hover:text-accent"
               >
                 {link.label}
               </Link>

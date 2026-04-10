@@ -1,4 +1,3 @@
-import { ACCENT, TEXT_DIM, GLASS, FONT_DISPLAY, FONT_BODY } from "@/lib/constants";
 import { TIMELINE } from "@/lib/verticals";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Stagger } from "@/components/ui/Stagger";
@@ -26,24 +25,24 @@ export default function AboutPage() {
         <SectionHeader number="// 01" title="About Me" />
         <FadeIn>
           <div className="sc-about-grid">
-            <div style={{ fontFamily: FONT_BODY, fontSize: "1rem", lineHeight: 1.8, color: TEXT_DIM }}>
-              <p style={{ margin: "0 0 1.25rem" }}>
+            <div className="font-body text-base leading-[1.8] text-text-dim">
+              <p className="mb-5">
                 I specialize in turning complex business ideas into production-ready software at the
-                intersection of <span style={{ color: ACCENT }}>AI/ML</span>,{" "}
-                <span style={{ color: ACCENT }}>full-stack development</span>, and{" "}
-                <span style={{ color: ACCENT }}>data science</span>.
+                intersection of <span className="text-accent">AI/ML</span>,{" "}
+                <span className="text-accent">full-stack development</span>, and{" "}
+                <span className="text-accent">data science</span>.
               </p>
-              <p style={{ margin: 0 }}>
+              <p>
                 Over 5+ years and 40+ projects, I&apos;ve built everything from multi-tenant SaaS
                 platforms generating $2M+ ARR to AI-powered QA tools that cut testing cycles by 60%.
               </p>
             </div>
-            <div style={{ fontFamily: FONT_BODY, fontSize: "1rem", lineHeight: 1.8, color: TEXT_DIM }}>
-              <p style={{ margin: "0 0 1.25rem" }}>
+            <div className="font-body text-base leading-[1.8] text-text-dim">
+              <p className="mb-5">
                 My approach is domain-first: model the business before writing code, work backwards
                 from the end goal, treat security and performance as non-negotiable.
               </p>
-              <p style={{ margin: 0 }}>
+              <p>
                 Based in Dhaka, working primarily with US-market clients building commercially viable
                 products.
               </p>
@@ -70,29 +69,12 @@ export default function AboutPage() {
               desc: "AI, ML, and the stack evolve daily. I stay current so my clients stay ahead.",
             },
           ].map((v, i) => (
-            <div key={i} className="sc-value-card" style={{ ...GLASS, borderRadius: "1rem" }}>
-              <div
-                style={{
-                  width: "0.5rem",
-                  height: "0.5rem",
-                  borderRadius: "50%",
-                  background: ACCENT,
-                  marginBottom: "1.25rem",
-                  boxShadow: `0 0 0.5rem ${ACCENT}40`,
-                }}
-              />
-              <h3
-                style={{
-                  fontFamily: FONT_DISPLAY,
-                  fontSize: "1.25rem",
-                  fontWeight: 700,
-                  color: "#fafafa",
-                  margin: "0 0 0.75rem",
-                }}
-              >
+            <div key={i} className="sc-value-card bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl">
+              <div className="w-2 h-2 rounded-full bg-accent mb-5 shadow-[0_0_0.5rem_rgba(141,234,178,0.25)]" />
+              <h3 className="font-display text-xl font-bold text-[#fafafa] mb-3">
                 {v.title}
               </h3>
-              <p style={{ fontFamily: FONT_BODY, fontSize: "0.875rem", lineHeight: 1.7, color: TEXT_DIM, margin: 0 }}>
+              <p className="font-body text-sm leading-[1.7] text-text-dim">
                 {v.desc}
               </p>
             </div>
@@ -103,7 +85,7 @@ export default function AboutPage() {
       {/* ── Experience / Timeline ── */}
       <section className="sc-about-section">
         <SectionHeader number="// 03" title="Experience" />
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div className="flex flex-col">
           {TIMELINE.map((t, i) => (
             <TimelineItem
               key={i}

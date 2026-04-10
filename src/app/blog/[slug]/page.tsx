@@ -3,15 +3,17 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { ACCENT, TEXT, TEXT_DIM, BORDER, GLASS, FONT_DISPLAY, FONT_BODY, FONT_MONO } from "@/lib/constants";
+import { ACCENT } from "@/lib/constants";
 import { getBlogBySlug, BLOG_POSTS, type BlogSection } from "@/lib/blog";
 import { getCaseBySlug } from "@/lib/cases";
+import { cn } from "@/lib/cn";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Stagger } from "@/components/ui/Stagger";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeader, BrowserFrame } from "@/components/ui/Shared";
 import { CTA } from "@/components/sections/Sections";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { trackEvent } from "@/lib/analytics";
 
 function BlogPostContent() {
   const { slug } = useParams<{ slug: string }>();
@@ -33,15 +35,13 @@ function BlogPostContent() {
     return () => { window.removeEventListener("scroll", handleScroll); };
   }, []);
 
+  useEffect(() => {
+    if (p) trackEvent("blog_read", { slug: p.slug, title: p.title });
+  }, [p]);
+
   if (!p)
     return (
-      <div
-        style={{
-          padding: "12.5rem 2rem",
-          textAlign: "center",
-          color: TEXT_DIM,
-        }}
-      >
+      <div className="py-[12.5rem] px-8 text-center text-text-dim">
         Post not found
       </div>
     );
@@ -55,15 +55,12 @@ function BlogPostContent() {
         return (
           <FadeIn key={i}>
             <h2
-              style={{
-                fontFamily: FONT_DISPLAY,
-                fontSize: isMobile ? "1.375rem" : "1.75rem",
-                fontWeight: 700,
-                color: "#fafafa",
-                letterSpacing: "-0.02em",
-                margin: isMobile ? "2.5rem 0 1rem" : "3rem 0 1.25rem",
-                lineHeight: 1.2,
-              }}
+              className={cn(
+                "font-display font-bold text-[#fafafa] tracking-[-0.02em] leading-[1.2]",
+                isMobile
+                  ? "text-[1.375rem] mt-10 mb-4"
+                  : "text-[1.75rem] mt-12 mb-5"
+              )}
             >
               {section.content}
             </h2>
@@ -73,13 +70,10 @@ function BlogPostContent() {
         return (
           <FadeIn key={i}>
             <p
-              style={{
-                fontFamily: FONT_BODY,
-                fontSize: isMobile ? "0.9375rem" : "1.0625rem",
-                lineHeight: 1.9,
-                color: TEXT,
-                margin: "0 0 1.25rem",
-              }}
+              className={cn(
+                "font-body leading-[1.9] text-text mb-5",
+                isMobile ? "text-[0.9375rem]" : "text-[1.0625rem]"
+              )}
             >
               {section.content}
             </p>
@@ -89,56 +83,30 @@ function BlogPostContent() {
         return (
           <FadeIn key={i}>
             <div
-              style={{
-                margin: isMobile ? "1.25rem 0" : "1.75rem 0",
-                borderRadius: "0.875rem",
-                overflow: "hidden",
-                border: `0.0625rem solid ${BORDER}`,
-              }}
+              className={cn(
+                "rounded-[0.875rem] overflow-hidden border border-border",
+                isMobile ? "my-5" : "my-7"
+              )}
             >
-              <div
-                style={{
-                  height: "2.25rem",
-                  background: "#111",
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "0 1rem",
-                  gap: "0.375rem",
-                  borderBottom: `0.0625rem solid ${BORDER}`,
-                }}
-              >
-                <div style={{ width: "0.5rem", height: "0.5rem", borderRadius: "50%", background: "#ff5f57" }} />
-                <div style={{ width: "0.5rem", height: "0.5rem", borderRadius: "50%", background: "#ffbd2e" }} />
-                <div style={{ width: "0.5rem", height: "0.5rem", borderRadius: "50%", background: "#28c840" }} />
-                <span
-                  style={{
-                    marginLeft: "0.75rem",
-                    fontFamily: FONT_MONO,
-                    fontSize: "0.6875rem",
-                    color: TEXT_DIM,
-                  }}
-                >
+              <div className="h-9 bg-[#111] flex items-center px-4 gap-[0.375rem] border-b border-border">
+                <div className="w-2 h-2 rounded-full bg-[#ff5f57]" />
+                <div className="w-2 h-2 rounded-full bg-[#ffbd2e]" />
+                <div className="w-2 h-2 rounded-full bg-[#28c840]" />
+                <span className="ml-3 font-mono text-[0.6875rem] text-text-dim">
                   code
                 </span>
               </div>
               <pre
-                style={{
-                  background: "#0a0a0a",
-                  padding: isMobile ? "1rem" : "1.5rem 1.25rem",
-                  margin: 0,
-                  overflowX: "auto",
-                  WebkitOverflowScrolling: "touch",
-                }}
+                className={cn(
+                  "bg-[#0a0a0a] m-0 overflow-x-auto [-webkit-overflow-scrolling:touch]",
+                  isMobile ? "p-4" : "py-6 px-5"
+                )}
               >
                 <code
-                  style={{
-                    fontFamily: FONT_MONO,
-                    fontSize: isMobile ? "0.75rem" : "0.8125rem",
-                    lineHeight: 1.7,
-                    color: TEXT,
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                  }}
+                  className={cn(
+                    "font-mono leading-[1.7] text-text whitespace-pre-wrap break-words",
+                    isMobile ? "text-xs" : "text-[0.8125rem]"
+                  )}
                 >
                   {section.content}
                 </code>
@@ -150,24 +118,21 @@ function BlogPostContent() {
         return (
           <FadeIn key={i}>
             <div
+              className={cn(
+                "rounded-[0.875rem]",
+                isMobile ? "my-6 py-5 px-4" : "my-9 py-7 px-8"
+              )}
               style={{
-                margin: isMobile ? "1.5rem 0" : "2.25rem 0",
-                padding: isMobile ? "1.25rem 1rem" : "1.75rem 2rem",
                 background: `${ACCENT}06`,
                 border: `0.0625rem solid ${ACCENT}20`,
-                borderRadius: "0.875rem",
                 borderLeft: `0.1875rem solid ${ACCENT}`,
               }}
             >
               <p
-                style={{
-                  fontFamily: FONT_BODY,
-                  fontSize: isMobile ? "0.875rem" : "1rem",
-                  lineHeight: 1.8,
-                  color: TEXT,
-                  margin: 0,
-                  fontWeight: 500,
-                }}
+                className={cn(
+                  "font-body leading-[1.8] text-text m-0 font-medium",
+                  isMobile ? "text-sm" : "text-base"
+                )}
               >
                 {section.content}
               </p>
@@ -181,24 +146,12 @@ function BlogPostContent() {
 
   return (
     <>
-      {/* Progress bar */}
-      <div
-        style={{
-          position: "fixed",
-          top: "4rem",
-          left: 0,
-          right: 0,
-          height: "0.125rem",
-          background: "rgba(255,255,255,0.03)",
-          zIndex: 99,
-        }}
-      >
+      {/* Progress bar — width is scroll-driven so stays inline */}
+      <div className="fixed top-16 left-0 right-0 h-0.5 bg-white/[0.03] z-[99]">
         <div
+          className="h-full bg-accent transition-[width] duration-100 ease-out"
           style={{
-            height: "100%",
             width: `${String(progress)}%`,
-            background: ACCENT,
-            transition: "width 0.1s ease-out",
             boxShadow: `0 0 0.5rem ${ACCENT}40`,
           }}
         />
@@ -207,103 +160,71 @@ function BlogPostContent() {
       <article ref={articleRef}>
         {/* ── Header ── */}
         <section
-          style={{
-            padding: isMobile ? "6.25rem 1rem 0" : "8.125rem 2rem 0",
-            maxWidth: "75rem",
-            margin: "0 auto",
-          }}
+          className={cn(
+            "max-w-[75rem] mx-auto",
+            isMobile ? "pt-[6.25rem] px-4" : "pt-[8.125rem] px-8"
+          )}
         >
           <Breadcrumb
             items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog" }, { label: p.title }]}
           />
           <FadeIn>
-            <div style={{ maxWidth: "47.5rem", margin: "0 auto", paddingTop: "1rem" }}>
+            <div className="max-w-[47.5rem] mx-auto pt-4">
               <div
-                style={{
-                  display: "flex",
-                  gap: isMobile ? "0.5rem" : "0.75rem",
-                  alignItems: "center",
-                  marginBottom: "1.5rem",
-                  flexWrap: "wrap",
-                }}
+                className={cn(
+                  "flex items-center mb-6 flex-wrap",
+                  isMobile ? "gap-2" : "gap-3"
+                )}
               >
                 <span
+                  className="py-1 px-3 rounded-[0.375rem] text-xs font-mono text-accent font-medium"
                   style={{
-                    padding: "0.25rem 0.75rem",
                     background: `${ACCENT}08`,
                     border: `0.0625rem solid ${ACCENT}15`,
-                    borderRadius: "0.375rem",
-                    fontSize: "0.75rem",
-                    fontFamily: FONT_MONO,
-                    color: ACCENT,
-                    fontWeight: 500,
                   }}
                 >
                   {p.tag}
                 </span>
-                <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: TEXT_DIM }}>{p.date}</span>
-                <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: TEXT_DIM }}>·</span>
-                <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: TEXT_DIM }}>
+                <span className="font-mono text-xs text-text-dim">{p.date}</span>
+                <span className="font-mono text-xs text-text-dim">&middot;</span>
+                <span className="font-mono text-xs text-text-dim">
                   {p.readTime} read
                 </span>
               </div>
               <h1
-                style={{
-                  fontFamily: FONT_DISPLAY,
-                  fontSize: isMobile ? "clamp(1.75rem, 8vw, 2.5rem)" : "clamp(2.25rem, 5vw, 3.25rem)",
-                  fontWeight: 800,
-                  color: "#fafafa",
-                  letterSpacing: "-0.04em",
-                  lineHeight: 1.12,
-                  margin: "0 0 1.5rem",
-                }}
+                className={cn(
+                  "font-display font-[800] text-[#fafafa] tracking-[-0.04em] leading-[1.12] mb-6",
+                  isMobile
+                    ? "text-[clamp(1.75rem,8vw,2.5rem)]"
+                    : "text-[clamp(2.25rem,5vw,3.25rem)]"
+                )}
               >
                 {p.title}
               </h1>
               <p
-                style={{
-                  fontFamily: FONT_BODY,
-                  fontSize: isMobile ? "1rem" : "1.25rem",
-                  lineHeight: 1.6,
-                  color: TEXT_DIM,
-                  margin: "0 0 2.5rem",
-                }}
+                className={cn(
+                  "font-body leading-[1.6] text-text-dim mb-10",
+                  isMobile ? "text-base" : "text-xl"
+                )}
               >
                 {p.excerpt}
               </p>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.875rem",
-                  paddingBottom: "2.5rem",
-                  borderBottom: `0.0625rem solid ${BORDER}`,
-                }}
-              >
+              <div className="flex items-center gap-[0.875rem] pb-10 border-b border-border">
                 <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center font-display text-base font-bold text-accent"
                   style={{
-                    width: "2.75rem",
-                    height: "2.75rem",
-                    borderRadius: "0.75rem",
                     background: `${ACCENT}12`,
                     border: `0.0625rem solid ${ACCENT}20`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontFamily: FONT_DISPLAY,
-                    fontSize: "1rem",
-                    fontWeight: 700,
-                    color: ACCENT,
                   }}
                 >
                   R
                 </div>
                 <div>
-                  <div style={{ fontFamily: FONT_BODY, fontSize: "0.9375rem", fontWeight: 600, color: "#fafafa" }}>
+                  <div className="font-body text-[0.9375rem] font-semibold text-[#fafafa]">
                     Rufsan
                   </div>
-                  <div style={{ fontFamily: FONT_BODY, fontSize: "0.8125rem", color: TEXT_DIM }}>
-                    Senior Full-Stack Developer & Agency Founder
+                  <div className="font-body text-[0.8125rem] text-text-dim">
+                    Senior Full-Stack Developer &amp; Agency Founder
                   </div>
                 </div>
               </div>
@@ -313,57 +234,33 @@ function BlogPostContent() {
 
         {/* ── Hero image ── */}
         <section
-          style={{
-            padding: isMobile ? "2rem 1rem" : "2.5rem 2rem",
-            maxWidth: "75rem",
-            margin: "0 auto",
-          }}
+          className={cn(
+            "max-w-[75rem] mx-auto",
+            isMobile ? "py-8 px-4" : "py-10 px-8"
+          )}
         >
           <FadeIn>
-            <div style={{ maxWidth: "47.5rem", margin: "0 auto" }}>
+            <div className="max-w-[47.5rem] mx-auto">
               <BrowserFrame title={`blog.rufsan.dev/${p.slug}`} color={p.heroImage}>
                 <div
-                  style={{
-                    padding: isMobile ? "2rem 1.25rem" : "2.5rem 2rem",
-                    minHeight: isMobile ? "10rem" : "15rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: "1rem",
-                  }}
+                  className={cn(
+                    "flex flex-col justify-center items-center gap-4",
+                    isMobile
+                      ? "py-8 px-5 min-h-40"
+                      : "py-10 px-8 min-h-60"
+                  )}
                 >
                   <div
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center text-[1.75rem]"
                     style={{
-                      width: "4rem",
-                      height: "4rem",
-                      borderRadius: "1rem",
                       background: `${ACCENT}12`,
                       border: `0.0625rem solid ${ACCENT}20`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "1.75rem",
                     }}
                   >
-                    {p.tag === "AI / ML" ? "🧠" : p.tag === "Engineering" ? "⚡" : "🗂"}
+                    {p.tag === "AI / ML" ? "\u{1F9E0}" : p.tag === "Engineering" ? "\u26A1" : "\u{1F5C2}"}
                   </div>
-                  <div
-                    style={{
-                      height: "0.375rem",
-                      width: "60%",
-                      background: "rgba(255,255,255,0.08)",
-                      borderRadius: "0.1875rem",
-                    }}
-                  />
-                  <div
-                    style={{
-                      height: "0.25rem",
-                      width: "40%",
-                      background: "rgba(255,255,255,0.05)",
-                      borderRadius: "0.125rem",
-                    }}
-                  />
+                  <div className="h-[0.375rem] w-[60%] bg-white/[0.08] rounded-[0.1875rem]" />
+                  <div className="h-1 w-[40%] bg-white/[0.05] rounded-sm" />
                 </div>
               </BrowserFrame>
             </div>
@@ -372,138 +269,83 @@ function BlogPostContent() {
 
         {/* ── Article body ── */}
         <section
-          style={{
-            padding: isMobile ? "1rem 1rem 2.5rem" : "1.25rem 2rem 3.75rem",
-            maxWidth: "75rem",
-            margin: "0 auto",
-          }}
+          className={cn(
+            "max-w-[75rem] mx-auto",
+            isMobile ? "pt-4 px-4 pb-10" : "pt-5 px-8 pb-[3.75rem]"
+          )}
         >
-          <div style={{ maxWidth: "47.5rem", margin: "0 auto" }}>
+          <div className="max-w-[47.5rem] mx-auto">
             {p.sections.map((s, i) => renderSection(s, i))}
           </div>
         </section>
 
         {/* ── Tags + Share ── */}
         <section
-          style={{
-            padding: isMobile ? "0 1rem 2.5rem" : "0 2rem 3.75rem",
-            maxWidth: "75rem",
-            margin: "0 auto",
-          }}
+          className={cn(
+            "max-w-[75rem] mx-auto",
+            isMobile ? "px-4 pb-10" : "px-8 pb-[3.75rem]"
+          )}
         >
           <FadeIn>
-            <div
-              style={{
-                maxWidth: "47.5rem",
-                margin: "0 auto",
-                paddingTop: "2.5rem",
-                borderTop: `0.0625rem solid ${BORDER}`,
-              }}
-            >
+            <div className="max-w-[47.5rem] mx-auto pt-10 border-t border-border">
               <div
-                style={{
-                  display: "flex",
-                  flexDirection: isMobile ? "column" : "row",
-                  justifyContent: "space-between",
-                  alignItems: isMobile ? "flex-start" : "center",
-                  gap: isMobile ? "1.25rem" : "0",
-                }}
+                className={cn(
+                  "flex justify-between",
+                  isMobile
+                    ? "flex-col items-start gap-5"
+                    : "flex-row items-center gap-0"
+                )}
               >
-                <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap" }}>
-                  <span
-                    style={{
-                      fontFamily: FONT_BODY,
-                      fontSize: "0.8125rem",
-                      color: TEXT_DIM,
-                      marginRight: "0.25rem",
-                    }}
-                  >
+                <div className="flex gap-2 items-center flex-wrap">
+                  <span className="font-body text-[0.8125rem] text-text-dim mr-1">
                     Tags:
                   </span>
                   <span
+                    className="py-1 px-3 rounded-[0.375rem] text-xs font-mono text-accent"
                     style={{
-                      padding: "0.25rem 0.75rem",
                       background: `${ACCENT}08`,
                       border: `0.0625rem solid ${ACCENT}15`,
-                      borderRadius: "0.375rem",
-                      fontSize: "0.75rem",
-                      fontFamily: FONT_MONO,
-                      color: ACCENT,
                     }}
                   >
                     {p.tag}
                   </span>
-                  <span
-                    style={{
-                      padding: "0.25rem 0.75rem",
-                      background: "rgba(255,255,255,0.04)",
-                      border: "0.0625rem solid rgba(255,255,255,0.08)",
-                      borderRadius: "0.375rem",
-                      fontSize: "0.75rem",
-                      fontFamily: FONT_MONO,
-                      color: TEXT_DIM,
-                    }}
-                  >
+                  <span className="py-1 px-3 bg-white/[0.04] border border-white/[0.08] rounded-[0.375rem] text-xs font-mono text-text-dim">
                     Production
                   </span>
                 </div>
-                <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                <div className="flex gap-2 flex-wrap">
                   <button
                     onClick={() => {
+                      trackEvent("share_click", { platform: "twitter", slug: p.slug });
                       window.open(
                         `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(p.title)}`,
                         "_blank",
                         "noopener,noreferrer"
                       );
                     }}
-                    style={{
-                      padding: "0.375rem 0.875rem",
-                      ...GLASS,
-                      borderRadius: "0.375rem",
-                      color: TEXT_DIM,
-                      fontSize: "0.75rem",
-                      fontFamily: FONT_BODY,
-                      fontWeight: 500,
-                      cursor: "pointer",
-                    }}
+                    className="py-[0.375rem] px-[0.875rem] bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-[0.375rem] text-text-dim text-xs font-body font-medium cursor-pointer"
                   >
                     Twitter
                   </button>
                   <button
                     onClick={() => {
+                      trackEvent("share_click", { platform: "linkedin", slug: p.slug });
                       window.open(
                         `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`,
                         "_blank",
                         "noopener,noreferrer"
                       );
                     }}
-                    style={{
-                      padding: "0.375rem 0.875rem",
-                      ...GLASS,
-                      borderRadius: "0.375rem",
-                      color: TEXT_DIM,
-                      fontSize: "0.75rem",
-                      fontFamily: FONT_BODY,
-                      fontWeight: 500,
-                      cursor: "pointer",
-                    }}
+                    className="py-[0.375rem] px-[0.875rem] bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-[0.375rem] text-text-dim text-xs font-body font-medium cursor-pointer"
                   >
                     LinkedIn
                   </button>
                   <button
                     onClick={() => {
+                      trackEvent("share_click", { platform: "copy_link", slug: p.slug });
                       void navigator.clipboard.writeText(window.location.href);
                     }}
-                    style={{
-                      padding: "0.375rem 0.875rem",
-                      ...GLASS,
-                      borderRadius: "0.375rem",
-                      color: TEXT_DIM,
-                      fontSize: "0.75rem",
-                      fontFamily: FONT_BODY,
-                      fontWeight: 500,
-                      cursor: "pointer",
-                    }}
+                    className="py-[0.375rem] px-[0.875rem] bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-[0.375rem] text-text-dim text-xs font-body font-medium cursor-pointer"
                   >
                     Copy Link
                   </button>
@@ -516,19 +358,18 @@ function BlogPostContent() {
         {/* ── Related Cases ── */}
         {relatedCases.length > 0 && (
           <section
-            style={{
-              padding: isMobile ? "2rem 1rem 3rem" : "2.5rem 2rem 5rem",
-              maxWidth: "75rem",
-              margin: "0 auto",
-            }}
+            className={cn(
+              "max-w-[75rem] mx-auto",
+              isMobile ? "py-8 px-4 pb-12" : "py-10 px-8 pb-20"
+            )}
           >
-            <div style={{ maxWidth: "47.5rem", margin: "0 auto" }}>
+            <div className="max-w-[47.5rem] mx-auto">
               <SectionHeader
                 number="// Related"
                 title="See It in Action"
                 desc="Case studies where these concepts were applied."
               />
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <div className="flex flex-col gap-3">
                 {relatedCases.map(
                   (rc) => {
                     if (!rc) return null;
@@ -537,58 +378,37 @@ function BlogPostContent() {
                       <FadeIn key={rc.id}>
                         <Link
                           href={`/cases/${rc.slug}`}
-                          style={{
-                            textDecoration: "none",
-                            display: "grid",
-                            gridTemplateColumns: isMobile ? "auto 1fr" : "auto 1fr auto",
-                            gap: isMobile ? "0.875rem" : "1.25rem",
-                            alignItems: "center",
-                            padding: isMobile ? "1.25rem 1rem" : "1.5rem 1.75rem",
-                            ...GLASS,
-                            borderRadius: "0.875rem",
-                            transition: "all 0.3s",
-                          }}
+                          className={cn(
+                            "no-underline items-center bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-[0.875rem] transition-all duration-300",
+                            isMobile
+                              ? "grid grid-cols-[auto_1fr] gap-[0.875rem] py-5 px-4"
+                              : "grid grid-cols-[auto_1fr_auto] gap-5 py-6 px-7"
+                          )}
                         >
                           <div
+                            className="w-12 h-12 rounded-xl flex items-center justify-center text-xl"
                             style={{
-                              width: "3rem",
-                              height: "3rem",
-                              borderRadius: "0.75rem",
                               background: `${ACCENT}0a`,
                               border: `0.0625rem solid ${ACCENT}18`,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              fontSize: "1.25rem",
                             }}
                           >
-                            {route === "ai" ? "🧠" : route === "dev" ? "⚡" : "📊"}
+                            {route === "ai" ? "\u{1F9E0}" : route === "dev" ? "\u26A1" : "\u{1F4CA}"}
                           </div>
                           <div>
-                            <h4
-                              style={{
-                                fontFamily: FONT_DISPLAY,
-                                fontSize: "1rem",
-                                fontWeight: 700,
-                                color: "#fafafa",
-                                margin: "0 0 0.25rem",
-                              }}
-                            >
+                            <h4 className="font-display text-base font-bold text-[#fafafa] mb-1">
                               {rc.title}
                             </h4>
-                            <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: ACCENT }}>
+                            <span className="font-mono text-xs text-accent">
                               {rc.outcome}
                             </span>
                           </div>
                           <span
-                            style={{
-                              fontFamily: FONT_BODY,
-                              fontSize: "0.8125rem",
-                              color: TEXT_DIM,
-                              display: isMobile ? "none" : "block",
-                            }}
+                            className={cn(
+                              "font-body text-[0.8125rem] text-text-dim",
+                              isMobile ? "hidden" : "block"
+                            )}
                           >
-                            View →
+                            View &rarr;
                           </span>
                         </Link>
                       </FadeIn>
@@ -601,86 +421,49 @@ function BlogPostContent() {
 
         {/* ── Keep Reading ── */}
         <section
-          style={{
-            padding: isMobile ? "2rem 1rem 3rem" : "2.5rem 2rem 5rem",
-            maxWidth: "75rem",
-            margin: "0 auto",
-          }}
+          className={cn(
+            "max-w-[75rem] mx-auto",
+            isMobile ? "py-8 px-4 pb-12" : "py-10 px-8 pb-20"
+          )}
         >
-          <div style={{ maxWidth: "60rem", margin: "0 auto" }}>
+          <div className="max-w-[60rem] mx-auto">
             <SectionHeader number="// More" title="Keep Reading" />
             <Stagger columns={2} mobileColumns={1} tabletColumns={2}>
               {otherPosts.map((op) => (
-                <Link key={op.id} href={`/blog/${op.slug}`} style={{ textDecoration: "none" }}>
+                <Link key={op.id} href={`/blog/${op.slug}`} className="no-underline">
                   <div
-                    style={{
-                      padding: isMobile ? "1.5rem 1.25rem" : "1.75rem 1.5rem",
-                      ...GLASS,
-                      borderRadius: "1rem",
-                      display: "flex",
-                      flexDirection: "column",
-                      height: "100%",
-                      transition: "all 0.3s",
-                    }}
+                    className={cn(
+                      "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl flex flex-col h-full transition-all duration-300",
+                      isMobile ? "py-6 px-5" : "py-7 px-6"
+                    )}
                   >
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: "0.75rem",
-                      }}
-                    >
+                    <div className="flex justify-between mb-3">
                       <span
+                        className="py-[0.1875rem] px-[0.625rem] rounded-[0.375rem] text-[0.6875rem] font-mono text-accent"
                         style={{
-                          padding: "0.1875rem 0.625rem",
                           background: `${ACCENT}08`,
                           border: `0.0625rem solid ${ACCENT}15`,
-                          borderRadius: "0.375rem",
-                          fontSize: "0.6875rem",
-                          fontFamily: FONT_MONO,
-                          color: ACCENT,
                         }}
                       >
                         {op.tag}
                       </span>
-                      <span style={{ fontFamily: FONT_MONO, fontSize: "0.6875rem", color: TEXT_DIM }}>
+                      <span className="font-mono text-[0.6875rem] text-text-dim">
                         {op.readTime}
                       </span>
                     </div>
                     <h3
-                      style={{
-                        fontFamily: FONT_DISPLAY,
-                        fontSize: isMobile ? "1rem" : "1.125rem",
-                        fontWeight: 700,
-                        color: "#fafafa",
-                        margin: "0 0 0.625rem",
-                        lineHeight: 1.3,
-                      }}
+                      className={cn(
+                        "font-display font-bold text-[#fafafa] mb-[0.625rem] leading-[1.3]",
+                        isMobile ? "text-base" : "text-lg"
+                      )}
                     >
                       {op.title}
                     </h3>
-                    <p
-                      style={{
-                        fontFamily: FONT_BODY,
-                        fontSize: "0.8125rem",
-                        lineHeight: 1.7,
-                        color: TEXT_DIM,
-                        margin: 0,
-                        flex: 1,
-                      }}
-                    >
+                    <p className="font-body text-[0.8125rem] leading-[1.7] text-text-dim m-0 flex-1">
                       {op.excerpt}
                     </p>
-                    <div
-                      style={{
-                        marginTop: "1rem",
-                        fontFamily: FONT_BODY,
-                        fontSize: "0.8125rem",
-                        color: ACCENT,
-                        fontWeight: 500,
-                      }}
-                    >
-                      Read Article →
+                    <div className="mt-4 font-body text-[0.8125rem] text-accent font-medium">
+                      Read Article &rarr;
                     </div>
                   </div>
                 </Link>

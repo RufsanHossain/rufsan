@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ACCENT, TEXT_DIM, GLASS, FONT_DISPLAY, FONT_BODY, FONT_MONO } from "@/lib/constants";
+import { ACCENT } from "@/lib/constants";
+import { cn } from "@/lib/cn";
 import { useCounter } from "@/hooks/useCounter";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { FadeIn } from "./FadeIn";
 import type { CaseStudy } from "@/lib/cases";
 
-// ─── SECTION HEADER ──────────────────────────────────────────
+// ---- SECTION HEADER ------------------------------------------------
 
 interface SectionHeaderProps {
   number: string;
@@ -22,33 +23,27 @@ export function SectionHeader({ number, title, desc }: SectionHeaderProps) {
 
   return (
     <FadeIn>
-      <div style={{ marginBottom: isMobile ? "2.25rem" : "3.5rem" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
-          <span style={{ fontFamily: FONT_MONO, fontSize: "0.8125rem", color: ACCENT, fontWeight: 500 }}>{number}</span>
-          <div style={{ height: "0.0625rem", width: "3rem", background: `${ACCENT}40` }} />
+      <div className={cn(isMobile ? "mb-9" : "mb-14")}>
+        <div className="flex items-center gap-3 mb-4">
+          <span className="font-mono text-[0.8125rem] text-accent font-medium">{number}</span>
+          <div className="h-px w-12 bg-accent/40" />
         </div>
         <h2
-          style={{
-            fontFamily: FONT_DISPLAY,
-            fontSize: isMobile ? "clamp(1.625rem, 7vw, 2.25rem)" : "clamp(2rem, 4vw, 3rem)",
-            fontWeight: 700,
-            color: "#fafafa",
-            letterSpacing: "-0.03em",
-            margin: 0,
-          }}
+          className={cn(
+            "font-display font-bold text-[#fafafa] tracking-[-0.03em] m-0",
+            isMobile
+              ? "text-[clamp(1.625rem,7vw,2.25rem)]"
+              : "text-[clamp(2rem,4vw,3rem)]",
+          )}
         >
           {title}
         </h2>
         {desc && (
           <p
-            style={{
-              fontFamily: FONT_BODY,
-              fontSize: isMobile ? "0.875rem" : "1rem",
-              color: TEXT_DIM,
-              lineHeight: 1.7,
-              marginTop: "0.75rem",
-              maxWidth: "37.5rem",
-            }}
+            className={cn(
+              "font-body text-text-dim leading-[1.7] mt-3 max-w-[37.5rem]",
+              isMobile ? "text-sm" : "text-base",
+            )}
           >
             {desc}
           </p>
@@ -58,7 +53,7 @@ export function SectionHeader({ number, title, desc }: SectionHeaderProps) {
   );
 }
 
-// ─── COUNTER STAT ────────────────────────────────────────────
+// ---- COUNTER STAT ---------------------------------------------------
 
 interface CounterStatProps {
   value: string;
@@ -77,30 +72,24 @@ export function CounterStat({ value, label, trigger }: CounterStatProps) {
 
   return (
     <div
-      style={{
-        padding: isMobile ? "1.25rem 1rem" : "1.75rem 1.5rem",
-        ...GLASS,
-        borderRadius: "0.75rem",
-        textAlign: "center",
-      }}
+      className={cn(
+        "bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-xl text-center",
+        isMobile ? "py-5 px-4" : "py-7 px-6",
+      )}
     >
       <div
-        style={{
-          fontFamily: FONT_DISPLAY,
-          fontSize: isMobile ? "1.5rem" : "2rem",
-          fontWeight: 700,
-          color: "#fafafa",
-        }}
+        className={cn(
+          "font-display font-bold text-[#fafafa]",
+          isMobile ? "text-2xl" : "text-[2rem]",
+        )}
       >
         {numMatch ? `${prefix}${String(Math.round(count as number))}${suffix}` : value}
       </div>
       <div
-        style={{
-          fontFamily: FONT_BODY,
-          fontSize: isMobile ? "0.6875rem" : "0.8125rem",
-          color: TEXT_DIM,
-          marginTop: "0.25rem",
-        }}
+        className={cn(
+          "font-body text-text-dim mt-1",
+          isMobile ? "text-[0.6875rem]" : "text-[0.8125rem]",
+        )}
       >
         {label}
       </div>
@@ -108,7 +97,7 @@ export function CounterStat({ value, label, trigger }: CounterStatProps) {
   );
 }
 
-// ─── BROWSER FRAME ───────────────────────────────────────────
+// ---- BROWSER FRAME --------------------------------------------------
 
 interface BrowserFrameProps {
   title?: string;
@@ -118,58 +107,28 @@ interface BrowserFrameProps {
 
 export function BrowserFrame({ title, color = "#1a1a2e", children }: BrowserFrameProps) {
   return (
-    <div
-      style={{
-        borderRadius: "1rem",
-        overflow: "hidden",
-        border: "0.0625rem solid rgba(255,255,255,0.08)",
-        boxShadow: "0 1.5rem 5rem rgba(0,0,0,0.4)",
-      }}
-    >
-      <div
-        style={{
-          height: "2.25rem",
-          background: "#111",
-          display: "flex",
-          alignItems: "center",
-          padding: "0 0.875rem",
-          gap: "0.5rem",
-          borderBottom: "0.0625rem solid rgba(255,255,255,0.06)",
-        }}
-      >
-        <div style={{ display: "flex", gap: "0.375rem" }}>
-          <div style={{ width: "0.625rem", height: "0.625rem", borderRadius: "50%", background: "#ff5f57" }} />
-          <div style={{ width: "0.625rem", height: "0.625rem", borderRadius: "50%", background: "#ffbd2e" }} />
-          <div style={{ width: "0.625rem", height: "0.625rem", borderRadius: "50%", background: "#28c840" }} />
+    <div className="rounded-2xl overflow-hidden border border-white/[0.08] shadow-[0_1.5rem_5rem_rgba(0,0,0,0.4)]">
+      <div className="h-9 bg-[#111] flex items-center px-3.5 gap-2 border-b border-white/[0.06]">
+        <div className="flex gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
         </div>
-        <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
-          <div
-            style={{
-              padding: "0.1875rem 1.5rem",
-              background: "rgba(255,255,255,0.05)",
-              borderRadius: "0.375rem",
-              fontSize: "0.6875rem",
-              fontFamily: FONT_MONO,
-              color: TEXT_DIM,
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              maxWidth: "70%",
-            }}
-          >
+        <div className="flex-1 flex justify-center">
+          <div className="py-[0.1875rem] px-6 bg-white/[0.05] rounded-[0.375rem] text-[0.6875rem] font-mono text-text-dim overflow-hidden text-ellipsis whitespace-nowrap max-w-[70%]">
             {title ?? "localhost:3000"}
           </div>
         </div>
-        <div style={{ width: "2.75rem" }} />
+        <div className="w-11" />
       </div>
-      <div style={{ background: color, minHeight: "12.5rem", position: "relative", overflow: "hidden" }}>
+      <div className="min-h-[12.5rem] relative overflow-hidden" style={{ background: color }}>
         {children}
       </div>
     </div>
   );
 }
 
-// ─── PROJECT MOCKUP ──────────────────────────────────────────
+// ---- PROJECT MOCKUP -------------------------------------------------
 
 interface ProjectMockupProps {
   project: CaseStudy;
@@ -192,52 +151,45 @@ export function ProjectMockup({ project, carousel = true }: ProjectMockupProps) 
 
   return (
     <BrowserFrame title={url} color={c}>
-      <div style={{ padding: "1.25rem", minHeight: "13.75rem" }}>
-        <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
+      <div className="p-5 min-h-[13.75rem]">
+        <div className="flex gap-2 mb-4">
           <div
+            className="w-7 h-7 rounded-[0.375rem]"
             style={{
-              width: "1.75rem",
-              height: "1.75rem",
-              borderRadius: "0.375rem",
               background: `${ACCENT}15`,
               border: `0.0625rem solid ${ACCENT}20`,
             }}
           />
-          <div style={{ flex: 1 }}>
-            <div style={{ height: "0.375rem", width: "40%", background: "rgba(255,255,255,0.1)", borderRadius: "0.1875rem", marginBottom: "0.375rem" }} />
-            <div style={{ height: "0.25rem", width: "25%", background: "rgba(255,255,255,0.05)", borderRadius: "0.125rem" }} />
+          <div className="flex-1">
+            <div className="h-1.5 w-[40%] bg-white/10 rounded-[0.1875rem] mb-1.5" />
+            <div className="h-1 w-[25%] bg-white/[0.05] rounded-sm" />
           </div>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.5rem", marginBottom: "1rem" }}>
+        <div className="grid grid-cols-3 gap-2 mb-4">
           {[0.12, 0.08, 0.1].map((o, i) => (
             <div
               key={i}
-              style={{
-                padding: "0.75rem",
-                borderRadius: "0.5rem",
-                background: `rgba(255,255,255,${String(o)})`,
-                border: "0.0625rem solid rgba(255,255,255,0.05)",
-              }}
+              className="p-3 rounded-lg border border-white/[0.05]"
+              style={{ background: `rgba(255,255,255,${String(o)})` }}
             >
-              <div style={{ height: "0.25rem", width: "60%", background: `${ACCENT}30`, borderRadius: "0.125rem", marginBottom: "0.5rem" }} />
-              <div style={{ height: "1.25rem", width: "80%", background: "rgba(255,255,255,0.08)", borderRadius: "0.25rem", marginBottom: "0.375rem" }} />
-              <div style={{ height: "0.1875rem", width: "90%", background: "rgba(255,255,255,0.04)", borderRadius: "0.125rem" }} />
+              <div className="h-1 w-[60%] rounded-sm mb-2" style={{ background: `${ACCENT}30` }} />
+              <div className="h-5 w-[80%] bg-white/[0.08] rounded mb-1.5" />
+              <div className="h-[0.1875rem] w-[90%] bg-white/[0.04] rounded-sm" />
             </div>
           ))}
         </div>
-        <div style={{ display: "flex", gap: "0.375rem" }}>
-          <div style={{ height: "1.75rem", width: "5rem", borderRadius: "0.375rem", background: `${ACCENT}25` }} />
-          <div style={{ height: "1.75rem", width: "3.75rem", borderRadius: "0.375rem", background: "rgba(255,255,255,0.06)" }} />
+        <div className="flex gap-1.5">
+          <div className="h-7 w-20 rounded-[0.375rem]" style={{ background: `${ACCENT}25` }} />
+          <div className="h-7 w-[3.75rem] rounded-[0.375rem] bg-white/[0.06]" />
         </div>
-        <div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+        <div className="mt-4 flex flex-col gap-1">
           {[70, 50, 85, 40].map((w, i) => (
             <div
               key={i}
+              className="h-[0.1875rem] rounded-sm"
               style={{
-                height: "0.1875rem",
                 width: `${String(w)}%`,
                 background: `rgba(255,255,255,${String(0.03 + i * 0.01)})`,
-                borderRadius: "0.125rem",
               }}
             />
           ))}
@@ -247,7 +199,7 @@ export function ProjectMockup({ project, carousel = true }: ProjectMockupProps) 
   );
 }
 
-// ─── IMAGE MOCKUP (carousel for projects with real screenshots) ──
+// ---- IMAGE MOCKUP (carousel for projects with real screenshots) -----
 
 function ImageMockup({ images, url, color }: { images: string[]; url: string; color: string }) {
   const [idx, setIdx] = useState(0);
@@ -255,87 +207,47 @@ function ImageMockup({ images, url, color }: { images: string[]; url: string; co
   return (
     <div>
       <BrowserFrame title={url} color={color}>
-        <div style={{ position: "relative", overflow: "hidden", aspectRatio: "16 / 10" }}>
+        <div className="relative overflow-hidden aspect-[16/10]">
           <Image
             src={images[idx]}
             alt={`Screenshot ${String(idx + 1)}`}
             fill
             sizes="(max-width: 767px) 100vw, 50vw"
-            style={{
-              objectFit: "cover",
-              objectPosition: "top center",
-              transition: "opacity 0.3s ease",
-            }}
+            className="object-cover object-top transition-opacity duration-300"
           />
         </div>
       </BrowserFrame>
 
       {images.length > 1 && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "0.75rem",
-            marginTop: "0.75rem",
-          }}
-        >
+        <div className="flex items-center justify-center gap-3 mt-3">
           <button
             onClick={() => { setIdx((i) => (i - 1 + images.length) % images.length); }}
             aria-label="Previous screenshot"
-            style={{
-              width: "2rem",
-              height: "2rem",
-              borderRadius: "50%",
-              background: "rgba(255,255,255,0.06)",
-              border: "0.0625rem solid rgba(255,255,255,0.1)",
-              color: TEXT_DIM,
-              fontSize: "0.875rem",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+            className="w-8 h-8 rounded-full bg-white/[0.06] border border-white/10 text-text-dim text-sm cursor-pointer flex items-center justify-center"
           >
-            ‹
+            &lsaquo;
           </button>
-          <div style={{ display: "flex", gap: "0.375rem" }}>
+          <div className="flex gap-1.5">
             {images.map((_, i) => (
               <button
                 key={i}
                 onClick={() => { setIdx(i); }}
                 aria-label={`Go to screenshot ${String(i + 1)}`}
-                style={{
-                  width: idx === i ? "1.25rem" : "0.375rem",
-                  height: "0.375rem",
-                  borderRadius: "0.1875rem",
-                  background: idx === i ? ACCENT : "rgba(255,255,255,0.15)",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: 0,
-                  transition: "all 0.3s ease",
-                }}
+                className={cn(
+                  "h-1.5 rounded-[0.1875rem] border-none cursor-pointer p-0 transition-all duration-300",
+                  idx === i
+                    ? "w-5 bg-accent"
+                    : "w-1.5 bg-white/[0.15]",
+                )}
               />
             ))}
           </div>
           <button
             onClick={() => { setIdx((i) => (i + 1) % images.length); }}
             aria-label="Next screenshot"
-            style={{
-              width: "2rem",
-              height: "2rem",
-              borderRadius: "50%",
-              background: "rgba(255,255,255,0.06)",
-              border: "0.0625rem solid rgba(255,255,255,0.1)",
-              color: TEXT_DIM,
-              fontSize: "0.875rem",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+            className="w-8 h-8 rounded-full bg-white/[0.06] border border-white/10 text-text-dim text-sm cursor-pointer flex items-center justify-center"
           >
-            ›
+            &rsaquo;
           </button>
         </div>
       )}

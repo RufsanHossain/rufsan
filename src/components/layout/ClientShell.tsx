@@ -1,13 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { BG } from "@/lib/constants";
+import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { CmdPalette, CursorGlow } from "@/components/layout/CmdPalette";
+import { RouteProgress } from "@/components/layout/RouteProgress";
+import { trackEvent } from "@/lib/analytics";
 
 export function ClientShell({ children }: { children: React.ReactNode }) {
   const [cmdOpen, setCmdOpen] = useState(false);
+  const pathname = usePathname();
+  const mainRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -21,12 +26,40 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
     return () => { window.removeEventListener("keydown", handler); };
   }, []);
 
+  useEffect(() => {
+    const el = mainRef.current;
+    if (!el) return;
+
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
+      return;
+    }
+
+    el.style.opacity = "0";
+    el.style.transform = "translateY(8px)";
+
+    const frame = requestAnimationFrame(() => {
+      el.style.transition = "opacity 0.35s ease, transform 0.35s ease";
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
+    });
+
+    return () => { cancelAnimationFrame(frame); };
+  }, [pathname]);
+
   return (
-    <div style={{ minHeight: "100vh", background: BG, position: "relative", overflowX: "hidden" }}>
+    <div className="min-h-screen bg-bg relative overflow-x-hidden">
+      <RouteProgress />
       <CursorGlow />
-      <Nav onCmdK={() => { setCmdOpen(true); }} />
+      <Nav onCmdK={() => { trackEvent("cmd_palette_open"); setCmdOpen(true); }} />
       <CmdPalette open={cmdOpen} onClose={() => { setCmdOpen(false); }} />
-      <main style={{ position: "relative", zIndex: 2 }}>
+      <main
+        ref={mainRef}
+        className="relative z-2 will-change-[opacity,transform]"
+        style={{ opacity: 1, transform: "translateY(0)" }}
+      >
         {children}
       </main>
       <Footer />

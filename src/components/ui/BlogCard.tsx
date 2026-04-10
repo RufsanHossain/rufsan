@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { ACCENT, TEXT_DIM, GLASS, FONT_DISPLAY, FONT_BODY, FONT_MONO } from "@/lib/constants";
+import { ACCENT } from "@/lib/constants";
 import { FadeIn } from "@/components/ui/FadeIn";
 import type { BlogPost } from "@/lib/blog";
 
@@ -12,107 +11,57 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ post: p, index }: BlogCardProps) {
-  const [hovered, setHovered] = useState(false);
-
   return (
     <FadeIn delay={index * 0.1}>
       <Link
         href={`/blog/${p.slug}`}
-        style={{ textDecoration: "none" }}
-        onMouseEnter={() => { setHovered(true); }}
-        onMouseLeave={() => { setHovered(false); }}
+        className="no-underline group"
       >
         <div
-          className="sc-blog-card-grid"
-          style={{
-            ...GLASS,
-            border: `0.0625rem solid ${hovered ? `${ACCENT}25` : "rgba(255,255,255,0.07)"}`,
-            borderRadius: "1rem",
-            overflow: "hidden",
-            cursor: "pointer",
-            transition: "all 0.3s ease",
-            boxShadow: hovered ? `0 0.5rem 2.5rem ${ACCENT}06` : "none",
-          }}
+          className="sc-blog-card-grid bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.07] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:border-accent/[0.15] hover:shadow-[0_0.5rem_2.5rem_rgba(141,234,178,0.024)]"
         >
           {/* Text side */}
-          <div
-            className="sc-blog-card-text"
-            style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}
-          >
-            <div className="sc-blog-card-meta-gap" style={{ display: "flex", alignItems: "center", marginBottom: "1rem", flexWrap: "wrap" }}>
+          <div className="sc-blog-card-text flex flex-col justify-center">
+            <div className="sc-blog-card-meta-gap flex items-center mb-4 flex-wrap">
               <span
-                style={{
-                  padding: "0.25rem 0.75rem",
-                  background: `${ACCENT}08`,
-                  border: `0.0625rem solid ${ACCENT}15`,
-                  borderRadius: "0.375rem",
-                  fontSize: "0.75rem",
-                  fontFamily: FONT_MONO,
-                  color: ACCENT,
-                  fontWeight: 500,
-                }}
+                className="py-1 px-3 bg-accent/[0.03] border border-accent/[0.08] rounded-[0.375rem] text-xs font-mono text-accent font-medium"
               >
                 {p.tag}
               </span>
-              <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: TEXT_DIM }}>{p.date}</span>
-              <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: TEXT_DIM }}>·</span>
-              <span style={{ fontFamily: FONT_MONO, fontSize: "0.75rem", color: TEXT_DIM }}>{p.readTime}</span>
+              <span className="font-mono text-xs text-text-dim">{p.date}</span>
+              <span className="font-mono text-xs text-text-dim">&middot;</span>
+              <span className="font-mono text-xs text-text-dim">{p.readTime}</span>
             </div>
             <h2
-              className="sc-blog-card-title"
-              style={{
-                fontFamily: FONT_DISPLAY,
-                fontWeight: 700,
-                color: "#fafafa",
-                margin: "0 0 0.75rem",
-                lineHeight: 1.25,
-                letterSpacing: "-0.02em",
-              }}
+              className="sc-blog-card-title font-display font-bold text-[#fafafa] m-0 mb-3 leading-[1.25] tracking-[-0.02em]"
             >
               {p.title}
             </h2>
-            <p
-              className="sc-blog-card-excerpt"
-              style={{ fontFamily: FONT_BODY, lineHeight: 1.7, color: TEXT_DIM, margin: "0 0 1.25rem" }}
-            >
+            <p className="sc-blog-card-excerpt font-body leading-[1.7] text-text-dim m-0 mb-5">
               {p.excerpt}
             </p>
-            <span
-              style={{
-                fontFamily: FONT_BODY,
-                fontSize: "0.875rem",
-                color: hovered ? ACCENT : TEXT_DIM,
-                fontWeight: 500,
-                transition: "color 0.3s",
-              }}
-            >
-              Read Article →
+            <span className="font-body text-sm text-text-dim font-medium transition-colors duration-300 group-hover:text-accent">
+              Read Article &rarr;
             </span>
           </div>
 
           {/* Visual side */}
           <div
-            className="sc-blog-card-visual"
-            style={{ background: p.heroImage, display: "flex", alignItems: "center", justifyContent: "center" }}
+            className="sc-blog-card-visual flex items-center justify-center"
+            style={{ background: p.heroImage }}
           >
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem" }}>
+            <div className="flex flex-col items-center gap-3">
               <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center text-[1.375rem]"
                 style={{
-                  width: "3rem",
-                  height: "3rem",
-                  borderRadius: "0.75rem",
                   background: `${ACCENT}12`,
                   border: `0.0625rem solid ${ACCENT}20`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "1.375rem",
                 }}
               >
-                {p.tag === "AI / ML" ? "🧠" : p.tag === "Engineering" ? "⚡" : "🗂"}
+                {p.tag === "AI / ML" ? "\u{1F9E0}" : p.tag === "Engineering" ? "\u26A1" : "\u{1F5C2}"}
               </div>
-              <div style={{ height: "0.25rem", width: "3.75rem", background: "rgba(255,255,255,0.08)", borderRadius: "0.125rem" }} />
-              <div style={{ height: "0.1875rem", width: "2.5rem", background: "rgba(255,255,255,0.05)", borderRadius: "0.125rem" }} />
+              <div className="h-1 w-[3.75rem] bg-white/[0.08] rounded-sm" />
+              <div className="h-[0.1875rem] w-10 bg-white/[0.05] rounded-sm" />
             </div>
           </div>
         </div>

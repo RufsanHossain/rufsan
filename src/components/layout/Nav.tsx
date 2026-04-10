@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ACCENT, TEXT_DIM, BORDER, BG, FONT_DISPLAY, FONT_BODY, FONT_MONO } from "@/lib/constants";
 import { ROUTES } from "@/lib/navigation";
 import { SearchIcon } from "@/components/ui/Icons";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { cn } from "@/lib/cn";
 
 interface NavProps {
   onCmdK: () => void;
@@ -41,115 +41,51 @@ export function Nav({ onCmdK }: NavProps) {
 
   return (
     <>
-      <nav
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 100,
-          background: "rgba(5,5,5,0.7)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          borderBottom: `0.0625rem solid ${BORDER}`,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: "75rem",
-            margin: "0 auto",
-            padding: isMobile ? "0 1rem" : "0 2rem",
-            height: "4rem",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+      <nav className="fixed top-0 left-0 right-0 z-100 bg-[rgba(5,5,5,0.7)] backdrop-blur-[20px] border-b border-border">
+        <div className={cn(
+          "max-w-[75rem] mx-auto h-16 flex items-center justify-between",
+          isMobile ? "px-4" : "px-8",
+        )}>
           {/* Logo */}
-          <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none" }}>
-            <div
-              style={{
-                width: "0.5rem",
-                height: "0.5rem",
-                borderRadius: "50%",
-                background: ACCENT,
-                boxShadow: `0 0 0.75rem ${ACCENT}60`,
-              }}
-            />
-            <span
-              style={{
-                fontFamily: FONT_DISPLAY,
-                fontWeight: 700,
-                fontSize: "1.125rem",
-                color: "#fafafa",
-                letterSpacing: "-0.02em",
-              }}
-            >
+          <Link href="/" className="flex items-center gap-2 no-underline">
+            <div className="w-2 h-2 rounded-full bg-accent shadow-[0_0_0.75rem_rgba(141,234,178,0.38)]" />
+            <span className="font-display font-bold text-lg text-[#fafafa] tracking-[-0.02em]">
               Rufsan
             </span>
           </Link>
 
           {/* Desktop nav links */}
           {!isCompact && (
-            <div style={{ display: "flex", gap: "0.375rem", alignItems: "center" }}>
+            <div className="flex gap-1.5 items-center">
               {ROUTES.map((r) => (
                 <Link
                   key={r.key}
                   href={r.href}
-                  style={{
-                    background: isActive(r.key) ? "rgba(255,255,255,0.06)" : "transparent",
-                    border: "none",
-                    padding: "0.375rem 0.875rem",
-                    borderRadius: "0.375rem",
-                    color: isActive(r.key) ? "#fafafa" : TEXT_DIM,
-                    fontSize: "0.8125rem",
-                    fontFamily: FONT_BODY,
-                    fontWeight: 500,
-                    textDecoration: "none",
-                    transition: "all 0.2s",
-                  }}
+                  className={cn(
+                    "border-none py-1.5 px-3.5 rounded-md text-[0.8125rem] font-body font-medium no-underline transition-all duration-200",
+                    isActive(r.key)
+                      ? "bg-white/[0.06] text-[#fafafa]"
+                      : "bg-transparent text-text-dim",
+                  )}
                 >
                   {r.label}
                 </Link>
               ))}
               <button
                 onClick={onCmdK}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.375rem",
-                  background: "rgba(255,255,255,0.04)",
-                  border: "0.0625rem solid rgba(255,255,255,0.08)",
-                  padding: "0.3125rem 0.75rem",
-                  borderRadius: "0.375rem",
-                  color: TEXT_DIM,
-                  fontSize: "0.75rem",
-                  fontFamily: FONT_MONO,
-                  cursor: "pointer",
-                  marginLeft: "0.5rem",
-                }}
+                className="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.08] py-[0.3125rem] px-3 rounded-md text-text-dim text-xs font-mono cursor-pointer ml-2"
               >
-                <SearchIcon /> <span style={{ opacity: 0.6 }}>⌘K</span>
+                <SearchIcon /> <span className="opacity-60">&#8984;K</span>
               </button>
             </div>
           )}
 
           {/* Right side */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
+          <div className="flex items-center gap-2.5">
             {!isMobile && (
               <Link
                 href="/contact"
-                style={{
-                  background: ACCENT,
-                  color: "#050505",
-                  border: "none",
-                  padding: "0.5rem 1.25rem",
-                  borderRadius: "0.375rem",
-                  fontSize: "0.8125rem",
-                  fontWeight: 600,
-                  fontFamily: FONT_BODY,
-                  textDecoration: "none",
-                }}
+                className="bg-accent text-[#050505] border-none py-2 px-5 rounded-md text-[0.8125rem] font-semibold font-body no-underline"
               >
                 Let&apos;s Talk
               </Link>
@@ -160,53 +96,19 @@ export function Nav({ onCmdK }: NavProps) {
               <button
                 onClick={() => { setMenuOpen((p) => !p); }}
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  gap: menuOpen ? 0 : "0.3125rem",
-                  width: "2.5rem",
-                  height: "2.5rem",
-                  background: "rgba(255,255,255,0.04)",
-                  border: "0.0625rem solid rgba(255,255,255,0.08)",
-                  borderRadius: "0.5rem",
-                  cursor: "pointer",
-                  padding: "0.5rem",
-                }}
+                className="flex flex-col justify-center items-center w-10 h-10 bg-white/[0.04] border border-white/[0.08] rounded-lg cursor-pointer p-2"
+                style={{ gap: menuOpen ? 0 : "0.3125rem" }}
               >
                 <span
-                  style={{
-                    display: "block",
-                    width: "1.125rem",
-                    height: "0.125rem",
-                    background: "#fafafa",
-                    borderRadius: "0.0625rem",
-                    transition: "all 0.3s ease",
-                    transform: menuOpen ? "rotate(45deg) translate(0, 0)" : "none",
-                  }}
+                  className="block w-[1.125rem] h-0.5 bg-[#fafafa] rounded-[0.0625rem] transition-all duration-300"
+                  style={{ transform: menuOpen ? "rotate(45deg) translate(0, 0)" : "none" }}
                 />
                 {!menuOpen && (
-                  <span
-                    style={{
-                      display: "block",
-                      width: "1.125rem",
-                      height: "0.125rem",
-                      background: "#fafafa",
-                      borderRadius: "0.0625rem",
-                    }}
-                  />
+                  <span className="block w-[1.125rem] h-0.5 bg-[#fafafa] rounded-[0.0625rem]" />
                 )}
                 <span
-                  style={{
-                    display: "block",
-                    width: "1.125rem",
-                    height: "0.125rem",
-                    background: "#fafafa",
-                    borderRadius: "0.0625rem",
-                    transition: "all 0.3s ease",
-                    transform: menuOpen ? "rotate(-45deg) translate(0, 0)" : "none",
-                  }}
+                  className="block w-[1.125rem] h-0.5 bg-[#fafafa] rounded-[0.0625rem] transition-all duration-300"
+                  style={{ transform: menuOpen ? "rotate(-45deg) translate(0, 0)" : "none" }}
                 />
               </button>
             )}
@@ -215,104 +117,68 @@ export function Nav({ onCmdK }: NavProps) {
       </nav>
 
       {/* Mobile menu overlay */}
-      {isCompact && menuOpen && (
+      {isCompact && (
         <>
           <button
             type="button"
             aria-label="Close menu"
             onClick={() => { setMenuOpen(false); }}
-            style={{
-              position: "fixed",
-              inset: 0,
-              zIndex: 98,
-              background: "rgba(0,0,0,0.6)",
-              backdropFilter: "blur(4px)",
-              border: "none",
-              cursor: "default",
-              padding: 0,
-              width: "100%",
-            }}
+            className={cn(
+              "fixed inset-0 z-[98] bg-black/60 border-none cursor-default p-0 w-full transition-all duration-300",
+              menuOpen
+                ? "opacity-100 pointer-events-auto backdrop-blur-[4px]"
+                : "opacity-0 pointer-events-none backdrop-blur-0",
+            )}
           />
           <div
-            style={{
-              position: "fixed",
-              top: "4rem",
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 99,
-              background: BG,
-              padding: "1.5rem 1.25rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.25rem",
-              overflowY: "auto",
-            }}
+            className={cn(
+              "fixed top-16 left-0 right-0 bottom-0 z-[99] bg-bg py-6 px-5 flex flex-col gap-1 overflow-y-auto will-change-[transform,opacity]",
+              menuOpen
+                ? "translate-y-0 opacity-100 pointer-events-auto"
+                : "-translate-y-full opacity-0 pointer-events-none",
+            )}
+            style={{ transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease" }}
           >
-            {ROUTES.map((r) => (
+            {ROUTES.map((r, i) => (
               <Link
                 key={r.key}
                 href={r.href}
                 onClick={() => { setMenuOpen(false); }}
+                className={cn(
+                  "block py-3.5 px-4 rounded-[0.625rem] text-base font-body font-medium no-underline",
+                  isActive(r.key)
+                    ? "bg-white/[0.06] text-[#fafafa]"
+                    : "bg-transparent text-text-dim",
+                )}
                 style={{
-                  display: "block",
-                  padding: "0.875rem 1rem",
-                  borderRadius: "0.625rem",
-                  background: isActive(r.key) ? "rgba(255,255,255,0.06)" : "transparent",
-                  color: isActive(r.key) ? "#fafafa" : TEXT_DIM,
-                  fontSize: "1rem",
-                  fontFamily: FONT_BODY,
-                  fontWeight: 500,
-                  textDecoration: "none",
-                  transition: "all 0.2s",
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen ? "translateY(0)" : "translateY(-0.75rem)",
+                  transitionDelay: menuOpen ? `${String(i * 0.04)}s` : "0s",
+                  transitionProperty: "opacity, transform, background, color",
+                  transitionDuration: "0.3s",
+                  transitionTimingFunction: "ease",
                 }}
               >
                 {r.label}
               </Link>
             ))}
 
-            <div style={{ height: "0.0625rem", background: "rgba(255,255,255,0.06)", margin: "0.75rem 0" }} />
+            <div className="h-px bg-white/[0.06] my-3" />
 
             <button
               onClick={() => {
                 setMenuOpen(false);
                 onCmdK();
               }}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.625rem",
-                padding: "0.875rem 1rem",
-                background: "rgba(255,255,255,0.03)",
-                border: "0.0625rem solid rgba(255,255,255,0.06)",
-                borderRadius: "0.625rem",
-                color: TEXT_DIM,
-                fontSize: "0.9375rem",
-                fontFamily: FONT_BODY,
-                cursor: "pointer",
-                width: "100%",
-                textAlign: "left",
-              }}
+              className="flex items-center gap-2.5 py-3.5 px-4 bg-white/[0.03] border border-white/[0.06] rounded-[0.625rem] text-text-dim text-[0.9375rem] font-body cursor-pointer w-full text-left"
             >
-              <SearchIcon /> Search…
+              <SearchIcon /> Search&hellip;
             </button>
 
             <Link
               href="/contact"
               onClick={() => { setMenuOpen(false); }}
-              style={{
-                display: "block",
-                background: ACCENT,
-                color: "#050505",
-                padding: "1rem 1.25rem",
-                borderRadius: "0.625rem",
-                fontSize: "0.9375rem",
-                fontWeight: 600,
-                fontFamily: FONT_BODY,
-                textDecoration: "none",
-                textAlign: "center",
-                marginTop: "0.75rem",
-              }}
+              className="block bg-accent text-[#050505] py-4 px-5 rounded-[0.625rem] text-[0.9375rem] font-semibold font-body no-underline text-center mt-3"
             >
               Let&apos;s Talk
             </Link>

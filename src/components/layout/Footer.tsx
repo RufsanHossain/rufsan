@@ -1,4 +1,6 @@
-import { BORDER, TEXT_DIM, ACCENT, FONT_BODY } from "@/lib/constants";
+"use client";
+
+import { trackEvent } from "@/lib/analytics";
 
 const SOCIAL_LINKS = [
   { label: "GitHub", href: "https://github.com/RufsanHossain" },
@@ -11,38 +13,19 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer
-      style={{
-        padding: "2.5rem 2rem",
-        maxWidth: "75rem",
-        margin: "0 auto",
-        borderTop: `1px solid ${BORDER}`,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        flexWrap: "wrap",
-        gap: "1rem",
-      }}
-    >
-      <div style={{ fontFamily: FONT_BODY, fontSize: "0.8125rem", color: TEXT_DIM }}>
-        © {year} Rufsan · Built with Next.js & TypeScript
+    <footer className="px-8 py-10 max-w-[75rem] mx-auto border-t border-border flex justify-between items-center flex-wrap gap-4">
+      <div className="font-body text-[0.8125rem] text-text-dim">
+        &copy; {year} Rufsan &middot; Built with Next.js &amp; TypeScript
       </div>
-      <div style={{ display: "flex", gap: "1.5rem" }}>
+      <div className="flex gap-6">
         {SOCIAL_LINKS.map((l) => (
           <a
             key={l.label}
             href={l.href}
             target={l.href.startsWith("mailto:") ? undefined : "_blank"}
             rel={l.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-            style={{
-              fontFamily: FONT_BODY,
-              fontSize: "0.8125rem",
-              color: TEXT_DIM,
-              textDecoration: "none",
-              transition: "color 0.2s",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = ACCENT; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = TEXT_DIM; }}
+            className="font-body text-[0.8125rem] text-text-dim no-underline transition-colors hover:text-accent"
+            onClick={() => { trackEvent("external_link", { label: l.label, href: l.href }); }}
           >
             {l.label}
           </a>

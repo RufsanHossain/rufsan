@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { ACCENT } from "@/lib/constants";
+import { trackEvent } from "@/lib/analytics";
 
 interface ResumeModalProps {
   open: boolean;
@@ -48,6 +49,8 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
       });
     }, 100);
 
+    trackEvent("resume_download");
+
     /* Trigger actual file download */
     const link = document.createElement("a");
     link.href = resumeUrl;
@@ -71,119 +74,49 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
   if (!open) return null;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 9999,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
       {/* Backdrop */}
       <button
         type="button"
         aria-label="Close resume preview"
         onClick={onClose}
-        style={{
-          position: "fixed",
-          inset: 0,
-          background: "rgba(0,0,0,0.8)",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
-          border: "none",
-          cursor: "default",
-          padding: 0,
-          width: "100%",
-        }}
+        className="fixed inset-0 bg-black/80 backdrop-blur-[10px] border-none cursor-default p-0 w-full"
       />
 
-      {/* Resume container — takes up most of the viewport */}
+      {/* Resume container */}
       <div
         role="dialog"
         aria-label="Resume preview"
-        style={{
-          position: "relative",
-          zIndex: 1,
-          width: "calc(100% - 3rem)",
-          maxWidth: "48rem",
-          height: "75vh",
-          maxHeight: "700px",
-          borderRadius: "1rem",
-          overflow: "hidden",
-          background: "#111",
-          border: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: "0 2rem 6rem rgba(0,0,0,0.7)",
-          animation: "resumeModalIn 0.25s ease-out",
-        }}
+        className="relative z-[1] w-[calc(100%-3rem)] max-w-3xl h-[75vh] max-h-[700px] rounded-2xl overflow-hidden bg-[#111] border border-white/[0.08] shadow-[0_2rem_6rem_rgba(0,0,0,0.7)]"
+        style={{ animation: "resumeModalIn 0.25s ease-out" }}
       >
-        {/* PDF — fills the entire modal */}
+        {/* PDF */}
         <iframe
           src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=1`}
           title="Resume"
-          style={{
-            width: "100%",
-            height: "100%",
-            border: "none",
-            display: "block",
-          }}
+          className="w-full h-full border-none block"
         />
 
-        {/* Close button — top left, subtle */}
+        {/* Close button */}
         <button
           type="button"
           aria-label="Close"
           onClick={onClose}
-          style={{
-            position: "absolute",
-            top: "0.75rem",
-            left: "0.75rem",
-            width: "2rem",
-            height: "2rem",
-            borderRadius: "50%",
-            background: "rgba(0,0,0,0.6)",
-            backdropFilter: "blur(8px)",
-            border: "1px solid rgba(255,255,255,0.1)",
-            color: "#fafafa",
-            fontSize: "0.875rem",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            transition: "all 0.2s ease",
-            zIndex: 2,
-          }}
+          className="absolute top-3 left-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-[8px] border border-white/10 text-[#fafafa] text-sm cursor-pointer flex items-center justify-center transition-all duration-200 z-[2]"
         >
-          ✕
+          &#x2715;
         </button>
 
-        {/* 3D Download Element — top right */}
+        {/* 3D Download Element -- JS-driven animations stay inline */}
         <button
           type="button"
           aria-label="Download resume"
           onClick={handleDownload}
-          style={{
-            position: "absolute",
-            top: "0.75rem",
-            right: "0.75rem",
-            width: "3rem",
-            height: "3rem",
-            padding: 0,
-            border: "none",
-            background: "transparent",
-            cursor: downloading ? "default" : "pointer",
-            zIndex: 2,
-          }}
+          className="absolute top-3 right-3 w-12 h-12 p-0 border-none bg-transparent z-[2]"
+          style={{ cursor: downloading ? "default" : "pointer" }}
         >
           {/* 3D rotating cube face */}
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              perspective: "200px",
-            }}
-          >
+          <div style={{ width: "100%", height: "100%", perspective: "200px" }}>
             <div
               style={{
                 width: "100%",
@@ -196,10 +129,8 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
               }}
             >
               <div
+                className="w-full h-full rounded-xl flex items-center justify-center"
                 style={{
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "0.75rem",
                   background: done
                     ? `linear-gradient(135deg, ${ACCENT}, ${ACCENT}cc)`
                     : downloading
@@ -209,9 +140,6 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
                   border: downloading
                     ? `2px solid ${ACCENT}`
                     : "1px solid rgba(255,255,255,0.12)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
                   boxShadow: downloading
                     ? `0 0 1.5rem ${ACCENT}50`
                     : "0 4px 12px rgba(0,0,0,0.3)",
@@ -219,16 +147,9 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
                 }}
               >
                 {done ? (
-                  <span style={{ fontSize: "1.125rem", color: "#050505" }}>✓</span>
+                  <span className="text-lg text-[#050505]">&#x2713;</span>
                 ) : downloading ? (
-                  <span
-                    style={{
-                      fontSize: "0.625rem",
-                      fontWeight: 700,
-                      color: ACCENT,
-                      fontFamily: "monospace",
-                    }}
-                  >
+                  <span className="text-[0.625rem] font-bold text-accent font-mono">
                     {Math.min(Math.round(progress), 100)}%
                   </span>
                 ) : (
@@ -237,7 +158,7 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
                     height="16"
                     viewBox="0 0 16 16"
                     fill="none"
-                    style={{ opacity: 0.9 }}
+                    className="opacity-90"
                   >
                     <path
                       d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10"
@@ -255,15 +176,7 @@ export function ResumeModal({ open, onClose, resumeUrl }: ResumeModalProps) {
           {/* Progress ring */}
           {downloading && !done && (
             <svg
-              style={{
-                position: "absolute",
-                top: "-4px",
-                left: "-4px",
-                width: "calc(100% + 8px)",
-                height: "calc(100% + 8px)",
-                transform: "rotate(-90deg)",
-                pointerEvents: "none",
-              }}
+              className="absolute -top-1 -left-1 w-[calc(100%+8px)] h-[calc(100%+8px)] -rotate-90 pointer-events-none"
             >
               <circle
                 cx="50%"

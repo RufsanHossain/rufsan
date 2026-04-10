@@ -1,4 +1,3 @@
-import { TEXT_DIM, FONT_DISPLAY, FONT_BODY } from "@/lib/constants";
 import { BLOG_POSTS } from "@/lib/blog";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -12,23 +11,16 @@ export default function BlogIndexPage() {
       <section className="sc-blog-header">
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Blog" }]} />
         <FadeIn>
-          <div style={{ maxWidth: "45rem", paddingTop: "1rem" }}>
-            <h1
-              style={{
-                fontFamily: FONT_DISPLAY,
-                fontWeight: 800,
-                letterSpacing: "-0.04em",
-                margin: "0 0 1.25rem",
-              }}
-            >
-              <span className="sc-blog-title" style={{ display: "block", lineHeight: 1.08, color: "#fafafa" }}>
+          <div className="max-w-[45rem] pt-4">
+            <h1 className="font-display font-[800] tracking-[-0.04em] mb-5">
+              <span className="sc-blog-title block leading-[1.08] text-[#fafafa]">
                 Writing
               </span>
-              <span className="sc-blog-subtitle" style={{ display: "block", lineHeight: 1.12, color: TEXT_DIM, marginTop: "0.25rem" }}>
+              <span className="sc-blog-subtitle block leading-[1.12] text-text-dim mt-1">
                 &amp; deep dives.
               </span>
             </h1>
-            <p className="sc-blog-desc" style={{ fontFamily: FONT_BODY, lineHeight: 1.7, color: TEXT_DIM, maxWidth: "33.75rem" }}>
+            <p className="sc-blog-desc font-body leading-[1.7] text-text-dim max-w-[33.75rem]">
               Engineering deep dives, architecture decisions, and lessons from building production
               systems. No fluff — just hard-won insights.
             </p>
@@ -38,7 +30,7 @@ export default function BlogIndexPage() {
 
       {/* ── Blog cards ── */}
       <section className="sc-blog-cards">
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <div className="flex flex-col gap-4">
           {BLOG_POSTS.map((p, i) => (
             <BlogCard key={p.id} post={p} index={i} />
           ))}

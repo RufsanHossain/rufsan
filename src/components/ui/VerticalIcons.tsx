@@ -6,7 +6,7 @@ interface VerticalIconProps {
 }
 
 const ICONS: Record<string, (s: number) => React.ReactNode> = {
-  /* ── AI / ML ─────────────────────────────────────────────── */
+  /* -- AI / ML ------------------------------------------------ */
 
   "llm": (s) => (
     <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -51,7 +51,7 @@ const ICONS: Record<string, (s: number) => React.ReactNode> = {
     </svg>
   ),
 
-  /* ── Development ─────────────────────────────────────────── */
+  /* -- Development -------------------------------------------- */
 
   "layers": (s) => (
     <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -99,7 +99,7 @@ const ICONS: Record<string, (s: number) => React.ReactNode> = {
     </svg>
   ),
 
-  /* ── Data Science ────────────────────────────────────────── */
+  /* -- Data Science ------------------------------------------- */
 
   "flow": (s) => (
     <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -150,7 +150,7 @@ const ICONS: Record<string, (s: number) => React.ReactNode> = {
     </svg>
   ),
 
-  /* ── Home verticals ──────────────────────────────────────── */
+  /* -- Home verticals ----------------------------------------- */
 
   "code": (s) => (
     <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -161,7 +161,7 @@ const ICONS: Record<string, (s: number) => React.ReactNode> = {
   ),
 };
 
-/* Fallback for unknown keys — renders the string as-is (backward compat with emojis) */
+/* Fallback for unknown keys -- renders the string as-is (backward compat with emojis) */
 export function VerticalIcon({ name, size = 20 }: VerticalIconProps) {
   const renderer = ICONS[name] as ((s: number) => React.ReactNode) | undefined;
 

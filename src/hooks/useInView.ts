@@ -53,6 +53,7 @@ function subscribe(
     observers.set(key, { observer, elements });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- guaranteed to exist, just set above
   const entry = observers.get(key)!;
   entry.elements.set(el, callback);
   entry.observer.observe(el);
