@@ -97,7 +97,7 @@ export default function HomePage() {
                   )}
                 >
                   <div className="flex justify-between mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-accent/[0.04] border border-accent/[0.09] flex items-center justify-center text-[1.375rem]">
+                    <div className="w-12 h-12 rounded-xl bg-accent/[0.04] border border-accent/[0.09] flex items-center justify-center text-[1.375rem] text-accent">
                       <VerticalIcon name={v.icon} size={22} />
                     </div>
                     <span className="font-mono text-xs text-accent/60">

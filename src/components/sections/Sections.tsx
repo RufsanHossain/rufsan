@@ -37,7 +37,7 @@ export function CapGrid({ items }: { items: Capability[] }) {
           )}
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-[2.75rem] h-[2.75rem] rounded-[0.75rem] bg-accent/[0.04] border border-accent/[0.094] flex items-center justify-center text-[1.25rem]">
+            <div className="w-[2.75rem] h-[2.75rem] rounded-[0.75rem] bg-accent/[0.04] border border-accent/[0.094] flex items-center justify-center text-[1.25rem] text-accent">
               <VerticalIcon name={c.icon} size={20} />
             </div>
             <h3 className="font-display text-[1.0625rem] font-bold text-fg m-0">
