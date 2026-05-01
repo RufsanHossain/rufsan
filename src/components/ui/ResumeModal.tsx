@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
+import { RESUME, downloadResumePdf } from "@/lib/resume";
+import { trackEvent } from "@/lib/analytics";
 
 
 interface ResumeModalProps {
@@ -8,86 +10,9 @@ interface ResumeModalProps {
   onClose: () => void;
 }
 
-const EXPERIENCE = [
-  {
-    title: "Full-Stack Developer",
-    date: "Jan 2025 – Present",
-    org: "Media Pantheon, Inc.",
-    type: "Full-time",
-    bullets: [
-      "Building production web applications with TypeScript, React, and modern full-stack frameworks.",
-      "Architecting scalable front-end and back-end systems for enterprise-grade products.",
-      "Implementing CI/CD pipelines, automated testing, and code quality tooling.",
-    ],
-  },
-  {
-    title: "Founder & Lead Developer",
-    date: "2024 – Present",
-    org: "Agency / Freelance",
-    type: "Remote",
-    bullets: [
-      "Founded agency building SaaS, AI integrations, and data solutions for US-market clients.",
-      "Delivering apps with Next.js, strict TypeScript, MongoDB, and enterprise-grade security.",
-    ],
-  },
-  {
-    title: "Brand Representative",
-    date: "Dec 2023 – Mar 2024",
-    org: "Interactive Cares",
-    type: "Dhaka",
-    bullets: [
-      "Product research and software industry representation in the Dhaka tech ecosystem.",
-    ],
-  },
-  {
-    title: "Senior Content Writer",
-    date: "Jun 2023 – Feb 2024",
-    org: "A1 DIGI",
-    type: "Dhaka",
-    bullets: [
-      "SEO-optimized content strategy, product research, and multi-project editorial management.",
-    ],
-  },
-];
-
-const PROJECTS = [
-  {
-    name: "Mizan",
-    desc: "Prayer-based daily planner for Muslim professionals. Structures productivity around Salah times.",
-    tech: ["Next.js", "TypeScript", "MongoDB"],
-  },
-  {
-    name: "Audex",
-    desc: "Code quality analysis tool with automated audits, linting reports, and actionable recommendations.",
-    tech: ["React", "Node.js", "AST"],
-  },
-  {
-    name: "Portfolio",
-    desc: "Custom Next.js 16 site with strict ESLint, accessibility enforcement, and Vercel CI/CD.",
-    tech: ["Next.js 16", "Vercel", "a11y"],
-  },
-];
-
-const SKILLS: Record<string, string> = {
-  Frontend: "React, Next.js, TypeScript, Tailwind, HTML5, CSS3",
-  Backend: "Node.js, Express, MongoDB, Mongoose, REST APIs, Python",
-  "AI / ML": "LLM Integration, RAG Pipelines, OpenAI API, Prompt Eng.",
-  Data: "Pandas, Pipelines, Visualization, Analytics",
-  DevOps: "Vercel, Git, CI/CD, Docker, ESLint, QA",
-  Security: "RBAC, JWT, Zod, Helmet, CORS, XSS Prevention",
-  Design: "Figma, UI/UX, Mobile-First, a11y",
-};
-
-const APPROACH = [
-  "Domain modeling before code",
-  "Security-first architecture",
-  "Strict TypeScript, zero any",
-  "Mobile-first responsive design",
-  "Accessibility as standard",
-  "Building in public",
-];
-
 export function ResumeModal({ open, onClose }: ResumeModalProps) {
+  const [downloading, setDownloading] = useState(false);
+
   const handleEsc = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -105,6 +30,19 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
       document.body.style.overflow = "";
     };
   }, [open, handleEsc]);
+
+  const handleDownload = useCallback(async () => {
+    if (downloading) return;
+    setDownloading(true);
+    try {
+      trackEvent("resume_download");
+      await downloadResumePdf();
+    } catch (err) {
+      console.error("Resume PDF generation failed:", err);
+    } finally {
+      setDownloading(false);
+    }
+  }, [downloading]);
 
   if (!open) return null;
 
@@ -136,6 +74,16 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
           <div className="flex items-center gap-2">
             <button
               type="button"
+              onClick={() => { void handleDownload(); }}
+              disabled={downloading}
+              aria-label={downloading ? "Generating PDF" : "Download resume as PDF"}
+              className="h-7 px-3 rounded-md bg-accent/10 border border-accent/30 text-accent text-[0.6875rem] font-mono cursor-pointer flex items-center gap-1.5 hover:bg-accent/15 disabled:opacity-60 disabled:cursor-wait transition-colors"
+            >
+              <span aria-hidden="true">&#x2913;</span>
+              <span>{downloading ? "Generating…" : "Download"}</span>
+            </button>
+            <button
+              type="button"
               aria-label="Close"
               onClick={onClose}
               className="w-7 h-7 rounded-md bg-overlay-subtle border border-overlay-border text-text-dim text-sm cursor-pointer flex items-center justify-center hover:text-fg transition-colors"
@@ -150,13 +98,13 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
           <div className="max-w-[46rem] mx-auto">
             {/* Header */}
             <h1 className="font-display font-[800] text-[1.75rem] md:text-[2.25rem] text-fg tracking-[-0.03em] leading-[1.1] mb-1">
-              Rufsan Hossain Santo
+              {RESUME.name}
             </h1>
             <p className="font-body text-accent text-sm md:text-base font-semibold mb-2">
-              Full-Stack Developer &amp; Agency Founder
+              {RESUME.title}
             </p>
             <p className="font-mono text-[0.6875rem] md:text-xs text-text-dim leading-relaxed">
-              Dhaka, Bangladesh &middot; rufsanhossainsanto@gmail.com &middot; rufsansanto.com &middot; github.com/rufsan &middot; linkedin.com/in/rufsan-hossain-santo
+              {[RESUME.location, RESUME.email, RESUME.site, RESUME.github, RESUME.linkedin].join(" · ")}
             </p>
 
             <div className="h-px bg-overlay-border my-6" />
@@ -168,13 +116,13 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
                 {/* Summary */}
                 <SectionTitle>Summary</SectionTitle>
                 <p className="font-body text-[0.8125rem] md:text-sm text-text-dim leading-[1.7] mb-8">
-                  Full-stack developer at Media Pantheon and agency founder serving US-market clients. Building production SaaS, AI-integrated apps, and data pipelines with Next.js, TypeScript, and MERN. CS graduate from Eastern University.
+                  {RESUME.summary}
                 </p>
 
                 {/* Experience */}
                 <SectionTitle>Experience</SectionTitle>
                 <div className="flex flex-col gap-5 mb-8">
-                  {EXPERIENCE.map((exp) => (
+                  {RESUME.experience.map((exp) => (
                     <div key={exp.title + exp.org}>
                       <div className="flex justify-between items-baseline gap-3 flex-wrap">
                         <h3 className="font-body text-sm font-semibold text-fg">{exp.title}</h3>
@@ -198,7 +146,7 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
                 {/* Key Projects */}
                 <SectionTitle>Key Projects</SectionTitle>
                 <div className="flex flex-col gap-4">
-                  {PROJECTS.map((proj) => (
+                  {RESUME.projects.map((proj) => (
                     <div key={proj.name}>
                       <h3 className="font-body text-sm font-semibold text-fg mb-0.5">{proj.name}</h3>
                       <p className="font-body text-[0.8125rem] text-text-dim leading-[1.6] mb-2">{proj.desc}</p>
@@ -222,7 +170,7 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
                 {/* Skills */}
                 <SectionTitle>Skills</SectionTitle>
                 <div className="flex flex-col gap-3 mb-8">
-                  {Object.entries(SKILLS).map(([cat, items]) => (
+                  {Object.entries(RESUME.skills).map(([cat, items]) => (
                     <div key={cat}>
                       <h4 className="font-body text-[0.8125rem] font-semibold text-fg mb-0.5">{cat}</h4>
                       <p className="font-body text-xs text-text-dim leading-[1.6]">{items}</p>
@@ -233,29 +181,29 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
                 {/* Education */}
                 <SectionTitle>Education</SectionTitle>
                 <div className="flex flex-col gap-3 mb-8">
-                  <div>
-                    <h4 className="font-body text-[0.8125rem] font-semibold text-fg">B.Sc. Computer Science &amp; Engineering</h4>
-                    <p className="font-body text-xs text-text-dim">Eastern University</p>
-                    <p className="font-mono text-[0.6875rem] text-text-dim">2018 – 2023 &middot; GPA 3.52</p>
-                  </div>
-                  <div>
-                    <h4 className="font-body text-[0.8125rem] font-semibold text-fg">HSC (Science)</h4>
-                    <p className="font-body text-xs text-text-dim">Dhaka College</p>
-                    <p className="font-mono text-[0.6875rem] text-text-dim">2015 – 2017 &middot; GPA 5.00</p>
-                  </div>
+                  {RESUME.education.map((ed) => (
+                    <div key={ed.degree}>
+                      <h4 className="font-body text-[0.8125rem] font-semibold text-fg">{ed.degree}</h4>
+                      <p className="font-body text-xs text-text-dim">{ed.school}</p>
+                      <p className="font-mono text-[0.6875rem] text-text-dim">{ed.date} &middot; {ed.note}</p>
+                    </div>
+                  ))}
                 </div>
 
                 {/* Languages */}
                 <SectionTitle>Languages</SectionTitle>
                 <div className="mb-8">
-                  <p className="font-body text-[0.8125rem] text-text-dim"><strong className="text-fg">English</strong> — Professional</p>
-                  <p className="font-body text-[0.8125rem] text-text-dim"><strong className="text-fg">Bangla</strong> — Native</p>
+                  {RESUME.languages.map((l) => (
+                    <p key={l.name} className="font-body text-[0.8125rem] text-text-dim">
+                      <strong className="text-fg">{l.name}</strong> — {l.level}
+                    </p>
+                  ))}
                 </div>
 
                 {/* Approach */}
                 <SectionTitle>Approach</SectionTitle>
                 <ul className="list-none m-0 p-0 flex flex-col gap-1">
-                  {APPROACH.map((item) => (
+                  {RESUME.approach.map((item) => (
                     <li key={item} className="font-body text-[0.8125rem] text-text-dim flex gap-2">
                       <span className="text-accent mt-px shrink-0">&#x2022;</span>
                       <span>{item}</span>
@@ -268,7 +216,7 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
             {/* Footer */}
             <div className="h-px bg-overlay-border mt-8 mb-4" />
             <div className="flex justify-between items-center">
-              <p className="font-mono text-[0.625rem] text-text-dim">Rufsan Hossain Santo &middot; rufsansanto.com</p>
+              <p className="font-mono text-[0.625rem] text-text-dim">{RESUME.name} &middot; {RESUME.site}</p>
               <p className="font-mono text-[0.625rem] text-text-dim">References available upon request</p>
             </div>
           </div>
