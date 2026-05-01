@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useCallback, useState } from "react";
+import { createPortal } from "react-dom";
 import { RESUME, downloadResumePdf } from "@/lib/resume";
 import { trackEvent } from "@/lib/analytics";
 
@@ -12,6 +13,11 @@ interface ResumeModalProps {
 
 export function ResumeModal({ open, onClose }: ResumeModalProps) {
   const [downloading, setDownloading] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleEsc = useCallback(
     (e: KeyboardEvent) => {
@@ -44,9 +50,9 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
     }
   }, [downloading]);
 
-  if (!open) return null;
+  if (!open || !mounted) return null;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center">
       {/* Backdrop */}
       <button
@@ -230,7 +236,8 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
           to { opacity: 1; transform: scale(1) translateY(0); }
         }
       `}</style>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
