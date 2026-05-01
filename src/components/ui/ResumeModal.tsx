@@ -53,7 +53,7 @@ export function ResumeModal({ open, onClose }: ResumeModalProps) {
   if (!open || !mounted) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+    <div data-theme="dark" className="fixed inset-0 z-[9999] flex items-center justify-center">
       {/* Backdrop */}
       <button
         type="button"

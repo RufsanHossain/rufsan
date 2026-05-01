@@ -42,6 +42,25 @@
   --color-accent-fg: #ffffff;
 }
 
+/* Used by surfaces that should stay dark regardless of page theme
+   (e.g. the resume modal, which is intentionally styled like a dark IDE window). */
+[data-theme="dark"] {
+  --color-bg: #050505;
+  --color-surface: rgba(255, 255, 255, 0.03);
+  --color-accent: #8deab2;
+  --color-text: #e4e4e7;
+  --color-text-dim: #71717a;
+  --color-border: #1a1a1a;
+  --color-fg: #fafafa;
+  --color-code-bg: #0a0a0a;
+  --color-nav-bg: rgba(5, 5, 5, 0.7);
+  --color-overlay-active: rgba(255, 255, 255, 0.06);
+  --color-overlay-subtle: rgba(255, 255, 255, 0.03);
+  --color-overlay-border: rgba(255, 255, 255, 0.08);
+  --color-overlay-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-accent-fg: #050505;
+}
+
 /* ── Base Reset ─────────────────────────────────────────────── */
 
 @layer base {
