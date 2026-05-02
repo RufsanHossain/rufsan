@@ -114,6 +114,5 @@ export const HOME_TOOLS: ToolCategory[] = [
 export const TIMELINE = [
   { year: "2025–Now", role: "Full-Stack Developer", company: "Media Pantheon, Inc.", desc: "Building production web applications full-time. Full-stack development with modern frameworks." },
   { year: "2024–Now", role: "Founder & Lead Developer", company: "Agency / Freelance", desc: "AI-integrated SaaS products for US-market clients. End-to-end product delivery." },
-  { year: "2023–2024", role: "Brand Representative", company: "Interactive Cares", desc: "Product research and software industry representation in the Dhaka tech ecosystem." },
   { year: "2023–2024", role: "Senior Content Writer", company: "A1 DIGI", desc: "SEO-optimized content strategy, product research, and technical writing." },
 ];

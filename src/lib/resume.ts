@@ -57,15 +57,6 @@ export const RESUME = {
       ],
     },
     {
-      title: "Brand Representative",
-      date: "Dec 2023 – Mar 2024",
-      org: "Interactive Cares",
-      type: "Dhaka",
-      bullets: [
-        "Product research and software industry representation in the Dhaka tech ecosystem.",
-      ],
-    },
-    {
       title: "Senior Content Writer",
       date: "Jun 2023 – Feb 2024",
       org: "A1 DIGI",
