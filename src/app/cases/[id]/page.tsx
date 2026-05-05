@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import { ACCENT } from "@/lib/constants";
-import { getCaseBySlug, getCasesByVertical } from "@/lib/cases";
+import { getCaseBySlug, getCasesByVertical, getCaseContent } from "@/lib/content";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Stagger } from "@/components/ui/Stagger";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -8,6 +9,7 @@ import { SectionHeader, ProjectMockup } from "@/components/ui/Shared";
 import { ExtIcon } from "@/components/ui/Icons";
 import { CTA } from "@/components/sections/Sections";
 import { TrackCaseView } from "@/components/ui/TrackView";
+import { mdxComponents } from "@/components/mdx/MdxComponents";
 
 export default async function CaseStudyPage({
   params,
@@ -28,6 +30,12 @@ export default async function CaseStudyPage({
   const related = getCasesByVertical(primaryRoute).filter(
     (c) => c.id !== p.id
   );
+
+  // Render the optional extended writeup only when the MDX body has prose
+  // content. Bare placeholder comments compile to nothing visible, but
+  // checking for prose chars avoids spinning up MDXRemote for empty bodies.
+  const rawBody = getCaseContent(slug) ?? "";
+  const hasBody = /[A-Za-z0-9]/.test(rawBody.replace(/\{\/\*[\s\S]*?\*\/\}/g, ""));
 
   return (
     <>
@@ -197,6 +205,18 @@ export default async function CaseStudyPage({
           </div>
         </FadeIn>
       </section>
+
+      {/* ── Optional extended writeup (MDX body) ── */}
+      {hasBody && (
+        <section className="sc-section-tight">
+          <SectionHeader number="// Deep Dive" title="The Full Story" />
+          <FadeIn>
+            <div className="max-w-[47.5rem] mx-auto">
+              <MDXRemote source={rawBody} components={mdxComponents} />
+            </div>
+          </FadeIn>
+        </section>
+      )}
 
       {/* ── Related Projects ── */}
       {related.length > 0 && (

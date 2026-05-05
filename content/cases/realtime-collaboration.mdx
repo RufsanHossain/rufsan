@@ -1,0 +1,32 @@
+---
+vertical: "Development"
+verticalRoute: "dev"
+title: "Real-Time Collaboration Tool"
+outcome: "50K+ concurrent users"
+overview: "Multiplayer editing with conflict-free sync, presence, version history, and offline support."
+metrics:
+  - { v: "50K+", l: "Concurrent Users" }
+  - { v: "< 80ms", l: "Sync Latency" }
+  - { v: "0", l: "Data Conflicts" }
+  - { v: "99.99%", l: "Reliability" }
+challenge: "Concurrent edits from thousands of users without conflicts. Sub-100ms sync. Offline reconciliation."
+solutionSteps:
+  - "CRDT-based conflict resolution for eventual consistency"
+  - "Redis Pub/Sub across 6-node cluster"
+  - "Optimistic UI with server reconciliation"
+  - "Service Worker offline queue with CRDT merge"
+stack:
+  - "Next.js"
+  - "WebSocket"
+  - "CRDT"
+  - "MongoDB"
+  - "Redis Pub/Sub"
+  - "Service Workers"
+  - "TypeScript"
+  - "Docker"
+results: "50K+ concurrent users with sub-80ms latency. Zero conflicts. 99.99% sync reliability."
+liveUrl: "https://collab.rufsan.dev"
+mockupColor: "#2e2e1a"
+---
+
+{/* Extended writeup goes here. */}

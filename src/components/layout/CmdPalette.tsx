@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/lib/navigation";
-import { CASES } from "@/lib/cases";
-import { BLOG_POSTS } from "@/lib/blog";
+import type { BlogPost, CaseStudy } from "@/lib/content-types";
 import { SearchIcon } from "@/components/ui/Icons";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { cn } from "@/lib/cn";
@@ -14,6 +13,9 @@ import { cn } from "@/lib/cn";
 interface CmdPaletteProps {
   open: boolean;
   onClose: () => void;
+  /** Indexed for search; loaded server-side from MDX content. */
+  cases: CaseStudy[];
+  posts: BlogPost[];
 }
 
 interface PaletteItem {
@@ -22,7 +24,7 @@ interface PaletteItem {
   href: string;
 }
 
-export function CmdPalette({ open, onClose }: CmdPaletteProps) {
+export function CmdPalette({ open, onClose, cases, posts }: CmdPaletteProps) {
   const [q, setQ] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -32,11 +34,14 @@ export function CmdPalette({ open, onClose }: CmdPaletteProps) {
   const bp = useBreakpoint();
   const isMobile = bp === "mobile";
 
-  const items: PaletteItem[] = [
-    ...ROUTES.map((r) => ({ label: r.label, type: "page", href: r.href })),
-    ...CASES.map((c) => ({ label: c.title, type: "case study", href: `/cases/${c.slug}` })),
-    ...BLOG_POSTS.map((b) => ({ label: b.title, type: "article", href: `/blog/${b.slug}` })),
-  ];
+  const items: PaletteItem[] = useMemo(
+    () => [
+      ...ROUTES.map((r) => ({ label: r.label, type: "page", href: r.href })),
+      ...cases.map((c) => ({ label: c.title, type: "case study", href: `/cases/${c.slug}` })),
+      ...posts.map((b) => ({ label: b.title, type: "article", href: `/blog/${b.slug}` })),
+    ],
+    [cases, posts],
+  );
 
   const filtered = q
     ? items.filter((i) => i.label.toLowerCase().includes(q.toLowerCase()))

@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 import { useCounter } from "@/hooks/useCounter";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { FadeIn } from "./FadeIn";
-import type { CaseStudy } from "@/lib/cases";
+import type { CaseStudy } from "@/lib/content-types";
 
 // ---- SECTION HEADER ------------------------------------------------
 

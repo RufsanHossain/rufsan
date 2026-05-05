@@ -1,4 +1,4 @@
-import { BLOG_POSTS } from "@/lib/blog";
+import { BLOG_POSTS } from "@/lib/content";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { BlogCard } from "@/components/ui/BlogCard";

@@ -1,0 +1,32 @@
+---
+vertical: "Development"
+verticalRoute: "dev"
+title: "Multi-Tenant SaaS Platform"
+outcome: "$2M+ ARR"
+overview: "End-to-end SaaS with team workspaces, granular permissions, usage-based billing, and white-label support for 500+ orgs."
+metrics:
+  - { v: "$2M+", l: "ARR" }
+  - { v: "500+", l: "Organizations" }
+  - { v: "< 50ms", l: "Avg Query" }
+  - { v: "99.9%", l: "Uptime" }
+challenge: "Strict data isolation across tenants with sub-50ms performance. Usage-based billing with real-time metering."
+solutionSteps:
+  - "Compound indexes with ORM-level isolation middleware"
+  - "Redis-backed tenant caching — config loads in < 1ms"
+  - "Stripe Connect with real-time metering via Bull MQ"
+  - "Dynamic theming via CSS custom properties at runtime"
+stack:
+  - "Next.js"
+  - "MongoDB"
+  - "Stripe"
+  - "Redis"
+  - "Bull MQ"
+  - "Resend"
+  - "Docker"
+  - "AWS"
+results: "$2M+ ARR in 18 months. 500+ orgs with 99.9% uptime. Zero data isolation incidents."
+liveUrl: "https://saasplatform.rufsan.dev"
+mockupColor: "#1a2e2e"
+---
+
+{/* Extended writeup goes here. */}

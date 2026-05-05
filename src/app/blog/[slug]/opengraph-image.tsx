@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { BLOG_POSTS } from "@/lib/blog";
+import { BLOG_POSTS } from "@/lib/content";
 
 export const alt = "Blog Post";
 export const size = { width: 1200, height: 630 };

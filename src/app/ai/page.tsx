@@ -1,4 +1,4 @@
-import { getCasesByVertical } from "@/lib/cases";
+import { getCasesByVertical } from "@/lib/content";
 import { AI_CAPS, AI_TOOLS } from "@/lib/verticals";
 import { HeroWithActions } from "@/components/ui/HeroActions";
 import { SectionHeader } from "@/components/ui/Shared";

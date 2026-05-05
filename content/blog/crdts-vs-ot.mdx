@@ -1,0 +1,49 @@
+---
+title: "Why I Chose CRDTs Over OT for Real-Time Collaboration"
+tag: "Engineering"
+date: "Jan 15, 2025"
+readTime: "8 min"
+excerpt: "After benchmarking both approaches at scale, CRDTs won on every metric that mattered — here's the data."
+heroImage: "#1a2e2e"
+relatedCases:
+  - realtime-collaboration
+---
+
+When I started building the real-time collaboration engine for a 50K+ concurrent user platform, the first architectural fork was clear: Operational Transformation (OT) or Conflict-free Replicated Data Types (CRDTs). Google Docs famously uses OT. Figma chose CRDTs. Both work — but at scale, the differences compound into radically different operational realities.
+
+## The Core Difference
+
+OT requires a central server to transform operations in order. Every edit must pass through a single coordination point. This works beautifully for Google — they own the infrastructure. For a startup shipping on a $40K/month AWS budget, that coordination bottleneck becomes the single point of failure and the scaling ceiling simultaneously.
+
+CRDTs take a fundamentally different approach: they encode conflict resolution into the data structure itself. Two users can edit simultaneously, offline, on different continents — and the documents will converge to the same state without any coordination. The math guarantees it.
+
+## Benchmarking at Scale
+
+I built proof-of-concept implementations of both approaches and ran them through three scenarios: 100 users editing simultaneously, 1,000 users with 10% concurrent edits, and the stress test — 10,000 users with network partitions simulated every 30 seconds.
+
+```js
+// CRDT merge — no coordination needed
+const mergedDoc = CRDT.merge(localState, remoteState);
+// Result is deterministic regardless of merge order
+assert(CRDT.merge(a, b) === CRDT.merge(b, a));
+```
+
+The results were decisive. OT held up fine at 100 users but latency spiked 4x at 1,000 during burst edits as the transform queue backed up. At 10,000 with network partitions, OT required complex reconciliation logic and occasionally dropped edits during recovery. CRDTs handled all three scenarios with near-identical latency profiles.
+
+## The Offline Factor
+
+The killing blow for OT was offline support. Our product requirement was clear: users must be able to edit offline and sync seamlessly on reconnect. With OT, offline edits create a divergence problem that requires careful rebasing. With CRDTs, offline edits just... merge. The Service Worker queues operations locally, and on reconnect, the CRDT merge function handles everything deterministically.
+
+## The Tradeoffs
+
+CRDTs aren't free. The metadata overhead is real — each character carries a unique ID and logical clock, which inflates document size roughly 2-3x compared to plain text. For our use case (documents under 100KB), this was negligible. For a platform like Google Docs handling 50-page academic papers, the calculus might differ.
+
+The implementation complexity is also front-loaded. Building a correct CRDT is harder than implementing basic OT. But once it's correct, the operational simplicity is transformative — no coordination server, no transform queue, no edge cases during network partitions.
+
+## The Result
+
+Six months in production: 50K+ concurrent users, sub-80ms sync latency globally, zero data conflicts, 99.99% sync reliability. The CRDT architecture hasn't required a single hotfix related to conflict resolution. The decision paid for itself in the first month of operation.
+
+<Callout>
+  Key takeaway: Choose OT if you control the infrastructure and need minimal metadata overhead. Choose CRDTs if you need offline support, peer-to-peer sync, or want to eliminate coordination complexity at scale.
+</Callout>

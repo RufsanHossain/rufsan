@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getCaseBySlug } from "@/lib/cases";
+import { getCaseBySlug } from "@/lib/content";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;

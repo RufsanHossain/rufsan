@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
-import { CASES } from "@/lib/cases";
-import { BLOG_POSTS } from "@/lib/blog";
+import { CASES } from "@/lib/content";
+import { BLOG_POSTS } from "@/lib/content";
 
 const BASE = "https://rufsansanto.com";
 

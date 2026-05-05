@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ACCENT } from "@/lib/constants";
 import { FadeIn } from "@/components/ui/FadeIn";
-import type { BlogPost } from "@/lib/blog";
+import type { BlogPost } from "@/lib/content-types";
 
 interface BlogCardProps {
   post: BlogPost;

@@ -1,0 +1,31 @@
+---
+vertical: "Data Science"
+verticalRoute: "ds"
+title: "Revenue Analytics Dashboard"
+outcome: "2M+ daily events"
+overview: "Real-time revenue intelligence with predictive forecasting, cohort analysis, and anomaly detection for 200+ users."
+metrics:
+  - { v: "2M+", l: "Daily Events" }
+  - { v: "< 500ms", l: "Refresh" }
+  - { v: "94%", l: "Forecast Accuracy" }
+  - { v: "200+", l: "Active Users" }
+challenge: "2M+ daily events with sub-second refresh and complex multi-touch attribution models."
+solutionSteps:
+  - "Kafka streaming into PostgreSQL materialized views"
+  - "Redis-cached rollups — 90% dashboard loads hit cache"
+  - "Multi-touch attribution as nightly batch with daily increments"
+  - "Prophet forecasting with confidence intervals"
+stack:
+  - "Python"
+  - "D3.js"
+  - "PostgreSQL"
+  - "Redis"
+  - "Kafka"
+  - "Airflow"
+  - "Prophet"
+  - "Docker"
+results: "Sub-500ms refresh at peak. 94% forecast accuracy at 30 days. Used daily by 200+ team members."
+mockupColor: "#1a2e1a"
+---
+
+{/* Extended writeup goes here. */}

@@ -3,6 +3,7 @@ import { siteMetadata } from "@/lib/metadata";
 import { ClientShell } from "@/components/layout/ClientShell";
 import { Analytics } from "@vercel/analytics/next";
 import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google";
+import { BLOG_POSTS, CASES } from "@/lib/content";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -69,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <ClientShell>
+        <ClientShell cases={CASES} posts={BLOG_POSTS}>
           {children}
         </ClientShell>
         <Analytics />

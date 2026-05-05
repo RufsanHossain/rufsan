@@ -10,9 +10,9 @@ import { SectionHeader } from "@/components/ui/Shared";
 import { ExtIcon } from "@/components/ui/Icons";
 import { VerticalIcon } from "@/components/ui/VerticalIcons";
 import type { Capability, ToolCategory, Principle } from "@/lib/verticals";
-import type { CaseStudy } from "@/lib/cases";
+import type { CaseStudy } from "@/lib/content-types";
 import type { Testimonial } from "@/lib/testimonials";
-import type { BlogPost } from "@/lib/blog";
+import type { BlogPost } from "@/lib/content-types";
 
 // ─── CAP GRID ────────────────────────────────────────────────
 

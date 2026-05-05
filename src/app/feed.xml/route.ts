@@ -1,4 +1,4 @@
-import { BLOG_POSTS } from "@/lib/blog";
+import { BLOG_POSTS } from "@/lib/content";
 
 const SITE_URL = "https://rufsansanto.com";
 

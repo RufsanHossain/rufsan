@@ -1,0 +1,63 @@
+---
+title: "The Multi-Tenant Tax: Architecture Decisions That Cost $200K"
+tag: "Architecture"
+date: "Nov 22, 2024"
+readTime: "10 min"
+excerpt: "Lessons learned from building tenant isolation the wrong way first, and how compound indexes saved us."
+heroImage: "#2e1a1a"
+relatedCases:
+  - multi-tenant-saas
+---
+
+I've built three multi-tenant SaaS platforms. The first one cost an extra $200K in engineering time because of decisions made in week one. The third one — the one serving 500+ organizations with $2M+ ARR — was built in half the time. Here's what I learned the expensive way.
+
+## The Database-Per-Tenant Trap
+
+The first platform used database-per-tenant isolation. The pitch sounds great: complete data isolation, easy to reason about, simple backup per tenant. The reality was a maintenance nightmare. At 500 tenants, deployment took 45 minutes just for migrations.
+
+```js
+// The wrong way: database-per-tenant
+const db = getConnection(`tenant_${tenantId}`);
+// 500 tenants = 500 connections = pool exhaustion
+
+// The right way: shared database, compound indexes
+const results = await Order.find({
+  tenantId,  // Compound index: { tenantId: 1, createdAt: -1 }
+  createdAt: { $gte: startDate }
+});
+```
+
+## The Compound Index Revelation
+
+The solution was embarrassingly simple: shared database, row-level isolation via tenantId field on every document, compound indexes leading with tenantId. Query performance actually improved — from 120ms (database-per-tenant with cold connections) to 8ms (shared database with warm compound index).
+
+## The Middleware Layer
+
+Row-level isolation only works if it's impossible to forget the tenant filter. We built ORM-level middleware that automatically injects tenantId into every query — as an infrastructure guarantee, not developer responsibility.
+
+```js
+// Tenant isolation middleware
+schema.pre(/^find/, function() {
+  const tenantId = getTenantContext();
+  if (!tenantId) throw new IsolationError('No tenant context');
+  this.where({ tenantId });
+});
+
+// Developers write normal queries
+const orders = await Order.find({ status: 'active' });
+// Middleware transforms to: { status: 'active', tenantId: 'org_xyz' }
+```
+
+In two years of production, we've had zero cross-tenant data leaks. Not because our developers are perfect — because the middleware makes it architecturally impossible to query without tenant context.
+
+## The Billing Complexity
+
+Usage-based billing is the second place multi-tenancy gets expensive. Our first attempt used synchronous metering — every API call checked usage against plan limits in real-time. At 1,000 RPS, this doubled API latency. The fix: asynchronous metering with Bull MQ. API calls fire-and-forget a usage event to a background queue. Plan limit checks use a Redis counter that's eventually consistent (within 30 seconds).
+
+## The $200K Lesson
+
+The first platform's database-per-tenant architecture required 3 additional engineers for 4 months to migrate to shared-database. At fully loaded cost, that's roughly $200K. The third platform started with shared-database, compound indexes, and ORM middleware from day one. It reached 500 tenants in 18 months with a team of 4.
+
+<Callout>
+  Rules of multi-tenancy: (1) Shared database with compound indexes beats database-per-tenant for 95% of SaaS. (2) Tenant isolation belongs in middleware, not developer discipline. (3) Usage metering must be async — synchronous metering kills latency at scale.
+</Callout>

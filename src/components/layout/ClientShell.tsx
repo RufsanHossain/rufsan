@@ -8,8 +8,17 @@ import { CmdPalette, CursorGlow } from "@/components/layout/CmdPalette";
 import { RouteProgress } from "@/components/layout/RouteProgress";
 import { trackEvent } from "@/lib/analytics";
 import { useTheme } from "@/hooks/useTheme";
+import type { BlogPost, CaseStudy } from "@/lib/content-types";
 
-export function ClientShell({ children }: { children: React.ReactNode }) {
+interface ClientShellProps {
+  children: React.ReactNode;
+  /** Forwarded to CmdPalette so it can index content without importing
+   *  the server-only loader. */
+  cases: CaseStudy[];
+  posts: BlogPost[];
+}
+
+export function ClientShell({ children, cases, posts }: ClientShellProps) {
   const [cmdOpen, setCmdOpen] = useState(false);
   const { theme, toggle: toggleTheme } = useTheme();
   const pathname = usePathname();
@@ -60,7 +69,7 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
         theme={theme}
         onToggleTheme={toggleTheme}
       />
-      <CmdPalette open={cmdOpen} onClose={() => { setCmdOpen(false); }} />
+      <CmdPalette open={cmdOpen} onClose={() => { setCmdOpen(false); }} cases={cases} posts={posts} />
       <main
         ref={mainRef}
         className="relative z-2 will-change-[opacity,transform]"

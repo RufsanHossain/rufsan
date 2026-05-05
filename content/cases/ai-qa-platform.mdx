@@ -1,0 +1,31 @@
+---
+vertical: "AI / ML"
+verticalRoute: "ai"
+title: "AI-Powered QA Platform"
+outcome: "60% reduction in QA cycle time"
+overview: "Built an automated testing pipeline that uses LLMs to generate test cases from user stories, execute them against staging environments, and report findings with suggested fixes."
+metrics:
+  - { v: "60%", l: "Faster QA Cycles" }
+  - { v: "3x", l: "More Test Coverage" }
+  - { v: "85%", l: "Bug Detection Rate" }
+  - { v: "< 5min", l: "Per Test Suite" }
+challenge: "Generating contextually relevant test cases without hallucinating non-existent UI elements. The system needed to understand the actual application structure."
+solutionSteps:
+  - "Built a RAG pipeline grounded in the app's component tree and design system docs"
+  - "Implemented code-aware indexing extracting component props, routes, and state shapes"
+  - "Created multi-stage pipeline: context retrieval → test outline → full test → validation"
+  - "Added feedback loop where failed tests refine the model's understanding"
+stack:
+  - "Next.js"
+  - "OpenAI GPT-4"
+  - "LangChain"
+  - "MongoDB"
+  - "Docker"
+  - "Redis"
+  - "Playwright"
+  - "TypeScript"
+results: "Reduced QA cycle time by 60% while increasing test coverage 3x. Bug detection rate improved to 85% on first pass."
+mockupColor: "#1a1a2e"
+---
+
+{/* Extended writeup goes here. Use ## headings, paragraphs, code blocks, and <Callout> components. */}
