@@ -10,6 +10,7 @@ interface Events {
   share_click: { platform: string; slug: string };
   external_link: { label: string; href: string };
   cmd_palette_open: Record<string, never>;
+  newsletter_signup: { source: string };
 }
 
 export function trackEvent<K extends keyof Events>(

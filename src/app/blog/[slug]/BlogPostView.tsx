@@ -11,6 +11,7 @@ import { Stagger } from "@/components/ui/Stagger";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionHeader, BrowserFrame } from "@/components/ui/Shared";
 import { CTA } from "@/components/sections/Sections";
+import { NewsletterForm } from "@/components/ui/NewsletterForm";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { trackEvent } from "@/lib/analytics";
 
@@ -367,6 +368,20 @@ export function BlogPostView({ post, relatedCases, otherPosts, children }: BlogP
                 </Link>
               ))}
             </Stagger>
+          </div>
+        </section>
+
+        {/* ── Newsletter signup ── */}
+        <section
+          className={cn(
+            "max-w-[75rem] mx-auto",
+            isMobile ? "px-4 pb-10" : "px-8 pb-[3.75rem]"
+          )}
+        >
+          <div className="max-w-[47.5rem] mx-auto">
+            <FadeIn>
+              <NewsletterForm variant="full" source="blog_post" />
+            </FadeIn>
           </div>
         </section>
 
