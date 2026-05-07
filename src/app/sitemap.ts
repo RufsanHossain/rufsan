@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 import { CASES } from "@/lib/content";
 import { BLOG_POSTS } from "@/lib/content";
-
-const BASE = "https://rufsansanto.com";
+import { SITE_URL as BASE } from "@/lib/metadata";
 
 /** Parse blog date strings like "Jan 15, 2025" into Date objects. */
 function parseBlogDate(dateStr: string): Date {

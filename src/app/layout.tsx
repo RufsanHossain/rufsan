@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import { siteMetadata } from "@/lib/metadata";
+import { siteMetadata, SITE_URL } from "@/lib/metadata";
 import { ClientShell } from "@/components/layout/ClientShell";
 import { Analytics } from "@vercel/analytics/next";
 import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google";
@@ -47,22 +47,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@graph": [
                 {
                   "@type": "Person",
-                  "@id": "https://rufsansanto.com/#person",
+                  "@id": `${SITE_URL}/#person`,
                   name: "Rufsan Hossain Santo",
-                  url: "https://rufsansanto.com",
+                  url: SITE_URL,
                   jobTitle: "Senior Full-Stack Developer & Agency Founder",
                   sameAs: [
                     "https://github.com/rufsan",
                     "https://linkedin.com/in/rufsan",
                   ],
-                  image: "https://rufsansanto.com/media/rufsan.png",
+                  image: `${SITE_URL}/media/rufsan.png`,
                 },
                 {
                   "@type": "WebSite",
-                  "@id": "https://rufsansanto.com/#website",
-                  url: "https://rufsansanto.com",
+                  "@id": `${SITE_URL}/#website`,
+                  url: SITE_URL,
                   name: "Rufsan Hossain Santo",
-                  publisher: { "@id": "https://rufsansanto.com/#person" },
+                  publisher: { "@id": `${SITE_URL}/#person` },
                 },
               ],
             }),

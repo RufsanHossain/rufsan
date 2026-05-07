@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getBlogBySlug } from "@/lib/content";
+import { SITE_URL } from "@/lib/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -8,7 +9,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: post.title,
     description: post.excerpt,
-    alternates: { canonical: `https://rufsansanto.com/blog/${slug}` },
+    alternates: { canonical: `/blog/${slug}` },
   };
 }
 
@@ -31,13 +32,13 @@ export default async function BlogPostLayout({
     description: post.excerpt,
     datePublished: post.date,
     author: {
-      "@id": "https://rufsansanto.com/#person",
+      "@id": `${SITE_URL}/#person`,
     },
     publisher: {
-      "@id": "https://rufsansanto.com/#person",
+      "@id": `${SITE_URL}/#person`,
     },
-    url: `https://rufsansanto.com/blog/${slug}`,
-    mainEntityOfPage: `https://rufsansanto.com/blog/${slug}`,
+    url: `${SITE_URL}/blog/${slug}`,
+    mainEntityOfPage: `${SITE_URL}/blog/${slug}`,
   };
 
   return (

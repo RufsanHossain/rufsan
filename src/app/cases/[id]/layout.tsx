@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return {
     title: `${cs.title} — Case Study`,
     description: cs.overview,
-    alternates: { canonical: `https://rufsansanto.com/cases/${id}` },
+    alternates: { canonical: `/cases/${id}` },
   };
 }
 

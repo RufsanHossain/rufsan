@@ -1,6 +1,5 @@
 import { BLOG_POSTS } from "@/lib/content";
-
-const SITE_URL = "https://rufsansanto.com";
+import { SITE_URL } from "@/lib/metadata";
 
 function escapeXml(str: string): string {
   return str
