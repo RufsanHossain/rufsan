@@ -126,12 +126,12 @@ export function NewsletterForm({ variant = "compact", source, className }: Newsl
           onChange={(e) => { setEmail(e.target.value); }}
           disabled={status === "submitting" || status === "success"}
           placeholder="Subscribe to Rufsan Shares"
-          className="bg-overlay-subtle border border-overlay-border rounded-md px-3 py-1.5 font-body text-[0.8125rem] text-fg placeholder:text-text-dim focus:outline-none focus:border-accent/50 transition-colors disabled:opacity-60 w-56"
+          className="bg-overlay-subtle border border-overlay-border rounded-md px-3 py-2.5 font-body text-[0.8125rem] text-fg placeholder:text-text-dim focus:outline-none focus:border-accent/50 transition-colors disabled:opacity-60 w-56"
         />
         <button
           type="submit"
           disabled={status === "submitting" || status === "success"}
-          className="bg-accent text-accent-fg font-body font-semibold text-[0.8125rem] px-3 py-1.5 rounded-md cursor-pointer hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
+          className="bg-accent text-accent-fg font-body font-semibold text-[0.8125rem] px-3 py-2.5 rounded-md cursor-pointer hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
         >
           {status === "submitting" ? "…" : status === "success" ? "✓" : "Subscribe"}
         </button>
