@@ -11,7 +11,7 @@ import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", type: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", type: "", message: "", website: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [focused, setFocused] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -441,6 +441,25 @@ export default function ContactPage() {
                   </span>
                 )}
               </div>
+
+              {/* Honeypot — invisible to humans, irresistible to bots. */}
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                value={form.website}
+                onChange={(e) => { setForm({ ...form, website: e.target.value }); }}
+                style={{
+                  position: "absolute",
+                  left: "-9999px",
+                  width: "1px",
+                  height: "1px",
+                  opacity: 0,
+                  pointerEvents: "none",
+                }}
+              />
 
               {/* Server error */}
               {serverError && (

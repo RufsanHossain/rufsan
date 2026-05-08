@@ -1,31 +1,29 @@
 "use server";
 
+import { headers } from "next/headers";
 import { Resend } from "resend";
+
+import { checkRateLimit } from "@/lib/rateLimit";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const TO_EMAIL = "rufsanhossain315@gmail.com";
 const FROM_EMAIL = "Contact Form <onboarding@resend.dev>";
 
-/* ── Simple in-memory rate limiter ── */
-const rateMap = new Map<string, number[]>();
-const RATE_WINDOW_MS = 60_000; // 1 minute
-const RATE_LIMIT = 3; // max 3 requests per window
-
-function isRateLimited(email: string): boolean {
-  const now = Date.now();
-  const timestamps = (rateMap.get(email) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
-  if (timestamps.length >= RATE_LIMIT) return true;
-  timestamps.push(now);
-  rateMap.set(email, timestamps);
-  return false;
-}
-
 interface ContactPayload {
   name: string;
   email: string;
   type: string;
   message: string;
+  /* Honeypot — must be empty. Submissions with a value are silently dropped. */
+  website?: string;
+}
+
+async function getClientIp(): Promise<string> {
+  const h = await headers();
+  const fwd = h.get("x-forwarded-for");
+  if (fwd) return fwd.split(",")[0]?.trim() ?? "anonymous";
+  return h.get("x-real-ip") ?? "anonymous";
 }
 
 interface ActionResult {
@@ -42,6 +40,9 @@ const TYPE_LABELS: Record<string, string> = {
 };
 
 export async function sendContactEmail(data: ContactPayload): Promise<ActionResult> {
+  /* Honeypot: pretend success so bots don't learn they were caught. */
+  if (data.website && data.website.trim() !== "") return { success: true };
+
   /* ── Server-side validation ── */
   if (!data.name.trim()) return { success: false, error: "Name is required" };
   if (data.name.length > 200) return { success: false, error: "Name is too long" };
@@ -53,8 +54,13 @@ export async function sendContactEmail(data: ContactPayload): Promise<ActionResu
   if (data.message.trim().length < 20) return { success: false, error: "Message too short" };
   if (data.message.length > 5000) return { success: false, error: "Message is too long (max 5000 characters)" };
 
-  /* ── Rate limiting ── */
-  if (isRateLimited(data.email)) return { success: false, error: "Too many requests. Please try again in a minute." };
+  /* Per-IP rate limit — bots can vary email but not source IP cheaply. */
+  const ip = await getClientIp();
+  const rl = await checkRateLimit(`contact:${ip}`, { limit: 5, windowSec: 3600 });
+  if (!rl.ok) {
+    const mins = Math.max(1, Math.ceil(rl.retryAfterSec / 60));
+    return { success: false, error: `Too many requests. Try again in ${String(mins)} min.` };
+  }
 
   try {
     const { error } = await resend.emails.send({
